@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace Qkmaxware.Geometry.Primitives {
 
+/// <summary>
+/// Spherical mesh
+/// </summary>
 public class Sphere : Mesh {
 
     private static Vec3 ToCartesian(double zrot, double inc, double r) {
@@ -80,6 +83,13 @@ public class Sphere : Mesh {
         return triangles;
     }
 
+    /// <summary>
+    /// Create a sphere
+    /// </summary>
+    /// <param name="radius">radius</param>
+    /// <param name="centre">centre point</param>
+    /// <param name="horizontalResolution">longitude subdivision levels</param>
+    /// <param name="verticalResolution">latitude subdivision level</param>
     public Sphere(double radius, Vec3 centre, int horizontalResolution = 8, int verticalResolution = 8) : base(Generate(radius, centre, horizontalResolution, verticalResolution)) {}
 
 }

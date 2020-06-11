@@ -326,7 +326,7 @@ public class Vec3 {
     /// </summary>
     /// <returns>string representation of the vector</returns>
     public override string ToString() {
-        return $"({X},{Y},{Z})";
+        return string.Format("(x:{0:0.000},y:{1:0.000},z:{2:0.000})", X, Y, Z);
     }
 
     /// <summary>

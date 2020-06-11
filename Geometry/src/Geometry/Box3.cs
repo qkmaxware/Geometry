@@ -77,7 +77,12 @@ public class Box3 {
     /// <param name="ray">ray to check</param>
     /// <returns>true if the ray intersects this box</returns>
     public bool Intersects (Ray ray) {
-        throw new NotImplementedException();
+        Vec3 pos;
+        if (ray.Cast(this, out pos)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private static bool TestAxis(Vec3 v0, Vec3 v1, Vec3 v2, Vec3 e, Vec3 u0, Vec3 u1, Vec3 u2, Vec3 axis) {
@@ -185,6 +190,10 @@ public class Box3 {
 
         // Passed testing for all 13 seperating axis that exist!
         return true;
+    }
+
+    public override string ToString() {
+        return String.Format("(min:{0},max:{1})", this.Min, this.Max);
     }
 }
 

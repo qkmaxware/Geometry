@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 namespace Qkmaxware.Geometry.Primitives {
 
+/// <summary>
+/// XY plane mesh
+/// </summary>
 public class Plane : Mesh {
 
     private static Vec3[] planeCoordinates = new Vec3[]{
@@ -30,6 +33,11 @@ public class Plane : Mesh {
         return tris;
     }
 
+    /// <summary>
+    /// Create a plane
+    /// </summary>
+    /// <param name="size">plane size</param>
+    /// <param name="centre">centre</param>
     public Plane (double size, Vec3 centre) : base(Create(size, centre)) {}
 }
 

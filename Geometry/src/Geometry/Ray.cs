@@ -43,6 +43,44 @@ public class Ray {
     }
 
     /// <summary>
+    /// Determine if this ray intersects with the given box3
+    /// </summary>
+    /// <param name="aabb">3d box</param>
+    /// <param name="hit">the coordinate of the collision</param>
+    /// <returns>true if there was a collision</returns>
+    public bool Cast(Box3 aabb, out Vec3 hit) {
+        double t1 = (aabb.Min.X - this.Origin.X) / this.Direction.X;
+        double t2 = (aabb.Max.X - this.Origin.X) / this.Direction.X;
+        double t3 = (aabb.Min.Y - this.Origin.Y) / this.Direction.Y;
+        double t4 = (aabb.Max.Y - this.Origin.Y) / this.Direction.Y;
+        double t5 = (aabb.Min.Z - this.Origin.Z) / this.Direction.Z;
+        double t6 = (aabb.Max.Z - this.Origin.Z) / this.Direction.Z;
+
+        double tmin = Math.Max(Math.Max(Math.Min(t1, t2), Math.Min(t3, t4)), Math.Min(t5, t6));
+        double tmax = Math.Min(Math.Min(Math.Max(t1, t2), Math.Max(t3, t4)), Math.Max(t5, t6));
+
+        // if tmax < 0, ray (line) is intersecting AABB, but whole AABB is behind us
+        if (tmax < 0) {
+            hit = Origin;
+            return false;
+        }
+
+        // if tmin > tmax, ray doesn't intersect AABB
+        if (tmin > tmax) {
+            hit = Origin;
+            return false;
+        }
+        
+        if (tmin < 0f) {
+            hit = this[tmax];
+            return true; // tmax is the distance
+        } else {
+            hit = this[tmin];
+            return true; // tmin is the distance
+        }
+    }
+
+    /// <summary>
     /// Determine if this ray intersects with the given triangle with the Möller–Trumbore algorithm
     /// </summary>
     /// <param name="triangle">3d triangle</param>

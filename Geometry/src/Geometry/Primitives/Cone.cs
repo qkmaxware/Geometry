@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace Qkmaxware.Geometry.Primitives {
 
+/// <summary>
+/// Cone shaped mesh
+/// </summary>
 public class Cone : Mesh {
     private static List<Triangle> Generate(double lowerRadius, double h, Vec3 centre, int resolution) {
         List<Triangle> triangles = new List<Triangle>();
@@ -40,6 +43,13 @@ public class Cone : Mesh {
         return triangles;
     }
 
+    /// <summary>
+    /// Create a new cone
+    /// </summary>
+    /// <param name="radius">radius</param>
+    /// <param name="height">height</param>
+    /// <param name="centre">centre of the cone</param>
+    /// <param name="resolution">subdivision level</param>
     public Cone (double radius, double height, Vec3 centre, int resolution = 8) : base(Generate(radius, height, centre, resolution)) {}
     
 }

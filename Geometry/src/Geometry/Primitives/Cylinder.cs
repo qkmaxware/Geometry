@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace Qkmaxware.Geometry.Primitives {
 
+/// <summary>
+/// Cylinder mesh
+/// </summary>
 public class Cylinder : Mesh {
     private static List<Triangle> Generate(double upperRadius, double lowerRadius, double h, Vec3 centre, int resolution) {
         List<Triangle> triangles = new List<Triangle>();
@@ -49,8 +52,23 @@ public class Cylinder : Mesh {
         return triangles;
     }
 
+    /// <summary>
+    /// Cylinder with different radii for top and bottom caps
+    /// </summary>
+    /// <param name="upperRadius">top cap radius</param>
+    /// <param name="lowerRadius">bottom cap radius</param>
+    /// <param name="height">height</param>
+    /// <param name="centre">centre</param>
+    /// <param name="resolution">subdivision level</param>
     public Cylinder (double upperRadius, double lowerRadius, double height, Vec3 centre, int resolution = 8) : base(Generate(upperRadius, lowerRadius, height, centre, resolution)) {}
 
+    /// <summary>
+    /// Cylinder with uniform radius for top and bottom caps
+    /// </summary>
+    /// <param name="radius">radius</param>
+    /// <param name="height">height</param>
+    /// <param name="centre">centre</param>
+    /// <param name="resolution">subdivision level</param>
     public Cylinder (double radius, double height, Vec3 centre, int resolution = 8) : base(Generate(radius, radius, height, centre, resolution)) {}
 
 }

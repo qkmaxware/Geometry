@@ -388,7 +388,7 @@ public class Mesh : IEnumerable<Triangle> {
     /// <param name="b">clipping mask</param>
     /// <param name="a">original mesh</param>
     /// <returns>clipped solid</returns>
-    public static Mesh operator | (Mesh a, Mesh b) {
+    public static Mesh operator - (Mesh a, Mesh b) {
         return a.Difference(b);
     }
 

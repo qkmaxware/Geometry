@@ -313,6 +313,10 @@ public class Triangle : System.Tuple<Vec3, Vec3, Vec3> {
                return false;
           }
      }
+
+     public override string ToString() {
+        return String.Format("(a:{0},b:{1},c:{2})", Item1, Item2, Item3);
+    }
 }
 
 }

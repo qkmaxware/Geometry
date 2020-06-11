@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 namespace Qkmaxware.Geometry.Primitives {
 
+/// <summary>
+/// Cubic mesh
+/// </summary>
 public class Cube : Mesh {
     private static Vec3[] cubeCoordinates = new Vec3[]{
         new Vec3(-0.5,-0.5,0.5),
@@ -48,6 +51,11 @@ public class Cube : Mesh {
         return tris;
     }
 
+    /// <summary>
+    /// Create a cube
+    /// </summary>
+    /// <param name="size">size of the cube</param>
+    /// <param name="centre">centre of the cube</param>
     public Cube (double size, Vec3 centre) : base(Create(size, centre)) {}
 }
 
