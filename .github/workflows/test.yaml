@@ -1,0 +1,25 @@
+name: Test
+on:
+  push: 
+    branches: 
+    - "*"
+jobs:
+  test:
+    name: Test
+    runs-on: ${{ matrix.os }}
+    strategy: 
+      fail-fast: false
+      matrix: 
+        os: [ windows-latest, ubuntu-latest, macOS-latest ]
+        dotnet: [ '3.1.x' ]
+    steps:
+    - name: Checkout Code - ${{ github.sha }}@${{ github.ref }}
+      uses: actions/checkout@master
+    - name: Setup .NET Core - ${{ matrix.dotnet }}@${{ matrix.os }}
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '${{ matrix.dotnet }}'
+    - name: .Net Core Info
+      run: dotnet --info
+    - name: Run Unit Tests
+      run: dotnet test
