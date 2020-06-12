@@ -8,7 +8,7 @@ namespace Qkmaxware.Geometry{
 /// </summary>
 public class Transformation {
     private double[,] rotation; // 3x3 matrix
-    private double[] position; // 3
+    private double[] position; // 1x3 vector position
 
     /// <summary>
     /// Index element from this transformation matrix
@@ -90,6 +90,56 @@ public class Transformation {
             e14,
             e24
         };
+    }
+
+    /// <summary>
+    /// Compute the inverse of this transformation
+    /// </summary>
+    /// <value>inverse transformation matrix</value>
+    public Transformation Inverse {
+        get {
+            var s0 = this[0, 0] * this[1, 1] - this[1, 0] * this[0, 1];
+            var s1 = this[0, 0] * this[1, 2] - this[1, 0] * this[0, 2];
+            var s2 = this[0, 0] * this[1, 3] - this[1, 0] * this[0, 3];
+            var s3 = this[0, 1] * this[1, 2] - this[1, 1] * this[0, 2];
+            var s4 = this[0, 1] * this[1, 3] - this[1, 1] * this[0, 3];
+            var s5 = this[0, 2] * this[1, 3] - this[1, 2] * this[0, 3];
+
+            var c5 = this[2, 2] * this[3, 3] - this[3, 2] * this[2, 3];
+            var c4 = this[2, 1] * this[3, 3] - this[3, 1] * this[2, 3];
+            var c3 = this[2, 1] * this[3, 2] - this[3, 1] * this[2, 2];
+            var c2 = this[2, 0] * this[3, 3] - this[3, 0] * this[2, 3];
+            var c1 = this[2, 0] * this[3, 2] - this[3, 0] * this[2, 2];
+            var c0 = this[2, 0] * this[3, 1] - this[3, 0] * this[2, 1];
+
+            var det = (s0 * c5 - s1 * c4 + s2 * c3 + s3 * c2 - s4 * c1 + s5 * c0);
+            if (det == 0) {
+                throw new DivideByZeroException();
+            }
+            var invdet = 1.0 / det;
+
+            return new Transformation(
+                ( this[1, 1] * c5 - this[1, 2] * c4 + this[1, 3] * c3) * invdet,
+                (-this[0, 1] * c5 + this[0, 2] * c4 - this[0, 3] * c3) * invdet,
+                ( this[3, 1] * s5 - this[3, 2] * s4 + this[3, 3] * s3) * invdet,
+                (-this[2, 1] * s5 + this[2, 2] * s4 - this[2, 3] * s3) * invdet,
+
+                (-this[1, 0] * c5 + this[1, 2] * c2 - this[1, 3] * c1) * invdet,
+                ( this[0, 0] * c5 - this[0, 2] * c2 + this[0, 3] * c1) * invdet,
+                (-this[3, 0] * s5 + this[3, 2] * s2 - this[3, 3] * s1) * invdet,
+                ( this[2, 0] * s5 - this[2, 2] * s2 + this[2, 3] * s1) * invdet,
+
+                ( this[1, 0] * c4 - this[1, 1] * c2 + this[1, 3] * c0) * invdet,
+                (-this[0, 0] * c4 + this[0, 1] * c2 - this[0, 3] * c0) * invdet,
+                ( this[3, 0] * s4 - this[3, 1] * s2 + this[3, 3] * s0) * invdet,
+                (-this[2, 0] * s4 + this[2, 1] * s2 - this[2, 3] * s0) * invdet
+
+                //(-this[1, 0] * c3 + this[1, 1] * c1 - this[1, 2] * c0) * invdet,
+                //( this[0, 0] * c3 - this[0, 1] * c1 + this[0, 2] * c0) * invdet,
+                //(-this[3, 0] * s3 + this[3, 1] * s1 - this[3, 2] * s0) * invdet,
+                //( this[2, 0] * s3 - this[2, 1] * s1 + this[2, 2] * s0) * invdet
+            );
+        }
     }
 
     /// <summary>
@@ -183,6 +233,19 @@ public class Transformation {
             ca, -sa,  0,  0,
             sa,  ca,  0,  0,
             0,   0,   1,  0
+        );
+    }
+
+    /// <summary>
+    /// Identity matrix
+    /// </summary>
+    /// <returns>identity transformation</returns>
+    public static Transformation Identity() {
+        return new Transformation(
+            1,  0,  0,  0,
+            0,  1,  0,  0,
+            0,  0,  1,  0
+            //          1
         );
     }
 

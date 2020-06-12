@@ -8,7 +8,7 @@
 
   <PropertyGroup>
     <PackageId>Qkmaxware.Geometry</PackageId>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Authors>Colin Halseth</Authors>
     <PackageTags>geometry creation manipulation</PackageTags>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
