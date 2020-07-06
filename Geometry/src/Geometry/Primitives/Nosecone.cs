@@ -28,7 +28,7 @@ public class Nosecone : Mesh {
     /// <param name="resolution">higher number is more circular</param>
     /// <returns>conic nosecone</returns>
     public static Nosecone Conic (double radius, double height, int resolution = 8) {
-        var topCentre = new Vec3(0, height, 0);
+        var topCentre = new Vec3(0, 0, height);
         var bottomCentre = Vec3.Zero;
         double xStep = 2 * Math.PI / resolution;
         List<Triangle> tris = new List<Triangle>();
@@ -39,16 +39,16 @@ public class Nosecone : Mesh {
 
             var x1 = new Vec3(
                 radius * Math.Cos(preAngle),
-                0,
-                radius * Math.Sin(preAngle)
+                radius * Math.Sin(preAngle),
+                0
             );
             var x2 = new Vec3(
                 radius * Math.Cos(angle),
-                0,
-                radius * Math.Sin(angle)
+                radius * Math.Sin(angle),
+                0
             );
 
-            tris.Add(new Triangle(x2, bottomCentre, x1));
+            tris.Add(new Triangle(x2, x1, bottomCentre));
             tris.Add(new Triangle(x2, topCentre, x1));
         }
 
@@ -65,7 +65,7 @@ public class Nosecone : Mesh {
     /// <param name="resolution">higher number is more circular</param>
     /// <returns>biconic nosecone</returns>
     public static Nosecone BiConic(double coneRadius, double coneLength, double frustumRadius, double frustumLength, int resolution = 8) {
-        var topCentre = new Vec3(0, coneLength + frustumLength, 0);
+        var topCentre = new Vec3(0, 0, coneLength + frustumLength);
         var bottomCentre = Vec3.Zero;
         double xStep = 2 * Math.PI / resolution;
         List<Triangle> tris = new List<Triangle>();
@@ -77,16 +77,16 @@ public class Nosecone : Mesh {
 
             var x1 = new Vec3(
                 coneRadius * Math.Cos(preAngle),
-                frustumLength,
-                coneRadius * Math.Sin(preAngle)
+                coneRadius * Math.Sin(preAngle),
+                frustumLength
             );
             var x2 = new Vec3(
                 coneRadius * Math.Cos(angle),
-                frustumLength,
-                coneRadius * Math.Sin(angle)
+                coneRadius * Math.Sin(angle),
+                frustumLength
             );
 
-            tris.Add(new Triangle(x1, topCentre, x2));
+            tris.Add(new Triangle(x1, x2, topCentre));
         }
 
         // Bottom conic frustum
@@ -96,28 +96,28 @@ public class Nosecone : Mesh {
 
             var t1 = new Vec3(
                 coneRadius * Math.Cos(preAngle),
-                frustumLength,
-                coneRadius * Math.Sin(preAngle)
+                coneRadius * Math.Sin(preAngle),
+                frustumLength
             );
             var t2 = new Vec3(
                 coneRadius * Math.Cos(angle),
-                frustumLength,
-                coneRadius * Math.Sin(angle)
+                coneRadius * Math.Sin(angle),
+                frustumLength
             );
 
             var b1 = new Vec3(
-                coneRadius * Math.Cos(preAngle),
-                0,
-                coneRadius * Math.Sin(preAngle)
+                frustumRadius * Math.Cos(preAngle),
+                frustumRadius * Math.Sin(preAngle),
+                0
             );
             var b2 = new Vec3(
-                coneRadius * Math.Cos(angle),
-                0,
-                coneRadius * Math.Sin(angle)
+                frustumRadius * Math.Cos(angle),
+                frustumRadius * Math.Sin(angle),
+                0
             );
 
-            tris.Add(new Triangle(t1, t2, b2));
-            tris.Add(new Triangle(t1, b2, b1));
+            tris.Add(new Triangle(t1, b2, t2));
+            tris.Add(new Triangle(t1, b1, b2));
             tris.Add(new Triangle(b1, bottomCentre, b2));
         }
 
@@ -125,70 +125,70 @@ public class Nosecone : Mesh {
     }
 
     private static List<Triangle> FuncNosecone(Func<double,double> radiusAtHeightFunc, double radius, double height, int resolution = 8, int segments = 8) {
-        var topCentre = new Vec3(0, height, 0);
+        var topCentre = new Vec3(0, 0, height);
         var bottomCentre = Vec3.Zero;
         double xStep = 2 * Math.PI / resolution;
         double yStep = height / segments;
         List<Triangle> tris = new List<Triangle>();
 
         // Do top cap
-        for (var i = 1; i < resolution; i++) { 
+        for (var i = 1; i <= resolution; i++) { 
             double preAngle = (i - 1) * xStep;
             double angle = i * xStep;
-            double heightAtLevel = height - 1 * yStep;
+            double heightAtLevel = 1 * yStep;
             double radiusAtLevel = radiusAtHeightFunc(heightAtLevel);
 
             // Ring
             var x1 = new Vec3(
                 radiusAtLevel * Math.Cos(preAngle),
-                heightAtLevel,
-                radiusAtLevel * Math.Sin(preAngle)
+                radiusAtLevel * Math.Sin(preAngle),
+                height - heightAtLevel
             );
             var x2 = new Vec3(
                 radiusAtLevel * Math.Cos(angle),
-                heightAtLevel,
-                radiusAtLevel * Math.Sin(angle)
+                radiusAtLevel * Math.Sin(angle),
+                height - heightAtLevel
             );
 
             tris.Add(new Triangle(x2, topCentre, x1));
         }
 
         // Do fill 
-        for (var y = 1; y <= segments; y++) {
-            var heightAtLevel = height - y * yStep;
-            var heightAtNextLevel = height - (y + 1) * yStep;
+        for (var y = 1; y < segments; y++) {
+            var heightAtLevel =  y * yStep;
+            var heightAtNextLevel = (y + 1) * yStep;
             var radiusAtLevel = radiusAtHeightFunc(heightAtLevel);
             var radiusAtNextLevel = radiusAtHeightFunc(heightAtNextLevel);
 
-            for (var i = 1; i < resolution; i++) { 
+            for (var i = 1; i <= resolution; i++) { 
                 double preAngle = (i - 1) * xStep;
                 double angle = i * xStep;
 
                 // Top
                 var x1 = new Vec3(
                     radiusAtLevel * Math.Cos(preAngle),
-                    heightAtLevel,
-                    radiusAtLevel * Math.Sin(preAngle)
+                    radiusAtLevel * Math.Sin(preAngle),
+                    height - heightAtLevel
                 );
                 var x2 = new Vec3(
                     radiusAtLevel * Math.Cos(angle),
-                    heightAtLevel,
-                    radiusAtLevel * Math.Sin(angle)
+                    radiusAtLevel * Math.Sin(angle),
+                    height - heightAtLevel
                 );
                 // Bottom
                 var x3 = new Vec3(
                     radiusAtNextLevel * Math.Cos(preAngle),
-                    heightAtNextLevel,
-                    radiusAtNextLevel * Math.Sin(preAngle)
+                    radiusAtNextLevel * Math.Sin(preAngle),
+                    height - heightAtNextLevel
                 );
                 var x4 = new Vec3(
                     radiusAtNextLevel * Math.Cos(angle),
-                    heightAtNextLevel,
-                    radiusAtNextLevel * Math.Sin(angle)
+                    radiusAtNextLevel * Math.Sin(angle),
+                    height - heightAtNextLevel
                 );
 
-                tris.Add(new Triangle(x1, x2, x4));
-                tris.Add(new Triangle(x1, x4, x3));
+                tris.Add(new Triangle(x1, x4, x2));
+                tris.Add(new Triangle(x1, x3, x4));
             }
         }
 
@@ -199,16 +199,16 @@ public class Nosecone : Mesh {
 
             var x1 = new Vec3(
                 radius * Math.Cos(preAngle),
-                0,
-                radius * Math.Sin(preAngle)
+                radius * Math.Sin(preAngle),
+                0
             );
             var x2 = new Vec3(
                 radius * Math.Cos(angle),
-                0,
-                radius * Math.Sin(angle)
+                radius * Math.Sin(angle),
+                0
             );
 
-            tris.Add(new Triangle(x2, bottomCentre, x1));
+            tris.Add(new Triangle(x2, x1, bottomCentre));
         }
 
         return tris;
@@ -344,7 +344,7 @@ public class Nosecone : Mesh {
                     var theta = Math.Acos(1 - 2 * h / height);
                     var st = Math.Sin(theta);
                     var s2t = Math.Sign(2 * theta);
-                    return (radius / sqrtPi) * Math.Sqrt(theta - s2t) / 2 + C * st * st * st;
+                    return (radius / sqrtPi) * Math.Sqrt(theta - s2t / 2 + C * st * st * st);
                 },
                 radius, height, resolution, segments
             )

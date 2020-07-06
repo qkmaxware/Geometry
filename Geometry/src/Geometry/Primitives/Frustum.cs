@@ -13,7 +13,7 @@ public class Frustum : Mesh {
     /// <param name="size">size of the cube</param>
     /// <param name="centre">centre of the cube</param>
     public Frustum (double radius, double height, double ratio, Vec3 centre, int resolution = 4) : base() {
-        var topCentre = new Vec3(0, height, 0);
+        var topCentre = new Vec3(0, 0, height);
         var bottomCentre = Vec3.Zero;
         double xStep = 2 * Math.PI / resolution;
 
@@ -24,24 +24,24 @@ public class Frustum : Mesh {
 
             var t1 = new Vec3(
                 radius * ratio * Math.Cos(preAngle),
-                height,
-                radius * ratio * Math.Sin(preAngle)
+                radius * ratio * Math.Sin(preAngle),
+                height
             );
             var t2 = new Vec3(
                 radius * ratio * Math.Cos(angle),
-                height,
-                radius * ratio * Math.Sin(angle)
+                radius * ratio * Math.Sin(angle),
+                height
             );
 
             var b1 = new Vec3(
                 radius * Math.Cos(preAngle),
-                0,
-                radius * Math.Sin(preAngle)
+                radius * Math.Sin(preAngle),
+                0
             );
             var b2 = new Vec3(
                 radius * Math.Cos(angle),
-                0,
-                radius * Math.Sin(angle)
+                radius * Math.Sin(angle),
+                0
             );
 
             this.Append(new Triangle(t1, t2, b2));

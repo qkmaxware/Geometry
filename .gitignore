@@ -3,3 +3,9 @@ bin/
 out/
 .vscode/
 TestResults/
+
+.data/
+*.stl
+*.obj
+*.x3d
+TODO

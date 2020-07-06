@@ -16,6 +16,8 @@ Geometry in this library is modeled as a collection of triangular faces whose ve
 | Cylinder | Solid cylinder with configurable radii | <img width="128" src="docs/images/PrimitiveCylinder.png"/> |
 | Cone | Cone with a given radius | <img width="128" src="docs/images/PrimitiveCone.png"/> |
 | Sphere | UV sphere | <img width="128" src="docs/images/PrimitiveSphere.png"/> |
+| Frustum | Pyramidal Frustums | <img width="128" src="docs/images/PrimitiveFrustum.png"/> |
+| Nosecone | Varieties of aerodynamic nosecones | <img width="128" src="docs/images/PrimitiveNoseconeBiconic.png"/> <img width="128" src="docs/images/PrimitiveNoseconeParabolic.png"/> <img width="128" src="docs/images/PrimitiveNoseconeSecant.png"/>|
 
 ## Transformations for Building Geometries
 | Name | Effect | Result |
