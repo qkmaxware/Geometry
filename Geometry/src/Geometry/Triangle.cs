@@ -314,6 +314,18 @@ public class Triangle : System.Tuple<Vec3, Vec3, Vec3> {
           }
      }
 
+     /// <summary>
+     /// Create a new triangle that is a transformed version of this triangle
+     /// </summary>
+     /// <param name="matrix">transformation matrix</param>
+     /// <returns>transformed triangle</returns>
+     public Triangle Transform(Transformation matrix) {
+          Vec3 a = matrix * this.Item1;
+          Vec3 b = matrix * this.Item2;
+          Vec3 c = matrix * this.Item3;
+          return new Triangle(a, b, c);
+     }
+
      public override string ToString() {
         return String.Format("(a:{0},b:{1},c:{2})", Item1, Item2, Item3);
     }

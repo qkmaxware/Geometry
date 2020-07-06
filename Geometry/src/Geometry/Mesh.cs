@@ -73,7 +73,7 @@ public class Mesh : IEnumerable<Triangle> {
     /// Add triangle to this mesh
     /// </summary>
     /// <param name="triangle">triangle</param>
-    public void Append (Triangle triangle) {
+    protected void Append (Triangle triangle) {
         this.triangles.Add(triangle);
     }
 
@@ -81,8 +81,17 @@ public class Mesh : IEnumerable<Triangle> {
     /// Add triangles to this mesh
     /// </summary>
     /// <param name="triangles">several triangles</param>
-    public void AppendRange(IEnumerable<Triangle> triangles) {
+    protected void AppendRange(IEnumerable<Triangle> triangles) {
         this.triangles.AddRange(triangles);
+    }
+
+    /// <summary>
+    /// Create a new mesh by joining the triangles to anothe 
+    /// </summary>
+    /// <param name="other">mesh to join with</param>
+    /// <returns>mesh with the triangles of both joined meshes</returns>
+    public Mesh Join (Mesh other) {
+        return new Mesh(this.Concat(other));
     }
 
     /// <summary>
@@ -94,10 +103,7 @@ public class Mesh : IEnumerable<Triangle> {
         List<Triangle> new_tris = new List<Triangle>(this.triangles.Count);
 
         foreach (var tri in this.triangles) {
-            Vec3 a = matrix * tri.Item1;
-            Vec3 b = matrix * tri.Item2;
-            Vec3 c = matrix * tri.Item3;
-            new_tris.Add(new Triangle(a, b, c));
+            new_tris.Add(tri.Transform(matrix));
         }
 
         return new Mesh(new_tris);
