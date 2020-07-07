@@ -131,12 +131,15 @@ public class Nosecone : Mesh {
         double yStep = height / segments;
         List<Triangle> tris = new List<Triangle>();
 
+        var firstLevelHeight = 1 * yStep;
+        var radiusAtFirstLevelHeight = radiusAtHeightFunc(firstLevelHeight);
+
         // Do top cap
         for (var i = 1; i <= resolution; i++) { 
             double preAngle = (i - 1) * xStep;
             double angle = i * xStep;
-            double heightAtLevel = 1 * yStep;
-            double radiusAtLevel = radiusAtHeightFunc(heightAtLevel);
+            double heightAtLevel = firstLevelHeight;
+            double radiusAtLevel = radiusAtFirstLevelHeight;
 
             // Ring
             var x1 = new Vec3(
@@ -272,7 +275,15 @@ public class Nosecone : Mesh {
         return new Nosecone(
             FuncNosecone(
                 (h) => {
-                    return radius * Math.Sqrt(1 - (h * h / height * height));
+                    h = Math.Max(0, Math.Min(h, height)); // clamp h between 0 and height
+                    //var hh = h * h;
+                    var hShifted = h - height;
+                    var hShifted2 = hShifted * hShifted;
+                    var height2 = height * height;
+                    var flipped = (radius/height) * Math.Sqrt( (height2) - (hShifted2));
+                    return flipped;
+                    //var hOverHeight = Math.Min( ((hh) / (height2)), 1 ); // clamp ratio to < 1
+                    //return -radius * Math.Sqrt(1 - hOverHeight) + radius;
                 },
                 radius, height, resolution, segments
             )

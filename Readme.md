@@ -14,8 +14,10 @@ Geometry in this library is modeled as a collection of triangular faces whose ve
 | Plane | Flat planar face in the XY plane | <img width="128" src="docs/images/PrimitivePlane.png"/> |
 | Cube | 6 sided cube | <img width="128" src="docs/images/PrimitiveCube.png"/> |
 | Cylinder | Solid cylinder with configurable radii | <img width="128" src="docs/images/PrimitiveCylinder.png"/> |
+| Tube | Hollowed out cylinder with an inner and outer radius | <img width="128" src="docs/images/PrimitiveTube.png"/> |
 | Cone | Cone with a given radius | <img width="128" src="docs/images/PrimitiveCone.png"/> |
 | Sphere | UV sphere | <img width="128" src="docs/images/PrimitiveSphere.png"/> |
+| Torus | Torus with configurable radii | <img width="128" src="docs/images/PrimitiveTorus.png"/> |
 | Frustum | Pyramidal Frustums | <img width="128" src="docs/images/PrimitiveFrustum.png"/> |
 | Nosecone | Varieties of aerodynamic nosecones | <img width="128" src="docs/images/PrimitiveNoseconeBiconic.png"/> <img width="128" src="docs/images/PrimitiveNoseconeParabolic.png"/> <img width="128" src="docs/images/PrimitiveNoseconeSecant.png"/>|
 
