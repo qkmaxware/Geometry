@@ -8,14 +8,14 @@
 
   <PropertyGroup>
     <PackageId>Qkmaxware.Geometry</PackageId>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Authors>Colin Halseth</Authors>
     <PackageTags>geometry creation manipulation</PackageTags>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <RepositoryUrl>https://github.com/qkmaxware/Geometry.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageDescription>
-      Geometry is a c# library for the creation, and manipulation of 3d geometry
+      Geometry is a c# library for the creation, and manipulation of triangle based 3d geometry
     </PackageDescription>
   </PropertyGroup>
   <ItemGroup>

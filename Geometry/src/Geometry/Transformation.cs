@@ -75,7 +75,7 @@ public class Transformation {
     /// <param name="e22"></param>
     /// <param name="e23"></param>
     /// <param name="e24"></param>
-    private Transformation(
+    public Transformation(
         double e01, double e02, double e03, double e04,
         double e11, double e12, double e13, double e14,
         double e21, double e22, double e23, double e24

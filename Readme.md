@@ -15,11 +15,13 @@ Geometry in this library is modeled as a collection of triangular faces whose ve
 | Cube | 6 sided cube | <img width="128" src="docs/images/PrimitiveCube.png"/> |
 | Cylinder | Solid cylinder with configurable radii | <img width="128" src="docs/images/PrimitiveCylinder.png"/> |
 | Tube | Hollowed out cylinder with an inner and outer radius | <img width="128" src="docs/images/PrimitiveTube.png"/> |
+| Capsule | Cylinder capped with two hemispheres | <img width="128" src="docs/images/PrimitiveCapsule.png"/> |
 | Cone | Cone with a given radius | <img width="128" src="docs/images/PrimitiveCone.png"/> |
 | Sphere | UV sphere | <img width="128" src="docs/images/PrimitiveSphere.png"/> |
+| Hemisphere | Half of a sphere | <img width="128" src="docs/images/PrimitiveHemisphere.png"/> |
 | Torus | Torus with configurable radii | <img width="128" src="docs/images/PrimitiveTorus.png"/> |
 | Frustum | Pyramidal Frustums | <img width="128" src="docs/images/PrimitiveFrustum.png"/> |
-| Nosecone | Varieties of aerodynamic nosecones | <img width="128" src="docs/images/PrimitiveNoseconeBiconic.png"/> <img width="128" src="docs/images/PrimitiveNoseconeParabolic.png"/> <img width="128" src="docs/images/PrimitiveNoseconeSecant.png"/>|
+| Nosecone | Varieties of aerodynamic nosecones | <img width="128" height="256" src="docs/images/PrimitiveNoseconeBiconic.png"/> <img width="128" height="256" src="docs/images/PrimitiveNoseconeParabolic.png"/>|
 
 ## Transformations for Building Geometries
 | Name | Effect | Result |

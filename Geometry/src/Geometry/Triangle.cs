@@ -103,6 +103,19 @@ public class Triangle : System.Tuple<Vec3, Vec3, Vec3> {
           }
      }
 
+     /// <summary>
+     /// Compute the area of the triangle
+     /// </summary>
+     /// <value>area</value>
+     public double Area {
+          get {
+               var AB = Edge12;
+               var AC = Edge13;
+
+               return Vec3.Cross(AB, AC).Length * 0.5;
+          }
+     }
+
      private Box3? box = null;
      /// <summary>
      /// Compute an axis aligned bounding box that completely contains the triangle

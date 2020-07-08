@@ -51,6 +51,12 @@ public class Mesh : IEnumerable<Triangle> {
     }
 
     /// <summary>
+    /// Compute the surface area of this mesh
+    /// </summary>
+    /// <returns>sum of all triangular areas</returns>
+    public double SurfaceArea => this.Select(tri => tri.Area).Sum();
+
+    /// <summary>
     /// Empty solid
     /// </summary>
     public Mesh() {
