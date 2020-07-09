@@ -106,7 +106,7 @@ public class StlSerializer {
     /// </summary>
     /// <param name="reader">input binary</param>
     /// <returns>solid</returns>
-    private Mesh Deserialize(BinaryReader reader) {
+    public Mesh Deserialize(BinaryReader reader) {
         // Read and ignore the header
         byte[] header = new byte[80];
         reader.Read(header, 0, header.Length);
@@ -145,7 +145,7 @@ public class StlSerializer {
     /// </summary>
     /// <param name="reader">input text</param>
     /// <returns>solid</returns>
-    private Mesh Deserialize(TextReader reader) {
+    public Mesh Deserialize(TextReader reader) {
         // String must start with solid
         string firstLine = reader.ReadLine();
         if (!firstLine.StartsWith("solid")) {

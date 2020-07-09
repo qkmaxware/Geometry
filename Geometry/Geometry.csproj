@@ -8,7 +8,7 @@
 
   <PropertyGroup>
     <PackageId>Qkmaxware.Geometry</PackageId>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <Authors>Colin Halseth</Authors>
     <PackageTags>geometry creation manipulation</PackageTags>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
@@ -19,9 +19,11 @@
     </PackageDescription>
   </PropertyGroup>
   <ItemGroup>
-    <Content Remove="examples\**\*"/>
     <None Include="..\LICENSE.md" CopyToOutputDirectory="Always" Pack="true" PackagePath="$(PackageLicenseFile)"/>
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Include="..\Geometry.Resources\**\*.stl"/>
+  </ItemGroup>
 
 </Project>

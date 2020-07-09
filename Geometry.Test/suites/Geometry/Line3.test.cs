@@ -2,7 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Qkmaxware.Geometry;
 
-namespace Astro.Testing {
+namespace Qkmaxware.Testing {
 
 [TestClass]
 public class Line3Test {

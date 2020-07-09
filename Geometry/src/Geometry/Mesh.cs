@@ -128,7 +128,7 @@ public class Mesh : IEnumerable<Triangle> {
     /// <summary>
     /// Clear all triangles
     /// </summary>
-    public void Clear() {
+    protected void Clear() {
         this.triangles.Clear();
     }
 

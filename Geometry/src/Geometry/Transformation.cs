@@ -17,8 +17,8 @@ public class Transformation {
         get {
             if (row < 3 && col < 3) {
                 return rotation[row, col]; 
-            } else if (row ==3 && col < 3) {
-                return position[col];
+            } else if (row < 3 && col == 3) {
+                return position[row];
             } else if (row == 3 && col == 3) {
                 return 1;
             } else {
@@ -27,8 +27,8 @@ public class Transformation {
         } set {
             if (row < 3 && col < 3) {
                 rotation[row, col] = value; 
-            } else if (row ==3 && col < 3) {
-                position[col] = value;
+            } else if (row < 3 && col == 3) {
+                position[row] = value;
             } 
         }
     }

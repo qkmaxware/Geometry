@@ -5,7 +5,7 @@ using Qkmaxware.Geometry;
 using Qkmaxware.Geometry.IO;
 using Qkmaxware.Geometry.Primitives;
 
-namespace Astro.Testing {
+namespace Qkmaxware.Testing {
 
 [TestClass]
 public class HemisphereTest : PrimitiveTest {
