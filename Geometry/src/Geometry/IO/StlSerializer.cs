@@ -37,7 +37,7 @@ public class StlSerializer {
     /// <param name="pathlike">path to file</param>
     /// <returns>true if file can be read as an ASCII STL file</returns>
     public bool IsStlAscii(string pathlike) {
-        return File.ReadLines(pathlike).First().StartsWith("solid");
+        return File.Exists(pathlike) && File.ReadLines(pathlike).First().StartsWith("solid");
     }
 
     private string SerializeBinary(IEnumerable<Triangle> solid) {

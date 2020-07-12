@@ -38,6 +38,10 @@ jobs:
         # Work around https://github.com/actions/setup-dotnet/issues/29
         DOTNET_ROOT: ${{ runner.tool_cache }}/dncs/${{ matrix.dotnet }}/x64
       run: nuget push bin\*.nupkg -Source "GitHub"
+    - name: Publish Documentation
+      uses: mhausenblas/mkdocs-deploy-gh-pages@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
   build:
     name: Test and Build

@@ -8,7 +8,7 @@ namespace Qkmaxware.Geometry.Primitives {
 public class Frustum : Mesh {
 
     /// <summary>
-    /// Create a cube
+    /// Create a frustum
     /// </summary>
     /// <param name="size">size of the cube</param>
     /// <param name="centre">centre of the cube</param>

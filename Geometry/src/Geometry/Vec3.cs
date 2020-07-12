@@ -21,6 +21,31 @@ public class Vec3 {
     public double Z {get; private set;}
 
     /// <summary>
+    /// XY subset
+    /// </summary>
+    public Vec2 XY => new Vec2(X, Y);
+    /// <summary>
+    /// YX subset
+    /// </summary>
+    public Vec2 YX => new Vec2(Y, X);
+    /// <summary>
+    /// XZ subset
+    /// </summary>
+    public Vec2 XZ => new Vec2(X, Z);
+    /// <summary>
+    /// ZX subset
+    /// </summary>
+    public Vec2 ZX => new Vec2(Z, X);
+    /// <summary>
+    /// YZ subset
+    /// </summary>
+    public Vec2 YZ => new Vec2(Y, Z);
+    /// <summary>
+    /// ZY subset
+    /// </summary>
+    public Vec2 ZY => new Vec2(Z, Y);
+
+    /// <summary>
     /// Vector at the world origin
     /// </summary>
     public static readonly Vec3 Zero = new Vec3(0, 0, 0);

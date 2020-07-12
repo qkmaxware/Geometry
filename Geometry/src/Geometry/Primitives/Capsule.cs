@@ -105,6 +105,14 @@ public class Capsule : Mesh {
         return triangles;
     }
 
+    /// <summary>
+    /// Create a capsule
+    /// </summary>
+    /// <param name="radius">capsule hemisphere radius</param>
+    /// <param name="height">capsule total height</param>
+    /// <param name="centre">centre of the capsule</param>
+    /// <param name="horizontalResolution">longitude subdivision levels</param>
+    /// <param name="verticalResolution">latitude subdivision level</param>
     public Capsule(double radius, double height, Vec3 centre, int horizontalResolution = 8, int verticalResolution = 8) {
         height = Math.Max(height, 2*radius); // height must be greater than 2*radius or else its a squashed sphere
         

@@ -8,6 +8,14 @@ namespace Qkmaxware.Geometry.Primitives {
 /// </summary>
 public class Torus : Mesh {
 
+    /// <summary>
+    /// Torus constructor
+    /// </summary>
+    /// <param name="majorRadius">radius of the torus</param>
+    /// <param name="minorRadius">radius of the ring</param>
+    /// <param name="centre">centre of the torus</param>
+    /// <param name="resolution">quality of the rings</param>
+    /// <param name="segments">number of subdivisions on the ring</param>
     public Torus (double majorRadius, double minorRadius, Vec3 centre, int resolution = 8, int segments = 8) {
         double ringStep = 2 * Math.PI / resolution;
         double moveStep = 2 * Math.PI / segments;
