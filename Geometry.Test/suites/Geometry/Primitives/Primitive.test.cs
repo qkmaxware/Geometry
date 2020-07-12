@@ -13,8 +13,13 @@ public class PrimitiveTest {
 
         if (!Directory.Exists(".data"))
             Directory.CreateDirectory(".data");
-        using (var writer = new StreamWriter(Path.Combine(".data", $"{name}.stl"))) {
-            writer.Write ( exporter.Serialize(mesh, binary: false) );
+
+        using (var writer = new StreamWriter(Path.Combine(".data", $"{name}.ascii.stl"))) {
+            writer.Write ( exporter.Serialize(mesh) );
+        }
+
+        using (var writer =  new BinaryWriter(File.Open(Path.Combine(".data", $"{name}.binary.stl"), FileMode.Create))) {
+            exporter.SerializeBinary(mesh, writer);
         }
     }
 }

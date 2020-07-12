@@ -19,16 +19,11 @@ public class StlSerializer {
     public static readonly string AsciiMIME = "model/x.stl-ascii";
 
     /// <summary>
-    /// Write out an STL file
+    /// Write out an STL ASCII encoded string
     /// </summary>
     /// <param name="solid">solid to encode</param>
-    /// <param name="binary">use binray encoded format</param>
-    public string Serialize(IEnumerable<Triangle> solid, bool binary = true) {
-        if (binary) {
-            return SerializeBinary(solid);
-        } else {
-            return SerializeAscii(solid);
-        }
+    public string Serialize(IEnumerable<Triangle> solid) {
+        return SerializeAscii(solid);
     }
 
     /// <summary>
@@ -40,33 +35,29 @@ public class StlSerializer {
         return File.Exists(pathlike) && File.ReadLines(pathlike).First().StartsWith("solid");
     }
 
-    private string SerializeBinary(IEnumerable<Triangle> solid) {
-        using (var ms = new MemoryStream()) {
-            using (var writer = new BinaryWriter(ms)) {
-                // Binary writer is in little-endian
-                // Any 80 character header except solid, blank here
-                writer.Write(new byte[80]);
-                // Number of triangles
-                writer.Write((UInt32)solid.Count());
+    /// <summary>
+    /// Write out an STL binary encoded file
+    /// </summary>
+    /// <param name="solid">solid to encode</param>
+    /// <param name="writer">binary writer to write to</param>
+    public void SerializeBinary(IEnumerable<Triangle> solid, BinaryWriter writer) {
+        // Binary writer is in little-endian
+        // Any 80 character header except solid, blank here
+        writer.Write(new byte[80]);
+        // Number of triangles
+        writer.Write((UInt32)solid.Count());
 
-                foreach(Triangle tri in solid) {
-                    Vec3 norm = tri.Plane.Normal;
-                    // Arrays of REAL32 values in iEEE format
-                    writer.Write((float)norm.X);writer.Write((float)norm.Y);writer.Write((float)norm.Z);
-                    writer.Write((float)tri.Item1.X);writer.Write((float)tri.Item1.Y);writer.Write((float)tri.Item1.Z);
-                    writer.Write((float)tri.Item2.X);writer.Write((float)tri.Item2.Y);writer.Write((float)tri.Item2.Z);
-                    writer.Write((float)tri.Item3.X);writer.Write((float)tri.Item3.Y);writer.Write((float)tri.Item3.Z);
-                    //Attribute count
-                    writer.Write((UInt16)0);
-                }
-                writer.Flush();
-            }
-
-            ms.Position = 0;
-            using (var reader = new StreamReader(ms)) {
-                return reader.ReadToEnd();
-            }
-        }     
+        foreach(Triangle tri in solid) {
+            Vec3 norm = tri.Plane.Normal;
+            // Arrays of REAL32 values in iEEE format
+            writer.Write((float)norm.X);writer.Write((float)norm.Y);writer.Write((float)norm.Z);
+            writer.Write((float)tri.Item1.X);writer.Write((float)tri.Item1.Y);writer.Write((float)tri.Item1.Z);
+            writer.Write((float)tri.Item2.X);writer.Write((float)tri.Item2.Y);writer.Write((float)tri.Item2.Z);
+            writer.Write((float)tri.Item3.X);writer.Write((float)tri.Item3.Y);writer.Write((float)tri.Item3.Z);
+            //Attribute count
+            writer.Write((UInt16)0);
+        }
+        writer.Flush();
     }
 
     private string SerializeAscii(IEnumerable<Triangle> solid) {

@@ -182,7 +182,6 @@ public class TextMesh : Mesh {
                 var mesh = font.MeshForChar(c);
                 if (mesh != null) {
                     var offset = new Vec3(cursorLeft, -cursorTop, 0);
-                    Console.WriteLine(c + " " + offset);
                     var positionedMesh = mesh.Transform(Transformation.Offset(offset));
                     this.AppendRange(positionedMesh);
                     cursorLeft += font.CharWidth; // Move cursor
