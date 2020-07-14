@@ -1,0 +1,16 @@
+name: Deploy
+on:
+  release: 
+    types: [ published ]
+jobs:
+  deploy:
+    name: Deploy Github Pages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@master
+
+      - name: Deploy Documentation
+        uses: mhausenblas/mkdocs-deploy-gh-pages@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
