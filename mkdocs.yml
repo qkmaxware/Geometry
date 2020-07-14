@@ -1,7 +1,12 @@
 site_name: Qkmaxware.Geometry
+site_url: http://qkmaxware.github.io/Geometry/
+
 docs_dir: docs/
+site_dir: site
+
 repo_name: GitHub
 repo_url: https://github.com/qkmaxware/Geometry
+
 theme: 
   name: readthedocs
   custom_dir: docs_theme/
