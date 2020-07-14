@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Creating Geometry - Qkmaxware.Geometry</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Creating Geometry";
+    var mkdocs_page_input_path = "tutorials/01.Creating.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Qkmaxware.Geometry</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Welcome</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../installing/">Installation</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Tutorials</span></p>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Creating Geometry</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#triangles-upon-triangles">Triangles Upon Triangles</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#primitive-generators">Primitive Generators</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#plane">Plane</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#cube">Cube</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#cylinder">Cylinder</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#tube">Tube</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#caps">Caps</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#cone">Cone</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sphere">Sphere</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#hemisphere">Hemisphere</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#torus">Torus</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#frustum">Frustum</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#nosecone">Nosecone</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#textmesh">TextMesh</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../02.Loading/">Loading 3d Models</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03.Altering/">Altering Geometry</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04.Exporting/">Exporting 3d Models</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Qkmaxware.Geometry</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Tutorials &raquo;</li>
+        
+      
+    
+    <li>Creating Geometry</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/qkmaxware/Geometry/edit/master/docs/tutorials/01.Creating.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="creating-geometry">Creating Geometry</h1>
+<p>Qkmaxware.Geometry takes a simple approach to 3D geometry. Geometry is represented as a collection of triangles in which each triangle is defined by 3 vertices in 3D space. The <code>Qkmaxware.Geometry.Mesh</code> class is the base class for most of the operations for 3D geometry.</p>
+<h2 id="triangles-upon-triangles">Triangles Upon Triangles</h2>
+<p>Since 3D geometry is just a collection of triangles, creating a mesh can be done by using the <code>Mesh</code> constructor with any <code>IEnumerable&lt;Triangle&gt;</code> collection. Once created, a mesh is immutable. </p>
+<pre><code>using System.Collections.Generic;
+using Qkmaxware.Geometry;
+
+public class Program {
+    public static void Main(string[] args) {
+        var tris = new List&lt;Triangle&gt;();
+
+        // ... add triangles
+
+        var mesh = new Mesh(tris);
+    }
+}
+</code></pre>
+
+<h2 id="primitive-generators">Primitive Generators</h2>
+<p>Since creating geometry using lists of triangles can be tedious, several generators are provided to quickly create primitive geometry within the <code>Qkmaxware.Geometry.Primitives</code> namespace. Simply construct an object of the given type to automatically generate the required triangles. </p>
+<h3 id="plane">Plane</h3>
+<p>Planes are 2d flat surfaces composed of two triangles, upper and lower. The geometry created by the <code>Plane</code> generator is positioned in the XY plane with a normal pointed in the positive up (Z) direction.</p>
+<p><strong>Constructors</strong></p>
+<pre><code class="cs">/// &lt;param name=&quot;size&quot;&gt;plane size&lt;/param&gt;
+/// &lt;param name=&quot;centre&quot;&gt;centre&lt;/param&gt;
+public Plane (double size, Vec3 centre)
+</code></pre>
+
+<div style="text-align: center">
+    <img width="128" src="/img/PrimitivePlane.png"/>
+</div>
+
+<h3 id="cube">Cube</h3>
+<p>Cubes are 3d objects composed of 6 sides each side having 2 triangles for a total of 12 triangles.</p>
+<p><strong>Constructors</strong></p>
+<pre><code class="cs">/// &lt;param name=&quot;size&quot;&gt;size of the cube&lt;/param&gt;
+/// &lt;param name=&quot;centre&quot;&gt;centre of the cube&lt;/param&gt;
+public Cube (double size, Vec3 centre)
+</code></pre>
+
+<div style="text-align: center">
+    <img width="128" src="/img/PrimitiveCube.png"/>
+</div>
+
+<h3 id="cylinder">Cylinder</h3>
+<p>A cylinder is a 3D solid with circular end caps perpendicular to the axis. The <code>Cylinder</code> generator allows for specifying different sized end caps.</p>
+<p><strong>Constructors</strong></p>
+<pre><code class="cs">/// &lt;summary&gt;
+/// Cylinder with different radii for top and bottom caps
+/// &lt;/summary&gt;
+/// &lt;param name=&quot;upperRadius&quot;&gt;top cap radius&lt;/param&gt;
+/// &lt;param name=&quot;lowerRadius&quot;&gt;bottom cap radius&lt;/param&gt;
+/// &lt;param name=&quot;height&quot;&gt;height&lt;/param&gt;
+/// &lt;param name=&quot;centre&quot;&gt;centre&lt;/param&gt;
+/// &lt;param name=&quot;resolution&quot;&gt;subdivision level&lt;/param&gt;
+public Cylinder (double upperRadius, double lowerRadius, double height, Vec3 centre, int resolution = 8)
+
+/// &lt;summary&gt;
+/// Cylinder with uniform radius for top and bottom caps
+/// &lt;/summary&gt;
+/// &lt;param name=&quot;radius&quot;&gt;radius&lt;/param&gt;
+/// &lt;param name=&quot;height&quot;&gt;height&lt;/param&gt;
+/// &lt;param name=&quot;centre&quot;&gt;centre&lt;/param&gt;
+/// &lt;param name=&quot;resolution&quot;&gt;subdivision level&lt;/param&gt;
+public Cylinder (double radius, double height, Vec3 centre, int resolution = 8)
+</code></pre>
+
+<div style="text-align: center">
+    <img width="128" src="/img/PrimitiveCylinder.png"/>
+</div>
+
+<h3 id="tube">Tube</h3>
+<p>Tubes are cylindrical objects which are hollowed out along the vertical axis. The inner and outer radius allow for specifying the thickness of the tube's walls. </p>
+<p><strong>Constructors</strong></p>
+<pre><code class="cs">/// &lt;summary&gt;
+/// Cylinder with different radii for top and bottom caps
+/// &lt;/summary&gt;
+/// &lt;param name=&quot;outerRadius&quot;&gt;outer radius&lt;/param&gt;
+/// &lt;param name=&quot;innerRadius&quot;&gt;inner radius&lt;/param&gt;
+/// &lt;param name=&quot;height&quot;&gt;height&lt;/param&gt;
+/// &lt;param name=&quot;centre&quot;&gt;centre&lt;/param&gt;
+/// &lt;param name=&quot;resolution&quot;&gt;subdivision level&lt;/param&gt;
+public Tube (double outerRadius, double innerRadius, double height, Vec3 centre, int resolution = 8)
+</code></pre>
+
+<div style="text-align: center">
+    <img width="128" src="/img/PrimitiveTube.png"/>
+</div>
+
+<h3 id="caps">Caps</h3>
+<p>A capsule or "stadium of revolution" is a 3D geometric shape which is composed of a cylindrical body with two hemispheres for the top and bottom caps.  </p>
+<p><strong>Constructors</strong></p>
+<pre><code class="cs">/// &lt;param name=&quot;radius&quot;&gt;capsule hemisphere radius&lt;/param&gt;
+/// &lt;param name=&quot;height&quot;&gt;capsule total height&lt;/param&gt;
+/// &lt;param name=&quot;centre&quot;&gt;centre of the capsule&lt;/param&gt;
+/// &lt;param name=&quot;horizontalResolution&quot;&gt;longitude subdivision levels&lt;/param&gt;
+/// &lt;param name=&quot;verticalResolution&quot;&gt;latitude subdivision level&lt;/param&gt;
+public Capsule(double radius, double height, Vec3 centre, int horizontalResolution = 8, int verticalResolution = 8)
+</code></pre>
+
+<div style="text-align: center">
+    <img width="128" src="/img/PrimitiveCapsule.png"/>
+</div>
+
+<h3 id="cone">Cone</h3>
+<p>A cone is a 3D shape that tapers from a smooth flat shape to an apex point.</p>
+<p><strong>Constructors</strong></p>
+<pre><code class="cs">/// &lt;param name=&quot;radius&quot;&gt;radius&lt;/param&gt;
+/// &lt;param name=&quot;height&quot;&gt;height&lt;/param&gt;
+/// &lt;param name=&quot;centre&quot;&gt;centre of the cone&lt;/param&gt;
+/// &lt;param name=&quot;resolution&quot;&gt;subdivision level&lt;/param&gt;
+public Cone (double radius, double height, Vec3 centre, int resolution = 8)
+</code></pre>
+
+<div style="text-align: center">
+    <img width="128" src="/img/PrimitiveCone.png"/>
+</div>
+
+<h3 id="sphere">Sphere</h3>
+<p>The <code>Sphere</code> generator can create spheres of different radius, given that geometry is represented by flat triangles, a sphere cannot be accurately represented. Instead, spheres are approximated using subdivision resolutions. </p>
+<p><strong>Constructors</strong></p>
+<pre><code class="cs">/// &lt;param name=&quot;radius&quot;&gt;radius&lt;/param&gt;
+/// &lt;param name=&quot;centre&quot;&gt;centre point&lt;/param&gt;
+/// &lt;param name=&quot;horizontalResolution&quot;&gt;longitude subdivision levels&lt;/param&gt;
+/// &lt;param name=&quot;verticalResolution&quot;&gt;latitude subdivision level&lt;/param&gt;
+public Sphere(double radius, Vec3 centre, int horizontalResolution = 8, int verticalResolution = 8)
+</code></pre>
+
+<div style="text-align: center">
+    <img width="128" src="/img/PrimitiveSphere.png"/>
+</div>
+
+<h3 id="hemisphere">Hemisphere</h3>
+<p>Hemispheres are generated as the top half of a sphere plus a flat bottom face. </p>
+<p><strong>Constructors</strong></p>
+<pre><code class="cs">/// &lt;param name=&quot;radius&quot;&gt;radius&lt;/param&gt;
+/// &lt;param name=&quot;centre&quot;&gt;centre point&lt;/param&gt;
+/// &lt;param name=&quot;horizontalResolution&quot;&gt;longitude subdivision levels&lt;/param&gt;
+/// &lt;param name=&quot;verticalResolution&quot;&gt;latitude subdivision level&lt;/param&gt;
+public Hemisphere(double radius, Vec3 centre, int horizontalResolution = 8, int verticalResolution = 8)
+</code></pre>
+
+<div style="text-align: center">
+    <img width="128" src="/img/PrimitiveHemisphere.png"/>
+</div>
+
+<h3 id="torus">Torus</h3>
+<p>A torus is a surface of revolution generated by revolving a circle in 3D space. This shape is similar to inner tubes. Similar to the issues with spheres, a torus cannot be completely represented with triangular geometry and instead is approximated using the resolution and segments parametres. </p>
+<p><strong>Constructors</strong></p>
+<pre><code class="cs">/// &lt;param name=&quot;majorRadius&quot;&gt;radius of the torus&lt;/param&gt;
+/// &lt;param name=&quot;minorRadius&quot;&gt;radius of the ring&lt;/param&gt;
+/// &lt;param name=&quot;centre&quot;&gt;centre of the torus&lt;/param&gt;
+/// &lt;param name=&quot;resolution&quot;&gt;quality of the rings&lt;/param&gt;
+/// &lt;param name=&quot;segments&quot;&gt;number of subdivisions on the ring&lt;/param&gt;
+public Torus (double majorRadius, double minorRadius, Vec3 centre, int resolution = 8, int segments = 8)
+</code></pre>
+
+<div style="text-align: center">
+    <img width="128" src="/img/PrimitiveTorus.png"/>
+</div>
+
+<h3 id="frustum">Frustum</h3>
+<p>The <code>Frustum</code> generator creates right-frustum shapes which are parallel truncation cuts of a polygonal pyramid shape. </p>
+<p><strong>Constructors</strong></p>
+<pre><code class="cs">/// &lt;param name=&quot;size&quot;&gt;size of the cube&lt;/param&gt;
+/// &lt;param name=&quot;centre&quot;&gt;centre of the cube&lt;/param&gt;
+public Frustum (double radius, double height, double ratio, Vec3 centre, int resolution = 4)
+</code></pre>
+
+<div style="text-align: center">
+    <img width="128" src="/img/PrimitiveFrustum.png"/>
+</div>
+
+<h3 id="nosecone">Nosecone</h3>
+<p>Aerodynamic nosecones represent a wide variety of shapes and the Nosecone generator can create several of the common nosecone shapes. </p>
+<p><strong>Constructors</strong></p>
+<pre><code class="cs">/// &lt;param name=&quot;radius&quot;&gt;radius of the cone&lt;/param&gt;
+/// &lt;param name=&quot;height&quot;&gt;height of the cone&lt;/param&gt;
+/// &lt;param name=&quot;resolution&quot;&gt;higher number is more circular&lt;/param&gt;
+/// &lt;returns&gt;conic nosecone&lt;/returns&gt;
+public static Nosecone Conic (double radius, double height, int resolution = 8);
+
+/// &lt;param name=&quot;coneRadius&quot;&gt;radius of the upper cone&lt;/param&gt;
+/// &lt;param name=&quot;coneLength&quot;&gt;length of the upper cone&lt;/param&gt;
+/// &lt;param name=&quot;frustumRadius&quot;&gt;radius of the lower conic frustum&lt;/param&gt;
+/// &lt;param name=&quot;frustumLength&quot;&gt;length of the lower conic frustum&lt;/param&gt;
+/// &lt;param name=&quot;resolution&quot;&gt;higher number is more circular&lt;/param&gt;
+/// &lt;returns&gt;biconic nosecone&lt;/returns&gt;
+public static Nosecone BiConic(double coneRadius, double coneLength, double frustumRadius, double frustumLength, int resolution = 8);
+
+/// &lt;param name=&quot;radius&quot;&gt;nosecone radius&lt;/param&gt;
+/// &lt;param name=&quot;height&quot;&gt;nosecone height&lt;/param&gt;
+/// &lt;param name=&quot;resolution&quot;&gt;higher number is more circular&lt;/param&gt;
+/// &lt;param name=&quot;segments&quot;&gt;higher number is more smooth&lt;/param&gt;
+/// &lt;returns&gt;Tangent Ogive Nosecone&lt;/returns&gt;
+public static Nosecone TangentOgive(double radius, double height, int resolution = 8, int segments = 8);
+
+/// &lt;param name=&quot;ogiveRadius&quot;&gt;radius of the circle used to define the secant ogive&lt;/param&gt;
+/// &lt;param name=&quot;conicRadius&quot;&gt;base radius&lt;/param&gt;
+/// &lt;param name=&quot;height&quot;&gt;nosecone height&lt;/param&gt;
+/// &lt;param name=&quot;resolution&quot;&gt;higher number is more circular&lt;/param&gt;
+/// &lt;param name=&quot;segments&quot;&gt;higher number is more smooth&lt;/param&gt;
+/// &lt;returns&gt;Secant Ogive Nosecone&lt;/returns&gt;
+public static Nosecone SecantOgive(double ogiveRadius, double conicRadius, double height, int resolution = 8, int segments = 8);
+
+/// &lt;param name=&quot;radius&quot;&gt;radius of the nosecone&lt;/param&gt;
+/// &lt;param name=&quot;height&quot;&gt;height of the nosecone&lt;/param&gt;
+/// &lt;param name=&quot;resolution&quot;&gt;higher number is more circular&lt;/param&gt;
+/// &lt;param name=&quot;segments&quot;&gt;higher number is more smooth&lt;/param&gt;
+/// &lt;returns&gt;Elliptical Nosecone&lt;/returns&gt;
+public static Nosecone Elliptical(double radius, double height, int resolution = 8, int segments = 8);
+
+/// &lt;param name=&quot;K&quot;&gt;parabolic parametre between 0 and 1&lt;/param&gt;
+/// &lt;param name=&quot;radius&quot;&gt;radius of the nosecone&lt;/param&gt;
+/// &lt;param name=&quot;height&quot;&gt;height of the nosecone&lt;/param&gt;
+/// &lt;param name=&quot;resolution&quot;&gt;higher number is more circular&lt;/param&gt;
+/// &lt;param name=&quot;segments&quot;&gt;higher number is more smooth&lt;/param&gt;
+/// &lt;returns&gt;Parabolic Nosecone&lt;/returns&gt;
+public static Nosecone Parabolic(double K, double radius, double height, int resolution = 8, int segments = 8);
+
+/// &lt;param name=&quot;K&quot;&gt;power series parametre between 0 and 1&lt;/param&gt;
+/// &lt;param name=&quot;radius&quot;&gt;radius of the nosecone&lt;/param&gt;
+/// &lt;param name=&quot;height&quot;&gt;height of the nosecone&lt;/param&gt;
+/// &lt;param name=&quot;resolution&quot;&gt;higher number is more circular&lt;/param&gt;
+/// &lt;param name=&quot;segments&quot;&gt;higher number is more smooth&lt;/param&gt;
+/// &lt;returns&gt;Power Series Nosecone&lt;/returns&gt;
+public static Nosecone Powerseries (double n, double radius, double height, int resolution = 8, int segments = 8);
+
+/// &lt;param name=&quot;K&quot;&gt;Haack series parametre between 0 and 1&lt;/param&gt;
+/// &lt;param name=&quot;radius&quot;&gt;radius of the nosecone&lt;/param&gt;
+/// &lt;param name=&quot;height&quot;&gt;height of the nosecone&lt;/param&gt;
+/// &lt;param name=&quot;resolution&quot;&gt;higher number is more circular&lt;/param&gt;
+/// &lt;param name=&quot;segments&quot;&gt;higher number is more smooth&lt;/param&gt;
+/// &lt;returns&gt;Haack Series Nosecone&lt;/returns&gt;
+public static Nosecone Haack (double C, double radius, double height, int resolution = 8, int segments = 8);
+</code></pre>
+
+<div style="text-align: center">
+    <img width="128" height="256" src="/img/PrimitiveNoseconeBiconic.png"/>
+    <img width="128" height="256" src="/img/PrimitiveNoseconeParabolic.png"/>
+    <img width="128" height="256" src="/img/PrimitiveNoseconeSecant.png"/>
+</div>
+
+<h3 id="textmesh">TextMesh</h3>
+<p>TextMesh creates meshes from string data by converting each letter to a 3G geometry. Custom fonts are used to map each character to their appropriate geometry. </p>
+<p><strong>Constructors</strong></p>
+<pre><code class="cs">/// &lt;param name=&quot;text&quot;&gt;text&lt;/param&gt;
+public TextMesh (string text);
+
+/// &lt;param name=&quot;font&quot;&gt;font&lt;/param&gt;
+/// &lt;param name=&quot;text&quot;&gt;text&lt;/param&gt;
+public TextMesh(Font3 font, string text)
+</code></pre>
+
+<div style="text-align: center">
+    <img width="128" src="/img/PrimitiveTextMesh.png"/>
+</div>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../02.Loading/" class="btn btn-neutral float-right" title="Loading 3d Models">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../../installing/" class="btn btn-neutral" title="Installation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/qkmaxware/Geometry/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../../installing/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../02.Loading/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Exporting 3d Models - Qkmaxware.Geometry</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Exporting 3d Models";
+    var mkdocs_page_input_path = "tutorials/04.Exporting.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Qkmaxware.Geometry</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Welcome</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../installing/">Installation</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Tutorials</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../01.Creating/">Creating Geometry</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../02.Loading/">Loading 3d Models</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03.Altering/">Altering Geometry</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Exporting 3d Models</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#stl-files">STL Files</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#ascii-stl">ASCII STL</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#binary-stl">Binary STL</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#wavefront-obj-files">Wavefront Obj Files</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#ascii-obj">ASCII Obj</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#extensible-3d-graphics-x3d-files">Extensible 3D Graphics X3d Files</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#ascii-x3d">ASCII X3d</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Qkmaxware.Geometry</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Tutorials &raquo;</li>
+        
+      
+    
+    <li>Exporting 3d Models</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/qkmaxware/Geometry/edit/master/docs/tutorials/04.Exporting.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="exporting-3d-models">Exporting 3d Models</h1>
+<h2 id="stl-files">STL Files</h2>
+<p>Stereolithography CAD files or STL is a 3d file format common in rapid prototyping, 3d printing, and computer aided design. STL files come in in two forms, an ASCII version as well as a Binary version. Loading and saving of STL files for both binary and ASCII version is supported via the <code>Qkmaxware.Geometry.IO.StlSerializer</code> class. </p>
+<h3 id="ascii-stl">ASCII STL</h3>
+<p>To save an ASCII encoded STL, use the <code>Serialize</code> method of an <code>StlSerializer</code> object to create an ASCII string representing the geometry that can then be saved to a file.</p>
+<pre><code class="cs">using System.IO;
+using Qkmaxware.Geometry;
+using Qkmaxware.Geometry.IO;
+
+public class Program {
+    public static void Export(Mesh mesh) {
+        var serializer = new StlSerializer();
+
+        using (var writer = new StreamWriter(&quot;myfile.stl&quot;)) {
+            writer.Write(serializer.Serialize(mesh));
+        }
+    }
+}
+</code></pre>
+
+<h3 id="binary-stl">Binary STL</h3>
+<p>To save an binary encoded STL, use the <code>SerializeBinary</code> method of an <code>StlSerializer</code> object to write mesh data to a given <a href="https://docs.microsoft.com/en-us/dotnet/api/system.io.binarywriter">BinaryWriter</a>.</p>
+<pre><code class="cs">using System.IO;
+using Qkmaxware.Geometry;
+using Qkmaxware.Geometry.IO;
+
+public class Program {
+    public static void Export(Mesh mesh) {
+        var serializer = new StlSerializer();
+
+        using (var writer = new BinaryWriter(File.Open(&quot;myfile.stl&quot;, FileMode.Create))) {
+            exporter.SerializeBinary(mesh, writer);
+        }
+    }
+}
+</code></pre>
+
+<h2 id="wavefront-obj-files">Wavefront Obj Files</h2>
+<p>Wavefront Obj files are another common file format. Unlike STL and other formats, OBJ files are only available as an ASCII encoded format. Loading and saving of OBJ files is supported via the <code>Qkmaxware.Geometry.IO.ObjSerializer</code> class. </p>
+<h3 id="ascii-obj">ASCII Obj</h3>
+<p>To save an ASCII encoded OBJ, use the <code>Serialize</code> method of an <code>ObjSerializer</code> object to create an ASCII string representing the geometry that can then be saved to a file.</p>
+<pre><code class="cs">using System.IO;
+using Qkmaxware.Geometry;
+using Qkmaxware.Geometry.IO;
+
+public class Program {
+    public static void Export(Mesh mesh) {
+        var serializer = new ObjSerializer();
+
+        using (var writer = new StreamWriter(&quot;myfile.obj&quot;)) {
+            writer.Write(serializer.Serialize(mesh));
+        }
+    }
+}
+</code></pre>
+
+<h2 id="extensible-3d-graphics-x3d-files">Extensible 3D Graphics X3d Files</h2>
+<p>Extensible 3D Graphics files or X3D files is a royalty free xml based format for representing 3D computer graphics. Given that X3D files are an based on the XML format, there only is an ASCII version available for this format. Saving of X3D files is supported via the <code>Qkmaxware.Geometry.IO.X3dSerializer</code> class. </p>
+<h3 id="ascii-x3d">ASCII X3d</h3>
+<p>To save an ASCII encoded X3D, use the <code>Serialize</code> method of an <code>X3dSerializer</code> object to create an ASCII string representing the geometry that can then be saved to a file.</p>
+<pre><code class="cs">using System.IO;
+using Qkmaxware.Geometry;
+using Qkmaxware.Geometry.IO;
+
+public class Program {
+    public static void Export(Mesh mesh) {
+        var serializer = new X3dSerializer();
+
+        using (var writer = new StreamWriter(&quot;myfile.x3d&quot;)) {
+            writer.Write(serializer.Serialize(mesh));
+        }
+    }
+}
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../03.Altering/" class="btn btn-neutral" title="Altering Geometry"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/qkmaxware/Geometry/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../03.Altering/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

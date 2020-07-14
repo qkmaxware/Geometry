@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Loading 3d Models - Qkmaxware.Geometry</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Loading 3d Models";
+    var mkdocs_page_input_path = "tutorials/02.Loading.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Qkmaxware.Geometry</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Welcome</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../installing/">Installation</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Tutorials</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../01.Creating/">Creating Geometry</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Loading 3d Models</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#stl-files">STL Files</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#ascii-stl">ASCII STL</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#binary-stl">Binary STL</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#generic-stl">Generic STL</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#wavefront-obj-files">Wavefront Obj Files</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#ascii-obj">ASCII Obj</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../03.Altering/">Altering Geometry</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../04.Exporting/">Exporting 3d Models</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Qkmaxware.Geometry</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Tutorials &raquo;</li>
+        
+      
+    
+    <li>Loading 3d Models</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/qkmaxware/Geometry/edit/master/docs/tutorials/02.Loading.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="loading-3d-models">Loading 3d Models</h1>
+<h2 id="stl-files">STL Files</h2>
+<p>Stereolithography CAD files or STL is a 3d file format common in rapid prototyping, 3d printing, and computer aided design. STL files come in in two forms, an ASCII version as well as a Binary version. Loading and saving of STL files for both binary and ASCII version is supported via the <code>Qkmaxware.Geometry.IO.StlSerializer</code> class. </p>
+<h3 id="ascii-stl">ASCII STL</h3>
+<p>To load an ASCII encoded STL, use the <code>Deserialize</code> method of an <code>StlSerializer</code> object with a <a href="https://docs.microsoft.com/en-us/dotnet/api/system.io.textreader">TextReader</a> as the argument.</p>
+<pre><code class="cs">using System.IO;
+using Qkmaxware.Geometry.IO;
+
+public class Program {
+    public static void Main(string[] args) {
+        var serializer = new StlSerializer();
+
+        using (var reader = new StreamReader(&quot;myfile.stl&quot;)) {
+            var mesh = serializer.Deserialize(reader);
+        }
+    }
+}
+</code></pre>
+
+<h3 id="binary-stl">Binary STL</h3>
+<p>To load a binary encoded STL, use the <code>Deserialize</code> method of an <code>StlSerializer</code> object with a <a href="https://docs.microsoft.com/en-us/dotnet/api/system.io.binaryreader">BinaryReader</a> as the argument.</p>
+<pre><code class="cs">using System.IO;
+using Qkmaxware.Geometry.IO;
+
+public class Program {
+    public static void Main(string[] args) {
+        var serializer = new StlSerializer();
+
+        using (var stream = new FileStream(&quot;myfile.stl&quot;, FileMode.Open))
+        using (var reader = new BinaryReader(stream)) {
+            var mesh = serializer.Deserialize(reader);
+        }
+    }
+}
+</code></pre>
+
+<h3 id="generic-stl">Generic STL</h3>
+<p>Since STL files can be either ASCII or Binary encoded, loading of an STL file depends on selecting the correct encoding. To aid in loading a generic STL file in which it is not known if the file is ASCII or Binary, the <code>StlSerializer</code> object has a utility method <code>IsStlAscii</code> which can be used to help determine if a given file is in the ASCII format or not.</p>
+<pre><code class="cs">using System.IO;
+using Qkmaxware.Geometry.IO;
+
+public class Program {
+    public static void Main(string[] args) {
+        var serializer = new StlSerializer();
+        var file = &quot;myfile.stl&quot;
+
+        Mesh mesh = null;
+        if (serializer.IsStlAscii(file)) {
+            using (var reader = new StreamReader(file)) {
+                mesh = serializer.Deserialize(reader);
+            }
+        } else {
+            using (var stream = new FileStream(file, FileMode.Open)
+            using (var reader = new BinaryReader(stream)) {
+                mesh = serializer.Deserialize(reader);
+            }
+        }
+    }
+}
+</code></pre>
+
+<h2 id="wavefront-obj-files">Wavefront Obj Files</h2>
+<p>Wavefront Obj files are another common file format. Unlike STL and other formats, OBJ files are only available as an ASCII encoded format. Loading and saving of OBJ files is supported via the <code>Qkmaxware.Geometry.IO.ObjSerializer</code> class. </p>
+<h3 id="ascii-obj">ASCII Obj</h3>
+<p>To load an ASCII encoded OBJ, use the <code>Deserialize</code> method of an <code>ObjSerializer</code> object with a <a href="https://docs.microsoft.com/en-us/dotnet/api/system.io.textreader">TextReader</a> as the argument.</p>
+<pre><code class="cs">using System.IO;
+using Qkmaxware.Geometry.IO;
+
+public class Program {
+    public static void Main(string[] args) {
+        var serializer = new ObjSerializer();
+
+        using (var reader = new StreamReader(&quot;myfile.obj&quot;)) {
+            var mesh = serializer.Deserialize(reader);
+        }
+    }
+}
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../03.Altering/" class="btn btn-neutral float-right" title="Altering Geometry">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../01.Creating/" class="btn btn-neutral" title="Creating Geometry"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/qkmaxware/Geometry/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../01.Creating/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../03.Altering/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
