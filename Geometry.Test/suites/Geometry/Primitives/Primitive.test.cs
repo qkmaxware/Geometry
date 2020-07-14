@@ -3,12 +3,12 @@ using System;
 using System.IO;
 using Qkmaxware.Geometry;
 using Qkmaxware.Geometry.IO;
-using Qkmaxware.Geometry.Primitives;
+using System.Collections.Generic;
 
 namespace Qkmaxware.Testing {
 
 public class PrimitiveTest {
-    public static void SaveGeometry(string name, Mesh mesh) {
+    public static void SaveGeometry(string name, IEnumerable<Triangle> mesh) {
         var exporter = new StlSerializer();
 
         if (!Directory.Exists(".data"))

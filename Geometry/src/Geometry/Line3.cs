@@ -5,7 +5,7 @@ namespace Qkmaxware.Geometry {
 /// <summary>
 /// Line in 3d space represented by specific endpoints
 /// </summary>
-public class Line3 : Tuple<Vec3, Vec3>, IEquatable<Line3> {
+public class Line3 : Tuple<Vec3, Vec3>, IEquatable<Line3>, IInterpolatedPath3 {
  
     public Line3(Vec3 a, Vec3 b) : base(a,b) {}
  
@@ -48,6 +48,11 @@ public class Line3 : Tuple<Vec3, Vec3>, IEquatable<Line3> {
             return (Item1 - Item2).Length;
         }
     }
+
+    /// <summary>
+    /// Position on the curve at the given distance
+    /// </summary>
+    public Vec3 this[double distance] => Item1 + distance * Edge12;
 
     /// <summary>
     /// Compare two line segments
