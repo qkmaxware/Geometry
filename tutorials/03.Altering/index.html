@@ -75,16 +75,6 @@
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#boolean-operations">Boolean Operations</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#union">Union</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#difference">Difference</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#intersection">Intersection</a>
-    </li>
-        </ul>
-    </li>
     <li class="toctree-l2"><a class="reference internal" href="#modifier-stacks">Modifier Stacks</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#array">Array</a>
@@ -92,6 +82,18 @@
     <li class="toctree-l3"><a class="reference internal" href="#path-deformation">Path Deformation</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#mirror">Mirror</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#subdivide">Subdivide</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#boolean-operations">Boolean Operations</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#union">Union</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#difference">Difference</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#intersection">Intersection</a>
+    </li>
+        </ul>
     </li>
         </ul>
     </li>
@@ -195,26 +197,6 @@ var NewMesh4 = Transformation.EulerRotation(new Vec3(1.57, 0.15, 3.2))
     </div>
 </div>
 
-<h2 id="boolean-operations">Boolean Operations</h2>
-<p>Boolean operations on polygons are a set of operations that are common in the field of computer aided design. </p>
-<h3 id="union">Union</h3>
-<p>Union operations combine polygons from two operations into a new geometry. This can be done with the <code>Union</code> method of the <code>Mesh</code> class, or by using the overloaded <code>+</code> operation.</p>
-<div style="text-align: center">
-    <img width="256" src="/Geometry/img/BooleanUnion.png"/>
-</div>
-
-<h3 id="difference">Difference</h3>
-<p>Difference operations are used to cut geometry out of a mesh where it overlaps with another geometry. This is done using the <code>Difference</code> method of the <code>Mesh</code> class, or by using the overloaded <code>-</code> operation.</p>
-<div style="text-align: center">
-    <img width="256" src="/Geometry/img/BooleanDifference.png"/>
-</div>
-
-<h3 id="intersection">Intersection</h3>
-<p>Intersection operations are used to save only the parts of a geometry where they overlaps with another geometry. This is done using the <code>Intersection</code> method of the <code>Mesh</code> class, or by using the overloaded <code>&amp;</code> operation.</p>
-<div style="text-align: center">
-    <img width="256" src="/Geometry/img/BooleanIntersection.png"/>
-</div>
-
 <h2 id="modifier-stacks">Modifier Stacks</h2>
 <p>Geometry modifiers are non-destructive decorators which can be used to apply arbitrary modifications to geometry. Modifiers can be stacked to apply geometric modifications successively without damaging the original geometry,</p>
 <h3 id="array">Array</h3>
@@ -233,6 +215,32 @@ var NewMesh4 = Transformation.EulerRotation(new Vec3(1.57, 0.15, 3.2))
 <p>The mirror modifier creates a new mesh that is mirrored across the given axis containing both the original triangles as well as the mirrored triangles. </p>
 <div style="text-align: center">
     <img width="480" src="/Geometry/img/MirrorModifier.png"/>
+</div>
+
+<h3 id="subdivide">Subdivide</h3>
+<p>The subdivide modifier creates a new mesh in which each triangle has be sub-divided into 4 smaller triangles. This modifier can be used to increase the resolution of a given geometry.</p>
+<div style="text-align: center">
+    <img width="480" src="/Geometry/img/SubdivideModifier.png"/>
+</div>
+
+<h3 id="boolean-operations">Boolean Operations</h3>
+<p>Boolean operations are a set of operations common in the field of computer aided design. There are several different modifier which are capable of performing boolean operations.</p>
+<h4 id="union">Union</h4>
+<p>the union modifier combines non-overlapping polygons from two operations into a new geometry. Besides being offered as a modifier, this operations can also be done with the <code>Union</code> method of the <code>Mesh</code> class, or by using the overloaded <code>+</code> operation.</p>
+<div style="text-align: center">
+    <img width="256" src="/Geometry/img/BooleanUnion.png"/>
+</div>
+
+<h4 id="difference">Difference</h4>
+<p>the difference modifier is used to cut geometry out of a mesh where it overlaps with another geometry. Besides being offered as a modifier, this operations can also be done using the <code>Difference</code> method of the <code>Mesh</code> class, or by using the overloaded <code>-</code> operation.</p>
+<div style="text-align: center">
+    <img width="256" src="/Geometry/img/BooleanDifference.png"/>
+</div>
+
+<h4 id="intersection">Intersection</h4>
+<p>The intersection modifier is used to save only the parts of a geometry where they overlaps with another geometry. Besides being offered as a modifier, this operations can also be done using the <code>Intersection</code> method of the <code>Mesh</code> class, or by using the overloaded <code>&amp;</code> operation.</p>
+<div style="text-align: center">
+    <img width="256" src="/Geometry/img/BooleanIntersection.png"/>
 </div>
 
 <h2 id="raw-triangles">Raw Triangles</h2>
