@@ -52,7 +52,7 @@ public class Line3 : Tuple<Vec3, Vec3>, IEquatable<Line3>, IInterpolatedPath3 {
     /// <summary>
     /// Position on the curve at the given distance
     /// </summary>
-    public Vec3 this[double distance] => Item1 + distance * Edge12;
+    public Vec3 this[double distance] => Item1 + distance * Edge12.Normalized;
 
     /// <summary>
     /// Compare two line segments
