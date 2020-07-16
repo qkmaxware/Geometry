@@ -226,19 +226,19 @@ var NewMesh4 = Transformation.EulerRotation(new Vec3(1.57, 0.15, 3.2))
 <h3 id="boolean-operations">Boolean Operations</h3>
 <p>Boolean operations are a set of operations common in the field of computer aided design. There are several different modifier which are capable of performing boolean operations.</p>
 <h4 id="union">Union</h4>
-<p>the union modifier combines non-overlapping polygons from two operations into a new geometry. Besides being offered as a modifier, this operations can also be done with the <code>Union</code> method of the <code>Mesh</code> class, or by using the overloaded <code>+</code> operation.</p>
+<p>the union modifier combines non-overlapping polygons from two geometry into a new geometry. Besides being offered as a modifier, this operation can also be done with the <code>Union</code> method of the <code>Mesh</code> class, or by using the overloaded <code>+</code> operation.</p>
 <div style="text-align: center">
     <img width="256" src="/Geometry/img/BooleanUnion.png"/>
 </div>
 
 <h4 id="difference">Difference</h4>
-<p>the difference modifier is used to cut geometry out of a mesh where it overlaps with another geometry. Besides being offered as a modifier, this operations can also be done using the <code>Difference</code> method of the <code>Mesh</code> class, or by using the overloaded <code>-</code> operation.</p>
+<p>the difference modifier is used to cut geometry out of a mesh where it overlaps with another geometry. Besides being offered as a modifier, this operation can also be done using the <code>Difference</code> method of the <code>Mesh</code> class, or by using the overloaded <code>-</code> operation.</p>
 <div style="text-align: center">
     <img width="256" src="/Geometry/img/BooleanDifference.png"/>
 </div>
 
 <h4 id="intersection">Intersection</h4>
-<p>The intersection modifier is used to save only the parts of a geometry where they overlaps with another geometry. Besides being offered as a modifier, this operations can also be done using the <code>Intersection</code> method of the <code>Mesh</code> class, or by using the overloaded <code>&amp;</code> operation.</p>
+<p>The intersection modifier is used to save only the parts of a geometry where they overlaps with another geometry. Besides being offered as a modifier, this operation can also be done using the <code>Intersection</code> method of the <code>Mesh</code> class, or by using the overloaded <code>&amp;</code> operation.</p>
 <div style="text-align: center">
     <img width="256" src="/Geometry/img/BooleanIntersection.png"/>
 </div>
