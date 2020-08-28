@@ -49,6 +49,28 @@ public class Transformation {
     /// World Position of this reference frame
     /// </summary>
     public Vec3 Position => new Vec3(this[0,3], this[1,3], this[2,3]);
+    /// <summary>
+    /// World rotation angles about the X,Y,Z axis
+    /// </summary>
+    public Vec3 Rotation {
+        get {
+            var sy = Math.Sqrt(
+                this[0,0] * this[0,0] + this[1,0] * this[1,0]
+            );
+            var singular = sy < Double.Epsilon;
+            double x,y,z;
+            if (!singular) {
+                x = Math.Atan2(this[2,1], this[2,2]);
+                y = Math.Atan2(-this[2,0], sy);
+                z = Math.Atan2(this[1,0], this[0,0]);
+            } else {
+                x = Math.Atan2(-this[1,2], this[1,1]);
+                y = Math.Atan2(-this[2,0], sy);
+                z = 0;
+            }
+            return new Vec3(x,y,z);
+        }
+    }
 
     /// <summary>
     /// Number of rows in this matrix
@@ -234,6 +256,29 @@ public class Transformation {
             sa,  ca,  0,  0,
             0,   0,   1,  0
         );
+    }
+
+    /// <summary>
+    /// Rotation about arbitrary axis
+    /// </summary>
+    /// <param name="axis">axis of rotation</param>
+    /// <param name="angle">rotational angle</param>
+    /// <returns>rotation transformation</returns>
+    public static Transformation AngleAxis(Vec3 axis, double angle) {
+        var norm = axis.Normalized;
+        double c = Math.Cos(angle);
+        double s = Math.Sin(angle);
+        double t = 1.0 - c;
+        double x = norm.X;
+        double y = norm.Y;
+        double z = norm.Z;
+
+        var rotation = new Transformation(
+            t * x * x + c,          t * x * y - z * s,      t * x * z + y * s,      0,
+            t * x * y + z * s,      t * y * y + c,          t * y * z - x * s,      0,
+            t * x * z - y * s,      t * y * z + x * s,      t * z * z + c,          0
+        );
+        return rotation;
     }
 
     /// <summary>
