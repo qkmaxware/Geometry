@@ -134,6 +134,21 @@ public class Vec3 {
     public Vec3 Flipped => -1 * this;
 
     /// <summary>
+    /// Returns an arbitrary vector orthogonal to this one
+    /// </summary>
+    /// <value>orthogonal vector</value>
+    public Vec3 Orthogonal {
+        get {
+            var x = Math.Abs(this.X);
+            var y = Math.Abs(this.Y);
+            var z = Math.Abs(this.Z);
+
+            var other = x < y ? (x < z ? Vec3.I : Vec3.K) : (y < z ? Vec3.J : Vec3.K);
+            return Vec3.Cross(this, other);
+        }
+    }
+
+    /// <summary>
     /// Max component of this vector
     /// </summary>
     public double Max() {

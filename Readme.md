@@ -27,6 +27,7 @@ Geometry in this library is modeled as a collection of triangular faces whose ve
 | Torus | Torus with configurable radii | <img width="128" src="docs/img/PrimitiveTorus.png"/> |
 | Frustum | Pyramidal Frustums | <img width="128" src="docs/img/PrimitiveFrustum.png"/> |
 | Nosecone | Varieties of aerodynamic nosecones | <img width="128" height="256" src="docs/img/PrimitiveNoseconeBiconic.png"/> <img width="128" height="256" src="docs/img/PrimitiveNoseconeParabolic.png"/>|
+| Arrow | Vertically pointing arrow | <img width="256" src="docs/img/PrimitiveArrow.png"/> |
 | TextMesh | String to mesh based on 3d font character set<br>Default font based on Blender3D's [BFont](https://github.com/blender/blender/blob/master/release/datafiles/LICENSE-bfont.ttf.txt). | <img width="256" src="docs/img/PrimitiveTextMesh.png"/> |
 
 ## Transformations for Building Geometries

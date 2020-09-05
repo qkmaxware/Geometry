@@ -369,6 +369,56 @@ public class Quat {
     }
 
     /// <summary>
+    /// Create a quaternion representing a rotation looking in the desired direction
+    /// </summary>
+    /// <param name="direction">look direction</param>
+    /// <returns>rotation</returns>
+    public static Quat LookRotation(Vec3 direction) {
+        return LookRotation(direction, Vec3.K);
+    }
+
+    /// <summary>
+    /// Create a quaternion representing a rotation looking in the desired direction
+    /// </summary>
+    /// <param name="direction">look direction</param>
+    /// <param name="upwards">planar normal direction</param>
+    /// <returns>rotation</returns>
+    public static Quat LookRotation(Vec3 direction, Vec3 upwards) {
+        if (direction == Vec3.Zero)
+            return Quat.Identity;
+        
+        if (upwards != direction) {
+            upwards = upwards.Normalized;
+            var v = direction + upwards * -Vec3.Dot(upwards, direction);
+            var q = Quat.FromToRotation(Vec3.J, v);
+            return Quat.FromToRotation(v, direction) * q;
+        } else {
+            return Quat.FromToRotation(Vec3.J, direction);
+        }
+    }
+
+    /// <summary>
+    /// Create a rotation from one vector to another
+    /// </summary>
+    /// <param name="u">first vector</param>
+    /// <param name="v">second vector</param>
+    /// <returns>rotation from the first to the second</returns>
+    public static Quat FromToRotation(Vec3 u, Vec3 v) {
+        u = u.Normalized;
+        v = v.Normalized;
+        
+        var k_cos_theta =  Vec3.Dot(u,v);
+        var k = Math.Sqrt(u.SqrLength * v.SqrLength);
+
+        if (k_cos_theta / k == -1) {
+            // 180 degree rotation on any orthogonal vector
+            return new Quat(u.Orthogonal.Normalized, 0);
+        } else {
+            return new Quat(Vec3.Cross(u,v), k_cos_theta + k).Normalized;
+        }
+    }
+
+    /// <summary>
     /// Sum of two quaternions
     /// </summary>
     /// <param name="a">first quaternion</param>
