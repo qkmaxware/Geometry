@@ -16,10 +16,16 @@ public class RenderGCodeModifierTest : PrimitiveTest {
         var assembly = Assembly.GetExecutingAssembly();
         var resourceName = $"Geometry.Test.gcode.{filename}";
 
-        using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-        using (StreamReader reader = new StreamReader(stream)){
-            string result = reader.ReadToEnd();
-            return result;
+        using (Stream stream = assembly.GetManifestResourceStream(resourceName)) {
+            if (stream == null) {
+                // Fallback if embedded stream can't find the file
+                return File.ReadAllText(Path.Combine("..", "..", "..", "..", "Geometry.Test", "gcode", filename));
+            } else {
+                using (StreamReader reader = new StreamReader(stream)){
+                    string result = reader.ReadToEnd();
+                    return result;
+                }
+            }
         }
     }
 
