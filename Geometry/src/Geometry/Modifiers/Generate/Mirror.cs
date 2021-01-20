@@ -5,19 +5,19 @@ namespace Qkmaxware.Geometry.Modifiers {
 /// <summary>
 /// Mirror modifier to mirror an object over an axis
 /// </summary>
-public class Mirror : BaseModifier {
+public class Mirror : GeneratorModifier<IMesh> {
 
     /// <summary>
     /// Axis to mirror over
     /// </summary>
-    public Vec3 MirrorAxis {get; private set;}
+    public Vec3 MirrorAxis {get; set;}
 
     /// <summary>
     /// Create a mirror modifier
     /// </summary>
     /// <param name="axis">axis to mirror over</param>
     /// <param name="mesh">mesh to mirror</param>
-    public Mirror (Vec3 axis, IEnumerable<Triangle> mesh) : base(mesh) {
+    public Mirror (Vec3 axis, IMesh mesh) : base(mesh) {
         this.MirrorAxis = axis;
     }
 
@@ -28,11 +28,11 @@ public class Mirror : BaseModifier {
     
     public override IEnumerator<Triangle> GetEnumerator() {
         // Print original
-        foreach (var tri in this.OriginalMesh) {
+        foreach (var tri in this.Original) {
             yield return tri;
         }
         // Print mirrored
-        foreach (var tri in this.OriginalMesh) {
+        foreach (var tri in this.Original) {
             var v1 = Reflection(tri.Item1);
             var v2 = Reflection(tri.Item2);
             var v3 = Reflection(tri.Item3);

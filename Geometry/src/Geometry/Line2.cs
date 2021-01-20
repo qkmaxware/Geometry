@@ -10,6 +10,15 @@ public class Line2 : Tuple<Vec2, Vec2>, IEquatable<Line2>, IInterpolatedPath2 {
     public Line2(Vec2 a, Vec2 b) : base(a,b) {}
  
     /// <summary>
+    /// Starting position
+    /// </summary>
+    public Vec2 Start => Item1;
+    /// <summary>
+    /// Ending postion
+    /// </summary>
+    public Vec2 End => Item2;
+
+    /// <summary>
     /// Edge from start to end
     /// </summary>
     /// <value>vector</value>
@@ -50,9 +59,9 @@ public class Line2 : Tuple<Vec2, Vec2>, IEquatable<Line2>, IInterpolatedPath2 {
     }
 
     /// <summary>
-    /// Position on the curve at the given distance
+    /// Position on the curve at the given interpolation point
     /// </summary>
-    public Vec2 this[double distance] => Item1 + distance * Edge12.Normalized;
+    public Vec2 this[double t] => (1 - t) * Item1 + t * Item2;
 
     /// <summary>
     /// Compare two line segments

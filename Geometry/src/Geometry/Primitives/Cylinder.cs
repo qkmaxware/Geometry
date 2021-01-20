@@ -6,7 +6,7 @@ namespace Qkmaxware.Geometry.Primitives {
 /// <summary>
 /// Cylinder mesh
 /// </summary>
-public class Cylinder : Mesh {
+public class Cylinder : ListMesh {
     private static List<Triangle> Generate(double upperRadius, double lowerRadius, double h, Vec3 centre, int resolution) {
         List<Triangle> triangles = new List<Triangle>();
         double step = 2 * Math.PI / resolution;

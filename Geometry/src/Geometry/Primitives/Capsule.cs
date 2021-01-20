@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Qkmaxware.Geometry.Primitives {
 
-public class Capsule : Mesh {
+public class Capsule : ListMesh {
 
     private static Vec3 ToCartesian(double zrot, double inc, double r) {
         double sTheta = Math.Sin(inc);

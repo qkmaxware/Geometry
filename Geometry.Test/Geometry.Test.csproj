@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Geometry\Geometry.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Include="gcode\*.gcode"/>
+  </ItemGroup>
+
 </Project>

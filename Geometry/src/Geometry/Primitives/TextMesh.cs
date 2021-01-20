@@ -9,7 +9,7 @@ namespace Qkmaxware.Geometry.Primitives {
 /// <summary>
 /// 3-dimensional font
 /// </summary>
-public class Font3 : Dictionary<char, Mesh> {
+public class Font3 : Dictionary<char, IMesh> {
 
     /// <summary>
     /// Width of a character
@@ -37,7 +37,7 @@ public class Font3 : Dictionary<char, Mesh> {
 
         var assembly = typeof(Font3).Assembly;
         var defaultFontFolder = assembly.GetName().Name + ".Fonts.Bfont.";
-        Dictionary<char, Mesh> defaultFontCharSet = new Dictionary<char, Mesh>();
+        Dictionary<char, IMesh> defaultFontCharSet = new Dictionary<char, IMesh>();
         StlSerializer serializer = new StlSerializer();
 
         foreach (var resource in assembly.GetManifestResourceNames().Where(name => name.StartsWith(defaultFontFolder) && name.EndsWith(".stl"))) {
@@ -70,7 +70,7 @@ public class Font3 : Dictionary<char, Mesh> {
     /// <param name="lineHeight">character height</param>
     /// <param name="characterSet">character set</param>
     /// <returns>font</returns>
-    public Font3 (double charWidth, double lineHeight, Dictionary<char, Mesh> characterSet) : base(characterSet) {
+    public Font3 (double charWidth, double lineHeight, Dictionary<char, IMesh> characterSet) : base(characterSet) {
         this.CharWidth = charWidth;
         this.LineHeight = lineHeight;
         this.Size = 1;
@@ -81,7 +81,7 @@ public class Font3 : Dictionary<char, Mesh> {
     /// </summary>
     /// <param name="c">character to check</param>
     /// <returns>Mesh if character exists, null otherwise</returns>
-    public Mesh? MeshForChar(char c) {
+    public IMesh? MeshForChar(char c) {
         if (this.ContainsKey(c)) {
             return this[c];
         } else {
@@ -117,7 +117,7 @@ public class Font3 : Dictionary<char, Mesh> {
     public Font3 DeriveFont(double size) {
         var ratio = size / this.Size;
         var transformation = Transformation.Scale(ratio * Vec3.One);
-        Dictionary<char, Mesh> newSet = new Dictionary<char, Mesh>();
+        Dictionary<char, IMesh> newSet = new Dictionary<char, IMesh>();
         foreach (var map in this) {
             newSet.Add(map.Key, transformation * map.Value);
         }
@@ -131,7 +131,7 @@ public class Font3 : Dictionary<char, Mesh> {
 /// <summary>
 /// Mesh representing a string of text
 /// </summary>
-public class TextMesh : Mesh {
+public class TextMesh : ListMesh {
 
     /// <summary>
     /// Textual value of this mesh
@@ -182,7 +182,7 @@ public class TextMesh : Mesh {
                 var mesh = font.MeshForChar(c);
                 if (mesh != null) {
                     var offset = new Vec3(cursorLeft, -cursorTop, 0);
-                    var positionedMesh = mesh.Transform(Transformation.Offset(offset));
+                    var positionedMesh = Transformation.Offset(offset) * mesh;
                     this.AppendRange(positionedMesh);
                     cursorLeft += font.CharWidth; // Move cursor
                 }

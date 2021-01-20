@@ -38,6 +38,54 @@ public class Box3 {
     }
 
     /// <summary>
+    /// Create a new box bounding a mesh's geometry
+    /// </summary>
+    /// <param name="mesh">mesh to encapsulate</param>
+    public Box3 (IMesh mesh) {
+        var first = true;
+        var globalMaxX = 0.0;
+        var globalMaxY = 0.0;
+        var globalMaxZ = 0.0;
+        var globalMinX = 0.0;
+        var globalMinY = 0.0;
+        var globalMinZ = 0.0;
+
+        foreach (var tri in mesh) {
+            // Local max and min
+            var maxx = Math.Max(tri.Item1.X, Math.Max(tri.Item2.X, tri.Item3.X));
+            var maxy = Math.Max(tri.Item1.Y, Math.Max(tri.Item2.Y, tri.Item3.Y));
+            var maxz = Math.Max(tri.Item1.Z, Math.Max(tri.Item2.Z, tri.Item3.Z));
+
+            var minx = Math.Min(tri.Item1.X, Math.Min(tri.Item2.X, tri.Item3.X));
+            var miny = Math.Min(tri.Item1.Y, Math.Min(tri.Item2.Y, tri.Item3.Y));
+            var minz = Math.Min(tri.Item1.Z, Math.Min(tri.Item2.Z, tri.Item3.Z));
+
+            // Global max and min
+            if (first) {
+                globalMaxX = maxx;
+                globalMaxY = maxy;
+                globalMaxZ = maxz;
+
+                globalMinX = minx;
+                globalMinY = miny;
+                globalMinZ = minz;
+                first = false;
+            } else {
+                globalMaxX = Math.Max(globalMaxX, maxx);
+                globalMaxY = Math.Max(globalMaxY, maxy);
+                globalMaxZ = Math.Max(globalMaxZ, maxz);
+
+                globalMinX = Math.Min(globalMinX, minx);
+                globalMinY = Math.Min(globalMinY, miny);
+                globalMinZ = Math.Min(globalMinZ, minz);
+            }
+        }
+
+        this.Max = new Vec3(globalMaxX, globalMaxY, globalMaxZ);
+        this.Min = new Vec3(globalMinX, globalMinY, globalMinZ);
+    }
+
+    /// <summary>
     /// Create a new bounding box that contains both of the source boxes
     /// </summary>
     /// <param name="a">first bounding box</param>

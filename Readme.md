@@ -45,6 +45,7 @@ The core library supports importing and exporting geometry from several differen
 | Stereolithography CAD | .stl | &#9745; | &#9745; | &#9745; | &#9745; |
 | Wavefront Object | .obj | &#9744; | &#9745; | &#9744; | &#9745; |
 | Extensible 3D Graphics | .x3d | &#9744; | &#9744; | &#9744; | &#9745; |
+| 3D Printer GCode | .gcode | &#9744; | &#9745; | &#9744; | &#9744; |
 
 ## Made With
 - [.Net Standard](https://docs.microsoft.com/en-us/dotnet/standard/net-standard)

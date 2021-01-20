@@ -5,7 +5,7 @@ namespace Qkmaxware.Geometry.Primitives {
 /// <summary>
 /// Conic frustum mesh
 /// </summary>
-public class Frustum : Mesh {
+public class Frustum : ListMesh {
 
     /// <summary>
     /// Create a frustum

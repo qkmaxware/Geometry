@@ -5,7 +5,7 @@ namespace Qkmaxware.Geometry.Primitives {
 /// <summary>
 /// Cubic mesh
 /// </summary>
-public class Cube : Mesh {
+public class Cube : ListMesh {
     private static Vec3[] cubeCoordinates = new Vec3[]{
         new Vec3(-0.5,-0.5,0.5),
         new Vec3(-0.5,0.5,0.5),

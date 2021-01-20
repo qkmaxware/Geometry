@@ -6,7 +6,7 @@ namespace Qkmaxware.Geometry.Primitives {
 /// <summary>
 /// Spherical mesh
 /// </summary>
-public class Sphere : Mesh {
+public class Sphere : ListMesh {
 
     private static Vec3 ToCartesian(double zrot, double inc, double r) {
         double sTheta = Math.Sin(inc);

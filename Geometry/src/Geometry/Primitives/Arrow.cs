@@ -7,7 +7,7 @@ namespace Qkmaxware.Geometry.Primitives {
 /// <summary>
 /// Arrow pointing in the +Z axis
 /// </summary>
-public class Arrow : Mesh {
+public class Arrow : ListMesh {
     /// <summary>
     /// Create a new arrow with the given length
     /// </summary>

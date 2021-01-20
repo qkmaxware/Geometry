@@ -8,11 +8,11 @@ namespace Qkmaxware.Geometry {
 /// <summary>
 /// Represents a grouping of meshes that can be transformed without modifying the mesh data and can be stacked
 /// </summary>
-public class MeshGroup : IEnumerable<Triangle> {
+public class MeshGroup : IMesh {
     /// <summary>
     /// List of contained meshes
     /// </summary>
-    private List<IEnumerable<Triangle>> meshes = new List<IEnumerable<Triangle>>();
+    private List<IMesh> meshes = new List<IMesh>();
     /// <summary>
     /// The transformation to apply to the underlying mesh data
     /// </summary>
@@ -34,14 +34,14 @@ public class MeshGroup : IEnumerable<Triangle> {
     /// <param name="other">group to copy</param>
     public MeshGroup (MeshGroup other) {
         this.Transformation = other.Transformation;
-        this.meshes = new List<IEnumerable<Triangle>>(this.meshes);
+        this.meshes = new List<IMesh>(this.meshes);
     }
 
     /// <summary>
     /// Add a mesh to the group
     /// </summary>
     /// <param name="mesh">mesh to add</param>
-    public void Add(IEnumerable<Triangle> mesh) {
+    public void Add(IMesh mesh) {
         this.meshes.Add(mesh);
     }
 
@@ -49,7 +49,7 @@ public class MeshGroup : IEnumerable<Triangle> {
     /// Remove a mesh from the group
     /// </summary>
     /// <param name="mesh">mesh to remove</param>
-    public void Remove(IEnumerable<Triangle> mesh) {
+    public void Remove(IMesh mesh) {
         this.meshes.Remove(mesh);
     }
 
@@ -65,7 +65,7 @@ public class MeshGroup : IEnumerable<Triangle> {
     /// </summary>
     /// <param name="mesh">mesh to test</param>
     /// <returns>true if the group contains the mesh</returns>
-    public bool Contains(IEnumerable<Triangle> mesh) {
+    public bool Contains(IMesh mesh) {
         return this.meshes.Contains(mesh);
     }
 
@@ -104,8 +104,8 @@ public class MeshGroup : IEnumerable<Triangle> {
     /// Create a new mesh from this group applying the tranformation to the resultant triangles
     /// </summary>
     /// <param name="group">group to convert</param>
-    public static explicit operator Mesh (MeshGroup group) {
-        return new Mesh((IEnumerable<Triangle>)group);
+    public static explicit operator ListMesh (MeshGroup group) {
+        return new ListMesh((IMesh)group);
     }
 }
 

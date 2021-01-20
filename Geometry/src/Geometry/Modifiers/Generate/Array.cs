@@ -5,7 +5,7 @@ namespace Qkmaxware.Geometry.Modifiers {
 /// <summary>
 /// Array modifier to repeat an object several times
 /// </summary>
-public class Array : BaseModifier {
+public class Array : GeneratorModifier<IMesh> {
 
     /// <summary>
     /// Number of times to repeat
@@ -23,7 +23,7 @@ public class Array : BaseModifier {
     /// </summary>
     /// <param name="mesh">original mesh</param>
     /// <param name="count">number of repetitions</param>
-    public Array (IEnumerable<Triangle> mesh, int count) : base (mesh) {
+    public Array (IMesh mesh, int count) : base (mesh) {
         this.Count = count;
         this.Offset = new Vec3(1, 0, 0);
     }
@@ -34,7 +34,7 @@ public class Array : BaseModifier {
     /// <param name="mesh">original mesh</param>
     /// <param name="count">number of repetitions</param>
     /// <param name="offset">offset</param>
-    public Array (IEnumerable<Triangle> mesh, int count, Vec3 offset) : base (mesh){
+    public Array (IMesh mesh, int count, Vec3 offset) : base (mesh){
         this.Count = count;
         this.Offset = offset;
     }
@@ -42,7 +42,7 @@ public class Array : BaseModifier {
     public override IEnumerator<Triangle> GetEnumerator() {
         for (var i = 0; i < this.Count; i++) {
             var matrix = Transformation.Offset(Offset * i);
-            foreach  (var tri in this.OriginalMesh) {
+            foreach  (var tri in this.Original) {
                 yield return tri.Transform(matrix);
             }
         }

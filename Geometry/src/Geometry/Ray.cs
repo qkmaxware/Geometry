@@ -131,7 +131,7 @@ public class Ray {
     /// </summary>
     /// <param name="solid">solid to intersect</param>
     /// <returns>true if the ray collides</returns>
-    public bool Cast(Mesh solid) {
+    public bool Cast(IMesh solid) {
         Vec3 hit;
         return Cast(solid, out hit);
     }
@@ -142,7 +142,7 @@ public class Ray {
     /// <param name="solid">solid to intersect</param>
     /// <param name="hit">the first collision point</param>
     /// <returns>true if the ray collides</returns>
-    public bool Cast(Mesh solid, out Vec3 hit) {
+    public bool Cast(IMesh solid, out Vec3 hit) {
         hit = Vec3.Zero;
         foreach(Triangle tri in solid) {
             if(Cast(tri, out hit)) {
@@ -157,7 +157,7 @@ public class Ray {
     /// </summary>
     /// <param name="solid">the collection of triangles to check</param>
     /// <returns>true if there were any collisions</returns>
-    public List<Vec3> CastAll(IEnumerable<Triangle> solid) {
+    public List<Vec3> CastAll(IMesh solid) {
         HashSet<Vec3> found = new HashSet<Vec3>();
         Vec3 hit;
         foreach(Triangle tri in solid) {

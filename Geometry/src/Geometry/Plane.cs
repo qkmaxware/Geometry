@@ -78,7 +78,8 @@ namespace Qkmaxware.Geometry {
         /// <param name="b">vector</param>
         /// <param name="c">vector</param>
         public Plane(Vec3 a, Vec3 b, Vec3 c) {
-            this.Normal = Vec3.Cross(c - a, b - a).Normalized;
+            var axis = Vec3.Cross(c - a, b - a);
+            this.Normal = axis.Normalized;
             this.Distance = Vec3.Dot(Normal, a);
         }
 

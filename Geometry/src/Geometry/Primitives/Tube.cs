@@ -6,7 +6,7 @@ namespace Qkmaxware.Geometry.Primitives {
 /// <summary>
 /// Tube mesh
 /// </summary>
-public class Tube : Mesh {
+public class Tube : ListMesh {
     private static List<Triangle> Generate(double outerRadius, double innerRadius, double h, Vec3 centre, int resolution) {
         List<Triangle> triangles = new List<Triangle>();
         double step = 2 * Math.PI / resolution;

@@ -21,7 +21,7 @@ public class X3dSerializer {
     /// </summary>
     /// <param name="writer">stream to write to</param>
     /// <param name="solid">solid to encode</param>
-    public string Serialize(IEnumerable<Triangle> solid) {
+    public string Serialize(IMesh solid) {
         var writer = new StringWriter();
         using (writer) {
             // Create document

@@ -10,6 +10,15 @@ public class Line3 : Tuple<Vec3, Vec3>, IEquatable<Line3>, IInterpolatedPath3 {
     public Line3(Vec3 a, Vec3 b) : base(a,b) {}
  
     /// <summary>
+    /// Starting position
+    /// </summary>
+    public Vec3 Start => Item1;
+    /// <summary>
+    /// Ending postion
+    /// </summary>
+    public Vec3 End => Item2;
+
+    /// <summary>
     /// Edge from start to end
     /// </summary>
     /// <value>vector</value>
@@ -50,9 +59,9 @@ public class Line3 : Tuple<Vec3, Vec3>, IEquatable<Line3>, IInterpolatedPath3 {
     }
 
     /// <summary>
-    /// Position on the curve at the given distance
+    /// Position on the curve at the given interpolation point
     /// </summary>
-    public Vec3 this[double distance] => Item1 + distance * Edge12.Normalized;
+    public Vec3 this[double t] => (1 - t) * Item1 + t * Item2;
 
     /// <summary>
     /// Compare two line segments
@@ -93,6 +102,15 @@ public class Line3 : Tuple<Vec3, Vec3>, IEquatable<Line3>, IInterpolatedPath3 {
 
     public static explicit operator Ray(Line3 v) {
         return new Ray(v.Item1, v.Edge12);
+    }
+
+    /// <summary>
+    /// Tangent vector at the given point
+    /// </summary>
+    /// <param name="t">interpolation parametre</param>
+    /// <returns>tangent vector</returns>
+    public Vec3 Tangent(double t) {
+        return this.Edge12.Normalized;
     }
 
     public override string ToString() {

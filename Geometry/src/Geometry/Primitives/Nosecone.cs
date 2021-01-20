@@ -6,7 +6,7 @@ namespace Qkmaxware.Geometry.Primitives {
 /// <summary>
 /// Primitive geometry for a nosecone shape based on the common shapes found at https://en.wikipedia.org/wiki/Nose_cone_design
 /// </summary>
-public class Nosecone : Mesh {
+public class Nosecone : ListMesh {
     
      /*
             top

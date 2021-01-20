@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Qkmaxware.Geometry;
 
 namespace Qkmaxware.Geometry{
@@ -30,45 +31,6 @@ public class Transformation {
             } else if (row < 3 && col == 3) {
                 position[row] = value;
             } 
-        }
-    }
-
-    /// <summary>
-    /// World X axis of this reference frame
-    /// </summary>
-    public Vec3 X => new Vec3(this[0,0], this[1,0], this[2,0]);
-    /// <summary>
-    /// World Y axis of this reference frame
-    /// </summary>
-    public Vec3 Y => new Vec3(this[0,1], this[1,1], this[2,1]);
-    /// <summary>
-    /// World Z axis of this reference frame
-    /// </summary>
-    public Vec3 Z => new Vec3(this[0,2], this[1,2], this[2,2]);
-    /// <summary>
-    /// World Position of this reference frame
-    /// </summary>
-    public Vec3 Position => new Vec3(this[0,3], this[1,3], this[2,3]);
-    /// <summary>
-    /// World rotation angles about the X,Y,Z axis
-    /// </summary>
-    public Vec3 Rotation {
-        get {
-            var sy = Math.Sqrt(
-                this[0,0] * this[0,0] + this[1,0] * this[1,0]
-            );
-            var singular = sy < Double.Epsilon;
-            double x,y,z;
-            if (!singular) {
-                x = Math.Atan2(this[2,1], this[2,2]);
-                y = Math.Atan2(-this[2,0], sy);
-                z = Math.Atan2(this[1,0], this[0,0]);
-            } else {
-                x = Math.Atan2(-this[1,2], this[1,1]);
-                y = Math.Atan2(-this[2,0], sy);
-                z = 0;
-            }
-            return new Vec3(x,y,z);
         }
     }
 
@@ -377,6 +339,16 @@ public class Transformation {
             Py,
             Pz
         );
+    }
+
+    /// <summary>
+    /// Apply a transformation to a mesh's triangles
+    /// </summary>
+    /// <param name="matrix">transformation matrix</param>
+    /// <param name="mesh">original mesh</param>
+    /// <returns>new transformed mesh</returns>
+    public static IMesh operator * (Transformation matrix, IMesh mesh) {
+        return new ListMesh(mesh.Select(tri => tri.Transform(matrix)));
     }
 
     /// <summary>

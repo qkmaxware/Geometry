@@ -8,7 +8,7 @@ namespace Qkmaxware.Geometry.IO {
 /// <summary>
 /// Class for encoding solid information as a wavefront OBJ file
 /// </summary>
-public static class ObjSerializer {
+public class ObjSerializer {
 
     /// <summary>
     /// MIME type for OBJ files
@@ -56,7 +56,7 @@ public static class ObjSerializer {
     /// </summary>
     /// <param name="solid">solid to encode</param>
     /// <returns>object text</returns>
-    public static string Serialize(IEnumerable<Triangle> solid) {
+    public string Serialize(IMesh solid) {
         var writer = new StringWriter();
         using (writer) {
             writer.WriteLine("# Wavefront Object");
@@ -74,7 +74,7 @@ public static class ObjSerializer {
     /// </summary>
     /// <param name="reader">input text</param>
     /// <returns>solid</returns>
-    public static Mesh Deserialize (TextReader reader) {
+    public ListMesh Deserialize (TextReader reader) {
         List<Triangle> triangles = new List<Triangle>();
         List<Vec3> vectors = new List<Vec3>();
         List<int> faces = new List<int>();
@@ -109,7 +109,7 @@ public static class ObjSerializer {
             ));
         }
 
-        return new Mesh(triangles);
+        return new ListMesh(triangles);
     }
 }
 

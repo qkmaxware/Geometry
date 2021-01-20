@@ -5,7 +5,7 @@ namespace Qkmaxware.Geometry.Primitives {
 /// <summary>
 /// XY plane mesh
 /// </summary>
-public class Plane : Mesh {
+public class Plane : ListMesh {
 
     private static Vec3[] planeCoordinates = new Vec3[]{
         new Vec3(-0.5, -0.5,  0), // Bottom Left

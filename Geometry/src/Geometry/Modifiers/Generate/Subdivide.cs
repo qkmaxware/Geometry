@@ -5,13 +5,13 @@ namespace Qkmaxware.Geometry.Modifiers {
 /// <summary>
 /// Subdivide modifier use loop subdivision to increase geometry resolution
 /// </summary>
-public class Subdivide : BaseModifier {
+public class Subdivide : GeneratorModifier<IMesh> {
 
     /// <summary>
     /// Apply one level of sub-division
     /// </summary>
     /// <param name="original">original geometry</param>
-    public Subdivide(IEnumerable<Triangle> original): base (original) {}
+    public Subdivide(IMesh original): base (original) {}
 
     public override IEnumerator<Triangle> GetEnumerator() {
         /*
@@ -23,7 +23,7 @@ public class Subdivide : BaseModifier {
                  \   /
                   v3
         */
-        foreach (var tri in this.OriginalMesh) {
+        foreach (var tri in this.Original) {
             // Edges
             var v1 = tri.Item1;
             var v2 = tri.Item2;

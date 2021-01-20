@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace Qkmaxware.Testing {
 
 public class PrimitiveTest {
-    public static void SaveGeometry(string name, IEnumerable<Triangle> mesh) {
+    public static void SaveGeometry(string name, IMesh mesh) {
         var exporter = new StlSerializer();
 
         if (!Directory.Exists(".data"))

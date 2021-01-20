@@ -6,7 +6,7 @@ namespace Qkmaxware.Geometry.Primitives {
 /// <summary>
 /// Cone shaped mesh
 /// </summary>
-public class Cone : Mesh {
+public class Cone : ListMesh {
     private static List<Triangle> Generate(double lowerRadius, double h, Vec3 centre, int resolution) {
         List<Triangle> triangles = new List<Triangle>();
         double step = 2 * Math.PI / resolution;

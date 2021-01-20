@@ -6,7 +6,7 @@ namespace Qkmaxware.Geometry.Primitives {
 /// <summary>
 /// Half sphere mesh
 /// </summary>
-public class Hemisphere : Mesh {
+public class Hemisphere : ListMesh {
 
     private static Vec3 ToCartesian(double zrot, double inc, double r) {
         double sTheta = Math.Sin(inc);

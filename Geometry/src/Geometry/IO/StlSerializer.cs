@@ -22,7 +22,7 @@ public class StlSerializer {
     /// Write out an STL ASCII encoded string
     /// </summary>
     /// <param name="solid">solid to encode</param>
-    public string Serialize(IEnumerable<Triangle> solid) {
+    public string Serialize(IMesh solid) {
         return SerializeAscii(solid);
     }
 
@@ -40,7 +40,7 @@ public class StlSerializer {
     /// </summary>
     /// <param name="solid">solid to encode</param>
     /// <param name="writer">binary writer to write to</param>
-    public void SerializeBinary(IEnumerable<Triangle> solid, BinaryWriter writer) {
+    public void SerializeBinary(IMesh solid, BinaryWriter writer) {
         // Binary writer is in little-endian
         // Any 80 character header except solid, blank here
         writer.Write(new byte[80]);
@@ -60,7 +60,7 @@ public class StlSerializer {
         writer.Flush();
     }
 
-    private string SerializeAscii(IEnumerable<Triangle> solid) {
+    private string SerializeAscii(IMesh solid) {
         var writer = new StringWriter();
         using (writer) {
             writer.WriteLine("solid");
@@ -97,7 +97,7 @@ public class StlSerializer {
     /// </summary>
     /// <param name="reader">input binary</param>
     /// <returns>solid</returns>
-    public Mesh Deserialize(BinaryReader reader) {
+    public ListMesh Deserialize(BinaryReader reader) {
         // Read and ignore the header
         byte[] header = new byte[80];
         reader.Read(header, 0, header.Length);
@@ -122,7 +122,7 @@ public class StlSerializer {
             mylist.Add(tri); // For now, ignore normal
         }
 
-        return new Mesh(mylist);
+        return new ListMesh(mylist);
     }
     private static Vec3 ReadBinaryVec(BinaryReader reader) {
         float x = reader.ReadSingle();
@@ -136,7 +136,7 @@ public class StlSerializer {
     /// </summary>
     /// <param name="reader">input text</param>
     /// <returns>solid</returns>
-    public Mesh Deserialize(TextReader reader) {
+    public ListMesh Deserialize(TextReader reader) {
         // String must start with solid
         string firstLine = reader.ReadLine();
         if (!firstLine.StartsWith("solid")) {
@@ -187,7 +187,25 @@ public class StlSerializer {
             }
         }
 
-        return new Mesh(tris);
+        return new ListMesh(tris);
+    }
+
+    /// <summary>
+    /// Deserialize an STL file from disk, can be either ASCII or binary encoded as the type is automatically determined.
+    /// </summary>
+    /// <param name="pathLike">path to the file</param>
+    /// <returns>mesh</returns>
+    public ListMesh DeserializeFromFile (string pathLike) {
+        if (this.IsStlAscii(pathLike)) {
+            using (var reader = new StreamReader(pathLike)) {
+                return this.Deserialize(reader);
+            }
+        } else {
+            using (var stream = new FileStream(pathLike, FileMode.Open))
+            using (var reader = new BinaryReader(stream)) {
+                return this.Deserialize(reader);
+            }
+        }
     }
 
 }

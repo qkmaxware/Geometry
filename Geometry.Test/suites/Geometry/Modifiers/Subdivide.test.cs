@@ -9,7 +9,7 @@ namespace Qkmaxware.Testing {
 public class SubdivideModifierTest : PrimitiveTest {
     [TestMethod]
     public void SubdivideArray() {
-        IEnumerable<Triangle> geom = new Cube(1, Vec3.Zero);
+        IMesh geom = new Cube(1, Vec3.Zero);
         geom = new Geometry.Modifiers.Subdivide(geom);
         SaveGeometry("subdivide.modifier", geom);
     }

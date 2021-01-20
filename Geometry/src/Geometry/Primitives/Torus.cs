@@ -6,7 +6,7 @@ namespace Qkmaxware.Geometry.Primitives {
 /// <summary>
 /// Torus mesh
 /// </summary>
-public class Torus : Mesh {
+public class Torus : ListMesh {
 
     /// <summary>
     /// Torus constructor

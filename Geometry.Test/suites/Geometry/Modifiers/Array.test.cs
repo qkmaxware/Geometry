@@ -9,7 +9,7 @@ namespace Qkmaxware.Testing {
 public class ArrayModifierTest : PrimitiveTest {
     [TestMethod]
     public void TestArray() {
-        IEnumerable<Triangle> geom = new Cube(1, Vec3.Zero);
+        IMesh geom = new Cube(1, Vec3.Zero);
         geom = new Geometry.Modifiers.Array(geom, 4, new Vec3(1.5));
         SaveGeometry("array.modifier", geom);
     }

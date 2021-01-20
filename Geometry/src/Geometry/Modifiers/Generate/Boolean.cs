@@ -14,10 +14,10 @@ public class Union : BaseBooleanModifier {
     /// </summary>
     /// <param name="source1">initial mesh</param>
     /// <param name="source2">merge data</param>
-    public Union(IEnumerable<Triangle> source1, IEnumerable<Triangle> source2) : base(source1, source2) {}
+    public Union(IMesh source1, IMesh source2) : base(source1, source2) {}
 
     public override IEnumerator<Triangle> GetEnumerator() {
-        PartClassification classes = Classify(this.OriginalMesh, this.OriginalMesh2);
+        PartClassification classes = Classify(this.Original, this.OriginalMesh2);
         foreach (var tri in classes.AOutsideB.Concat(classes.BOutsideA)) {
             yield return tri;
         }
@@ -33,10 +33,10 @@ public class Difference : BaseBooleanModifier {
     /// </summary>
     /// <param name="source">initial mesh</param>
     /// <param name="mask">clipping mask</param>
-    public Difference(IEnumerable<Triangle> source, IEnumerable<Triangle> mask) : base(source, mask) {}
+    public Difference(IMesh source, IMesh mask) : base(source, mask) {}
 
     public override IEnumerator<Triangle> GetEnumerator() {
-        PartClassification classes = Classify(this.OriginalMesh, this.OriginalMesh2);
+        PartClassification classes = Classify(this.Original, this.OriginalMesh2);
         foreach (var tri in classes.AOutsideB.Concat(classes.BInsideA)){
             yield return tri;
         }
@@ -53,10 +53,10 @@ public class Intersection : BaseBooleanModifier {
     /// <param name="source">initial mesh</param>
     /// <param name="mask">comparison mesh</param>
     /// <returns>Solid with geometry that is the intersection of the input solids</returns>
-    public Intersection(IEnumerable<Triangle> source, IEnumerable<Triangle> mask) : base(source, mask) {}
+    public Intersection(IMesh source, IMesh mask) : base(source, mask) {}
 
     public override IEnumerator<Triangle> GetEnumerator() {
-        PartClassification classes = Classify(this.OriginalMesh, this.OriginalMesh2);
+        PartClassification classes = Classify(this.Original, this.OriginalMesh2);
         foreach (var tri in classes.BInsideA.Concat(classes.AInsideB)) {
             yield return tri;
         }
@@ -66,13 +66,13 @@ public class Intersection : BaseBooleanModifier {
 /// <summary>
 /// Base class for boolean modifiers
 /// </summary>
-public abstract class BaseBooleanModifier : BaseModifier {
+public abstract class BaseBooleanModifier : GeneratorModifier<IMesh> {
     /// <summary>
     /// Mask or joining mesh
     /// </summary>
-    public IEnumerable<Triangle> OriginalMesh2 {get; set;}
+    public IMesh OriginalMesh2 {get; set;}
 
-    public BaseBooleanModifier(IEnumerable<Triangle> source1, IEnumerable<Triangle> source2) : base(source1) {
+    public BaseBooleanModifier(IMesh source1, IMesh source2) : base(source1) {
         this.OriginalMesh2 = source2;
     }
 
@@ -220,7 +220,7 @@ public abstract class BaseBooleanModifier : BaseModifier {
     }
 
     // Classify parts of a solid as inside or outside another
-    protected static PartClassification Classify(IEnumerable<Triangle> a, IEnumerable<Triangle> b) {
+    protected static PartClassification Classify(IMesh a, IMesh b) {
         // 0. Initialize intersection list
         List<List<Line3>> acuts = new List<List<Line3>>();
         List<List<Line3>> bcuts = new List<List<Line3>>();
