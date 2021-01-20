@@ -132,7 +132,7 @@
 <p>Stereolithography CAD files or STL is a 3d file format common in rapid prototyping, 3d printing, and computer aided design. STL files come in in two forms, an ASCII version as well as a Binary version. Loading and saving of STL files for both binary and ASCII version is supported via the <code>Qkmaxware.Geometry.IO.StlSerializer</code> class. </p>
 <h3 id="ascii-stl">ASCII STL</h3>
 <p>To save an ASCII encoded STL, use the <code>Serialize</code> method of an <code>StlSerializer</code> object to create an ASCII string representing the geometry that can then be saved to a file.</p>
-<pre><code class="cs">using System.IO;
+<pre><code class="language-cs">using System.IO;
 using Qkmaxware.Geometry;
 using Qkmaxware.Geometry.IO;
 
@@ -146,10 +146,9 @@ public class Program {
     }
 }
 </code></pre>
-
 <h3 id="binary-stl">Binary STL</h3>
 <p>To save an binary encoded STL, use the <code>SerializeBinary</code> method of an <code>StlSerializer</code> object to write mesh data to a given <a href="https://docs.microsoft.com/en-us/dotnet/api/system.io.binarywriter">BinaryWriter</a>.</p>
-<pre><code class="cs">using System.IO;
+<pre><code class="language-cs">using System.IO;
 using Qkmaxware.Geometry;
 using Qkmaxware.Geometry.IO;
 
@@ -163,12 +162,11 @@ public class Program {
     }
 }
 </code></pre>
-
 <h2 id="wavefront-obj-files">Wavefront Obj Files</h2>
 <p>Wavefront Obj files are another common file format. Unlike STL and other formats, OBJ files are only available as an ASCII encoded format. Loading and saving of OBJ files is supported via the <code>Qkmaxware.Geometry.IO.ObjSerializer</code> class. </p>
 <h3 id="ascii-obj">ASCII Obj</h3>
 <p>To save an ASCII encoded OBJ, use the <code>Serialize</code> method of an <code>ObjSerializer</code> object to create an ASCII string representing the geometry that can then be saved to a file.</p>
-<pre><code class="cs">using System.IO;
+<pre><code class="language-cs">using System.IO;
 using Qkmaxware.Geometry;
 using Qkmaxware.Geometry.IO;
 
@@ -182,12 +180,11 @@ public class Program {
     }
 }
 </code></pre>
-
 <h2 id="extensible-3d-graphics-x3d-files">Extensible 3D Graphics X3d Files</h2>
 <p>Extensible 3D Graphics files or X3D files is a royalty free xml based format for representing 3D computer graphics. Given that X3D files are an based on the XML format, there only is an ASCII version available for this format. Saving of X3D files is supported via the <code>Qkmaxware.Geometry.IO.X3dSerializer</code> class. </p>
 <h3 id="ascii-x3d">ASCII X3d</h3>
 <p>To save an ASCII encoded X3D, use the <code>Serialize</code> method of an <code>X3dSerializer</code> object to create an ASCII string representing the geometry that can then be saved to a file.</p>
-<pre><code class="cs">using System.IO;
+<pre><code class="language-cs">using System.IO;
 using Qkmaxware.Geometry;
 using Qkmaxware.Geometry.IO;
 

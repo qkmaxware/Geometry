@@ -128,7 +128,7 @@
 <p>Stereolithography CAD files or STL is a 3d file format common in rapid prototyping, 3d printing, and computer aided design. STL files come in in two forms, an ASCII version as well as a Binary version. Loading and saving of STL files for both binary and ASCII version is supported via the <code>Qkmaxware.Geometry.IO.StlSerializer</code> class. </p>
 <h3 id="ascii-stl">ASCII STL</h3>
 <p>To load an ASCII encoded STL, use the <code>Deserialize</code> method of an <code>StlSerializer</code> object with a <a href="https://docs.microsoft.com/en-us/dotnet/api/system.io.textreader">TextReader</a> as the argument.</p>
-<pre><code class="cs">using System.IO;
+<pre><code class="language-cs">using System.IO;
 using Qkmaxware.Geometry.IO;
 
 public class Program {
@@ -141,10 +141,9 @@ public class Program {
     }
 }
 </code></pre>
-
 <h3 id="binary-stl">Binary STL</h3>
 <p>To load a binary encoded STL, use the <code>Deserialize</code> method of an <code>StlSerializer</code> object with a <a href="https://docs.microsoft.com/en-us/dotnet/api/system.io.binaryreader">BinaryReader</a> as the argument.</p>
-<pre><code class="cs">using System.IO;
+<pre><code class="language-cs">using System.IO;
 using Qkmaxware.Geometry.IO;
 
 public class Program {
@@ -158,10 +157,9 @@ public class Program {
     }
 }
 </code></pre>
-
 <h3 id="generic-stl">Generic STL</h3>
 <p>Since STL files can be either ASCII or Binary encoded, loading of an STL file depends on selecting the correct encoding. To aid in loading a generic STL file in which it is not known if the file is ASCII or Binary, the <code>StlSerializer</code> object has a utility method <code>IsStlAscii</code> which can be used to help determine if a given file is in the ASCII format or not.</p>
-<pre><code class="cs">using System.IO;
+<pre><code class="language-cs">using System.IO;
 using Qkmaxware.Geometry.IO;
 
 public class Program {
@@ -169,13 +167,13 @@ public class Program {
         var serializer = new StlSerializer();
         var file = &quot;myfile.stl&quot;
 
-        Mesh mesh = null;
+        IMesh mesh = null;
         if (serializer.IsStlAscii(file)) {
             using (var reader = new StreamReader(file)) {
                 mesh = serializer.Deserialize(reader);
             }
         } else {
-            using (var stream = new FileStream(file, FileMode.Open)
+            using (var stream = new FileStream(file, FileMode.Open))
             using (var reader = new BinaryReader(stream)) {
                 mesh = serializer.Deserialize(reader);
             }
@@ -183,12 +181,12 @@ public class Program {
     }
 }
 </code></pre>
-
+<p>Alternatively the <code>StlSerializer</code> class also has a <code>DeserializeFromFile</code> method which will do the same job as the above code given the path to an STL file on the hard drive. </p>
 <h2 id="wavefront-obj-files">Wavefront Obj Files</h2>
 <p>Wavefront Obj files are another common file format. Unlike STL and other formats, OBJ files are only available as an ASCII encoded format. Loading and saving of OBJ files is supported via the <code>Qkmaxware.Geometry.IO.ObjSerializer</code> class. </p>
 <h3 id="ascii-obj">ASCII Obj</h3>
 <p>To load an ASCII encoded OBJ, use the <code>Deserialize</code> method of an <code>ObjSerializer</code> object with a <a href="https://docs.microsoft.com/en-us/dotnet/api/system.io.textreader">TextReader</a> as the argument.</p>
-<pre><code class="cs">using System.IO;
+<pre><code class="language-cs">using System.IO;
 using Qkmaxware.Geometry.IO;
 
 public class Program {

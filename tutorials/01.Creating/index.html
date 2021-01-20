@@ -140,9 +140,9 @@
             <div class="section">
               
                 <h1 id="creating-geometry">Creating Geometry</h1>
-<p>Qkmaxware.Geometry takes a simple approach to 3D geometry. Geometry is represented as a collection of triangles in which each triangle is defined by 3 vertices in 3D space. The <code>Qkmaxware.Geometry.Mesh</code> class is the base class for most of the operations for 3D geometry.</p>
+<p>Qkmaxware.Geometry takes a simple approach to 3D geometry. Geometry is represented as a collection of triangles in which each triangle is defined by 3 vertices in 3D space. The <code>Qkmaxware.Geometry.ListMesh</code> class is the base class for most of the operations for 3D geometry.</p>
 <h2 id="triangles-upon-triangles">Triangles Upon Triangles</h2>
-<p>Since 3D geometry is just a collection of triangles, creating a mesh can be done by using the <code>Mesh</code> constructor with any <code>IEnumerable&lt;Triangle&gt;</code> collection. Once created, a mesh is immutable. </p>
+<p>Since 3D geometry is just a collection of triangles, creating a mesh can be done by using the <code>ListMesh</code> constructor with any <code>IEnumerable&lt;Triangle&gt;</code> collection. Once created, a mesh is immutable. Alternatively, create any class that inherits from the <code>IMesh</code> interface.</p>
 <pre><code>using System.Collections.Generic;
 using Qkmaxware.Geometry;
 
@@ -152,21 +152,19 @@ public class Program {
 
         // ... add triangles
 
-        var mesh = new Mesh(tris);
+        var mesh = new ListMesh(tris);
     }
 }
 </code></pre>
-
 <h2 id="primitive-generators">Primitive Generators</h2>
 <p>Since creating geometry using lists of triangles can be tedious, several generators are provided to quickly create primitive geometry within the <code>Qkmaxware.Geometry.Primitives</code> namespace. Simply construct an object of the given type to automatically generate the required triangles. </p>
 <h3 id="plane">Plane</h3>
 <p>Planes are 2d flat surfaces composed of two triangles, upper and lower. The geometry created by the <code>Plane</code> generator is positioned in the XY plane with a normal pointed in the positive up (Z) direction.</p>
 <p><strong>Constructors</strong></p>
-<pre><code class="cs">/// &lt;param name=&quot;size&quot;&gt;plane size&lt;/param&gt;
+<pre><code class="language-cs">/// &lt;param name=&quot;size&quot;&gt;plane size&lt;/param&gt;
 /// &lt;param name=&quot;centre&quot;&gt;centre&lt;/param&gt;
 public Plane (double size, Vec3 centre)
 </code></pre>
-
 <div style="text-align: center">
     <img width="128" src="/Geometry/img/PrimitivePlane.png"/>
 </div>
@@ -174,11 +172,10 @@ public Plane (double size, Vec3 centre)
 <h3 id="cube">Cube</h3>
 <p>Cubes are 3d objects composed of 6 sides each side having 2 triangles for a total of 12 triangles.</p>
 <p><strong>Constructors</strong></p>
-<pre><code class="cs">/// &lt;param name=&quot;size&quot;&gt;size of the cube&lt;/param&gt;
+<pre><code class="language-cs">/// &lt;param name=&quot;size&quot;&gt;size of the cube&lt;/param&gt;
 /// &lt;param name=&quot;centre&quot;&gt;centre of the cube&lt;/param&gt;
 public Cube (double size, Vec3 centre)
 </code></pre>
-
 <div style="text-align: center">
     <img width="128" src="/Geometry/img/PrimitiveCube.png"/>
 </div>
@@ -186,7 +183,7 @@ public Cube (double size, Vec3 centre)
 <h3 id="cylinder">Cylinder</h3>
 <p>A cylinder is a 3D solid with circular end caps perpendicular to the axis. The <code>Cylinder</code> generator allows for specifying different sized end caps.</p>
 <p><strong>Constructors</strong></p>
-<pre><code class="cs">/// &lt;summary&gt;
+<pre><code class="language-cs">/// &lt;summary&gt;
 /// Cylinder with different radii for top and bottom caps
 /// &lt;/summary&gt;
 /// &lt;param name=&quot;upperRadius&quot;&gt;top cap radius&lt;/param&gt;
@@ -205,7 +202,6 @@ public Cylinder (double upperRadius, double lowerRadius, double height, Vec3 cen
 /// &lt;param name=&quot;resolution&quot;&gt;subdivision level&lt;/param&gt;
 public Cylinder (double radius, double height, Vec3 centre, int resolution = 8)
 </code></pre>
-
 <div style="text-align: center">
     <img width="128" src="/Geometry/img/PrimitiveCylinder.png"/>
 </div>
@@ -213,7 +209,7 @@ public Cylinder (double radius, double height, Vec3 centre, int resolution = 8)
 <h3 id="tube">Tube</h3>
 <p>Tubes are cylindrical objects which are hollowed out along the vertical axis. The inner and outer radius allow for specifying the thickness of the tube's walls. </p>
 <p><strong>Constructors</strong></p>
-<pre><code class="cs">/// &lt;summary&gt;
+<pre><code class="language-cs">/// &lt;summary&gt;
 /// Cylinder with different radii for top and bottom caps
 /// &lt;/summary&gt;
 /// &lt;param name=&quot;outerRadius&quot;&gt;outer radius&lt;/param&gt;
@@ -223,7 +219,6 @@ public Cylinder (double radius, double height, Vec3 centre, int resolution = 8)
 /// &lt;param name=&quot;resolution&quot;&gt;subdivision level&lt;/param&gt;
 public Tube (double outerRadius, double innerRadius, double height, Vec3 centre, int resolution = 8)
 </code></pre>
-
 <div style="text-align: center">
     <img width="128" src="/Geometry/img/PrimitiveTube.png"/>
 </div>
@@ -231,14 +226,13 @@ public Tube (double outerRadius, double innerRadius, double height, Vec3 centre,
 <h3 id="caps">Caps</h3>
 <p>A capsule or "stadium of revolution" is a 3D geometric shape which is composed of a cylindrical body with two hemispheres for the top and bottom caps.  </p>
 <p><strong>Constructors</strong></p>
-<pre><code class="cs">/// &lt;param name=&quot;radius&quot;&gt;capsule hemisphere radius&lt;/param&gt;
+<pre><code class="language-cs">/// &lt;param name=&quot;radius&quot;&gt;capsule hemisphere radius&lt;/param&gt;
 /// &lt;param name=&quot;height&quot;&gt;capsule total height&lt;/param&gt;
 /// &lt;param name=&quot;centre&quot;&gt;centre of the capsule&lt;/param&gt;
 /// &lt;param name=&quot;horizontalResolution&quot;&gt;longitude subdivision levels&lt;/param&gt;
 /// &lt;param name=&quot;verticalResolution&quot;&gt;latitude subdivision level&lt;/param&gt;
 public Capsule(double radius, double height, Vec3 centre, int horizontalResolution = 8, int verticalResolution = 8)
 </code></pre>
-
 <div style="text-align: center">
     <img width="128" src="/Geometry/img/PrimitiveCapsule.png"/>
 </div>
@@ -246,13 +240,12 @@ public Capsule(double radius, double height, Vec3 centre, int horizontalResoluti
 <h3 id="cone">Cone</h3>
 <p>A cone is a 3D shape that tapers from a smooth flat shape to an apex point.</p>
 <p><strong>Constructors</strong></p>
-<pre><code class="cs">/// &lt;param name=&quot;radius&quot;&gt;radius&lt;/param&gt;
+<pre><code class="language-cs">/// &lt;param name=&quot;radius&quot;&gt;radius&lt;/param&gt;
 /// &lt;param name=&quot;height&quot;&gt;height&lt;/param&gt;
 /// &lt;param name=&quot;centre&quot;&gt;centre of the cone&lt;/param&gt;
 /// &lt;param name=&quot;resolution&quot;&gt;subdivision level&lt;/param&gt;
 public Cone (double radius, double height, Vec3 centre, int resolution = 8)
 </code></pre>
-
 <div style="text-align: center">
     <img width="128" src="/Geometry/img/PrimitiveCone.png"/>
 </div>
@@ -260,13 +253,12 @@ public Cone (double radius, double height, Vec3 centre, int resolution = 8)
 <h3 id="sphere">Sphere</h3>
 <p>The <code>Sphere</code> generator can create spheres of different radius, given that geometry is represented by flat triangles, a sphere cannot be accurately represented. Instead, spheres are approximated using subdivision resolutions. </p>
 <p><strong>Constructors</strong></p>
-<pre><code class="cs">/// &lt;param name=&quot;radius&quot;&gt;radius&lt;/param&gt;
+<pre><code class="language-cs">/// &lt;param name=&quot;radius&quot;&gt;radius&lt;/param&gt;
 /// &lt;param name=&quot;centre&quot;&gt;centre point&lt;/param&gt;
 /// &lt;param name=&quot;horizontalResolution&quot;&gt;longitude subdivision levels&lt;/param&gt;
 /// &lt;param name=&quot;verticalResolution&quot;&gt;latitude subdivision level&lt;/param&gt;
 public Sphere(double radius, Vec3 centre, int horizontalResolution = 8, int verticalResolution = 8)
 </code></pre>
-
 <div style="text-align: center">
     <img width="128" src="/Geometry/img/PrimitiveSphere.png"/>
 </div>
@@ -274,13 +266,12 @@ public Sphere(double radius, Vec3 centre, int horizontalResolution = 8, int vert
 <h3 id="hemisphere">Hemisphere</h3>
 <p>Hemispheres are generated as the top half of a sphere plus a flat bottom face. </p>
 <p><strong>Constructors</strong></p>
-<pre><code class="cs">/// &lt;param name=&quot;radius&quot;&gt;radius&lt;/param&gt;
+<pre><code class="language-cs">/// &lt;param name=&quot;radius&quot;&gt;radius&lt;/param&gt;
 /// &lt;param name=&quot;centre&quot;&gt;centre point&lt;/param&gt;
 /// &lt;param name=&quot;horizontalResolution&quot;&gt;longitude subdivision levels&lt;/param&gt;
 /// &lt;param name=&quot;verticalResolution&quot;&gt;latitude subdivision level&lt;/param&gt;
 public Hemisphere(double radius, Vec3 centre, int horizontalResolution = 8, int verticalResolution = 8)
 </code></pre>
-
 <div style="text-align: center">
     <img width="128" src="/Geometry/img/PrimitiveHemisphere.png"/>
 </div>
@@ -288,14 +279,13 @@ public Hemisphere(double radius, Vec3 centre, int horizontalResolution = 8, int 
 <h3 id="torus">Torus</h3>
 <p>A torus is a surface of revolution generated by revolving a circle in 3D space. This shape is similar to inner tubes. Similar to the issues with spheres, a torus cannot be completely represented with triangular geometry and instead is approximated using the resolution and segments parametres. </p>
 <p><strong>Constructors</strong></p>
-<pre><code class="cs">/// &lt;param name=&quot;majorRadius&quot;&gt;radius of the torus&lt;/param&gt;
+<pre><code class="language-cs">/// &lt;param name=&quot;majorRadius&quot;&gt;radius of the torus&lt;/param&gt;
 /// &lt;param name=&quot;minorRadius&quot;&gt;radius of the ring&lt;/param&gt;
 /// &lt;param name=&quot;centre&quot;&gt;centre of the torus&lt;/param&gt;
 /// &lt;param name=&quot;resolution&quot;&gt;quality of the rings&lt;/param&gt;
 /// &lt;param name=&quot;segments&quot;&gt;number of subdivisions on the ring&lt;/param&gt;
 public Torus (double majorRadius, double minorRadius, Vec3 centre, int resolution = 8, int segments = 8)
 </code></pre>
-
 <div style="text-align: center">
     <img width="128" src="/Geometry/img/PrimitiveTorus.png"/>
 </div>
@@ -303,11 +293,10 @@ public Torus (double majorRadius, double minorRadius, Vec3 centre, int resolutio
 <h3 id="frustum">Frustum</h3>
 <p>The <code>Frustum</code> generator creates right-frustum shapes which are parallel truncation cuts of a polygonal pyramid shape. </p>
 <p><strong>Constructors</strong></p>
-<pre><code class="cs">/// &lt;param name=&quot;size&quot;&gt;size of the cube&lt;/param&gt;
+<pre><code class="language-cs">/// &lt;param name=&quot;size&quot;&gt;size of the cube&lt;/param&gt;
 /// &lt;param name=&quot;centre&quot;&gt;centre of the cube&lt;/param&gt;
 public Frustum (double radius, double height, double ratio, Vec3 centre, int resolution = 4)
 </code></pre>
-
 <div style="text-align: center">
     <img width="128" src="/Geometry/img/PrimitiveFrustum.png"/>
 </div>
@@ -315,7 +304,7 @@ public Frustum (double radius, double height, double ratio, Vec3 centre, int res
 <h3 id="nosecone">Nosecone</h3>
 <p>Aerodynamic nosecones represent a wide variety of shapes and the Nosecone generator can create several of the common nosecone shapes. </p>
 <p><strong>Constructors</strong></p>
-<pre><code class="cs">/// &lt;param name=&quot;radius&quot;&gt;radius of the cone&lt;/param&gt;
+<pre><code class="language-cs">/// &lt;param name=&quot;radius&quot;&gt;radius of the cone&lt;/param&gt;
 /// &lt;param name=&quot;height&quot;&gt;height of the cone&lt;/param&gt;
 /// &lt;param name=&quot;resolution&quot;&gt;higher number is more circular&lt;/param&gt;
 /// &lt;returns&gt;conic nosecone&lt;/returns&gt;
@@ -375,7 +364,6 @@ public static Nosecone Powerseries (double n, double radius, double height, int 
 /// &lt;returns&gt;Haack Series Nosecone&lt;/returns&gt;
 public static Nosecone Haack (double C, double radius, double height, int resolution = 8, int segments = 8);
 </code></pre>
-
 <div style="text-align: center">
     <img width="128" height="256" src="/Geometry/img/PrimitiveNoseconeBiconic.png"/>
     <img width="128" height="256" src="/Geometry/img/PrimitiveNoseconeParabolic.png"/>
@@ -385,12 +373,11 @@ public static Nosecone Haack (double C, double radius, double height, int resolu
 <h3 id="arrow">Arrow</h3>
 <p>Arrows are pointers looking in the +Z direction.</p>
 <p><strong>Constructors</strong></p>
-<pre><code class="cs">/// &lt;param name=&quot;length&quot;&gt;length of the arrow&lt;/param&gt;
+<pre><code class="language-cs">/// &lt;param name=&quot;length&quot;&gt;length of the arrow&lt;/param&gt;
 /// &lt;param name=&quot;radius&quot;&gt;radius of the arrow head&lt;/param&gt;
 /// &lt;param name=&quot;resolution&quot;&gt;subdivision level&lt;/param&gt;
 public Arrow(double length = 1, double radius = 0.08, int resolution = 8)
 </code></pre>
-
 <div style="text-align: center">
     <img width="128" height="256" src="/Geometry/img/PrimitiveArrow.png"/>
 </div>
@@ -398,14 +385,13 @@ public Arrow(double length = 1, double radius = 0.08, int resolution = 8)
 <h3 id="textmesh">TextMesh</h3>
 <p>TextMesh creates meshes from string data by converting each letter to a 3G geometry. Custom fonts are used to map each character to their appropriate geometry. </p>
 <p><strong>Constructors</strong></p>
-<pre><code class="cs">/// &lt;param name=&quot;text&quot;&gt;text&lt;/param&gt;
+<pre><code class="language-cs">/// &lt;param name=&quot;text&quot;&gt;text&lt;/param&gt;
 public TextMesh (string text);
 
 /// &lt;param name=&quot;font&quot;&gt;font&lt;/param&gt;
 /// &lt;param name=&quot;text&quot;&gt;text&lt;/param&gt;
 public TextMesh(Font3 font, string text)
 </code></pre>
-
 <div style="text-align: center">
     <img width="128" src="/Geometry/img/PrimitiveTextMesh.png"/>
 </div>
