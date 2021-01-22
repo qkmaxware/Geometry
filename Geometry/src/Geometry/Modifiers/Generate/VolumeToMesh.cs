@@ -5,7 +5,7 @@ namespace Qkmaxware.Geometry.Modifiers {
 /// <summary>
 /// Use the marching cubes algorithm to convert volumetric cloud to a mesh
 /// </summary>
-public class VolumeToMesh : GeneratorModifier<double[,,]> {
+public class VolumeToMesh : PolygonGeneratorModifier<double[,,]> {
     public VolumeToMesh(double[,,] volumetric_data) : base(volumetric_data) {}
 
     public override IEnumerator<Triangle> GetEnumerator() {

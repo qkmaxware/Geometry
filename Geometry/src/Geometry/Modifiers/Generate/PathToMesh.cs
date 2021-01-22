@@ -6,7 +6,7 @@ namespace Qkmaxware.Geometry.Modifiers {
 /// <summary>
 /// PathToMesh modifier creates a tube that follows a path
 /// </summary>
-public class PathToMesh : GeneratorModifier<IInterpolatedPath3> {
+public class PathToMesh : PolygonGeneratorModifier<IInterpolatedPath3> {
     /// <summary>
     /// Radius of the path tube
     /// </summary>

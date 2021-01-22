@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Qkmaxware.Geometry.Primitives {
 
-public class Capsule : ListMesh {
+public class Capsule : ParameterizedMesh {
 
     private static Vec3 ToCartesian(double zrot, double inc, double r) {
         double sTheta = Math.Sin(inc);
@@ -105,6 +105,32 @@ public class Capsule : ListMesh {
         return triangles;
     }
 
+    private double radius;
+    public double Radius {
+        get => radius;
+        set { radius = value; Rebuild(); }
+    }
+    private double height;
+    public double Height {
+        get => radius;
+        set { height = Math.Max(value, 2*radius); Rebuild(); }
+    }
+    private Vec3 centre;
+    public Vec3 Centre {
+        get => centre;
+        set { centre = value; Rebuild(); }
+    }
+    private int horizontalResolution;
+    public int HorizontalResolution {
+        get => horizontalResolution;
+        set { horizontalResolution = value; Rebuild(); }
+    }
+    private int verticalResolution;
+    public int VerticalResolution {
+        get => verticalResolution;
+        set { verticalResolution = value; Rebuild(); }
+    }
+
     /// <summary>
     /// Create a capsule
     /// </summary>
@@ -114,19 +140,29 @@ public class Capsule : ListMesh {
     /// <param name="horizontalResolution">longitude subdivision levels</param>
     /// <param name="verticalResolution">latitude subdivision level</param>
     public Capsule(double radius, double height, Vec3 centre, int horizontalResolution = 8, int verticalResolution = 8) {
-        height = Math.Max(height, 2*radius); // height must be greater than 2*radius or else its a squashed sphere
-        
+        this.radius = radius;
+        this.height = height;
+        this.centre = centre;
+        this.horizontalResolution = horizontalResolution;
+        this.verticalResolution = verticalResolution;
+        Rebuild();
+    }
+
+    protected override IMesh Generate() {
+        List<Triangle> data = new List<Triangle>();
         // Capsule is a cylinder
         var cylinderHeight = height - 2 * radius;
         var cylinder = GenerateCylinder(radius, radius, cylinderHeight, centre, horizontalResolution);
-        this.AppendRange(cylinder);
+        data.AddRange(cylinder);
 
         // Plus 2 spheres
         Vec3 delta = cylinderHeight * 0.5 * Vec3.K;
         var topSphere = GenerateHemisphere(radius, centre + delta, horizontalResolution, verticalResolution);
-        this.AppendRange(topSphere);
-        this.AppendRange(topSphere.Select(tri => new Triangle(tri.Item1.Flipped, tri.Item3.Flipped ,tri.Item2.Flipped)));
-    }
+        data.AddRange(topSphere);
+        data.AddRange(topSphere.Select(tri => new Triangle(tri.Item1.Flipped, tri.Item3.Flipped ,tri.Item2.Flipped)));
+
+        return new ListMesh(data);
+    } 
 
 }
 

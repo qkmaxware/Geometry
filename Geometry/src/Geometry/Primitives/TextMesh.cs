@@ -131,13 +131,28 @@ public class Font3 : Dictionary<char, IMesh> {
 /// <summary>
 /// Mesh representing a string of text
 /// </summary>
-public class TextMesh : ListMesh {
+public class TextMesh : ParameterizedMesh {
+
+    private string text;
+    private Font3 font;
 
     /// <summary>
     /// Textual value of this mesh
     /// </summary>
-    /// <value></value>
-    public string Text {get; private set;}
+    /// <value>text</value>
+    public string Text {
+        get => text;
+        set { text = value; Rebuild(); }
+    }
+
+    /// <summary>
+    /// Font used
+    /// </summary>
+    /// <value>font</value>
+    public Font3 Font {
+        get => font;
+        set { font = value; Rebuild(); }
+    }
 
     /// <summary>
     /// Create a new text mesh with the default font
@@ -151,16 +166,21 @@ public class TextMesh : ListMesh {
     /// <param name="font">font</param>
     /// <param name="text">text</param>
     public TextMesh(Font3 font, string text) {
-        this.Text = text;
-        RegenerateMesh(font);
+        this.text = text;
+        this.font = font;
+        Rebuild();
+    }
+
+    protected override IMesh Generate() {
+        return new ListMesh(RegenerateMesh());
     }
 
     /// <summary>
     /// Rebuild the mesh triangles
     /// </summary>
     /// <param name="font">font to rebuild with</param>
-    private void RegenerateMesh(Font3 font) {
-        this.Clear();
+    private List<Triangle> RegenerateMesh() {
+        var tris = new List<Triangle>();
 
         double cursorLeft = 0;
         double cursorTop = 0;
@@ -183,11 +203,13 @@ public class TextMesh : ListMesh {
                 if (mesh != null) {
                     var offset = new Vec3(cursorLeft, -cursorTop, 0);
                     var positionedMesh = Transformation.Offset(offset) * mesh;
-                    this.AppendRange(positionedMesh);
+                    tris.AddRange(positionedMesh);
                     cursorLeft += font.CharWidth; // Move cursor
                 }
             }
         }
+
+        return tris;
     }
 }
 

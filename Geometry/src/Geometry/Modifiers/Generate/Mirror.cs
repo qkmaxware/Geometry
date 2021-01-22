@@ -5,7 +5,7 @@ namespace Qkmaxware.Geometry.Modifiers {
 /// <summary>
 /// Mirror modifier to mirror an object over an axis
 /// </summary>
-public class Mirror : GeneratorModifier<IMesh> {
+public class Mirror : PolygonGeneratorModifier<IMesh> {
 
     /// <summary>
     /// Axis to mirror over

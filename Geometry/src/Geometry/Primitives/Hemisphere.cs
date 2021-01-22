@@ -6,7 +6,7 @@ namespace Qkmaxware.Geometry.Primitives {
 /// <summary>
 /// Half sphere mesh
 /// </summary>
-public class Hemisphere : ListMesh {
+public class Hemisphere : ParameterizedMesh {
 
     private static Vec3 ToCartesian(double zrot, double inc, double r) {
         double sTheta = Math.Sin(inc);
@@ -15,6 +15,10 @@ public class Hemisphere : ListMesh {
             r * sTheta * Math.Sin(zrot),
             r * Math.Cos(inc)
         );
+    }
+
+    protected override IMesh Generate() {
+        return new ListMesh(Generate(this.radius, this.centre, this.horiResolution, this.vertResolution, this.useEndCap));
     }
 
     private static List<Triangle> Generate(
@@ -89,7 +93,39 @@ public class Hemisphere : ListMesh {
     /// <param name="centre">centre point</param>
     /// <param name="horizontalResolution">longitude subdivision levels</param>
     /// <param name="verticalResolution">latitude subdivision level</param>
-    public Hemisphere(double radius, Vec3 centre, int horizontalResolution = 8, int verticalResolution = 8) : base(Generate(radius, centre, horizontalResolution, verticalResolution)) {}
+    public Hemisphere(double radius, Vec3 centre, int horizontalResolution = 8, int verticalResolution = 8) {
+        this.radius = radius;
+        this.centre = centre;
+        this.horiResolution = horizontalResolution;
+        this.vertResolution = verticalResolution;
+        Rebuild();
+    }
+
+    double radius;
+    public double Radius {
+        get => radius;
+        set { radius = value; Rebuild(); }
+    }
+    Vec3 centre;
+    public Vec3 Centre {
+        get => centre;
+        set { centre = value; Rebuild(); }
+    }
+    int horiResolution;
+    public int HorizontalResolution {
+        get => horiResolution;
+        set { horiResolution = value; Rebuild(); }
+    }
+    int vertResolution;
+    public int VerticalResolution {
+        get => vertResolution;
+        set { vertResolution = value; Rebuild(); }
+    }
+    bool useEndCap = true;
+    public bool UseEndCap {
+        get => useEndCap;
+        set { useEndCap = value; Rebuild(); }
+    }
 }
 
 }

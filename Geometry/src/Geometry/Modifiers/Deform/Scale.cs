@@ -5,7 +5,7 @@ namespace Qkmaxware.Geometry.Modifiers {
 /// <summary>
 /// Scale modifier to scale a geometry
 /// </summary>
-public class Scale : DeformationModifier {
+public class Scale : PolygonDeformationModifier {
     /// <summary>
     /// Scale multiplier
     /// </summary>

@@ -40,12 +40,18 @@ Geometry in this library is modeled as a collection of triangular faces whose ve
 ## Importing and Exporting Geometries
 The core library supports importing and exporting geometry from several different 3d model file formats. All classes related to importing and exporting can be found within the `Qkmaxware.Geometry.IO` namespace.
 
+### Polygonal Geometry
 | Format | Extension | Import Binary | Import Ascii | Export Binary | Export Ascii |
 |--------|-----------|--------|--------|--------|--------|
 | Stereolithography CAD | .stl | &#9745; | &#9745; | &#9745; | &#9745; |
 | Wavefront Object | .obj | &#9744; | &#9745; | &#9744; | &#9745; |
 | Extensible 3D Graphics | .x3d | &#9744; | &#9744; | &#9744; | &#9745; |
-| 3D Printer GCode | .gcode | &#9744; | &#9745; | &#9744; | &#9744; |
+| 3D Printer GCode | .gcode | &#9744; | &#9745; | &#9744; | &#9745; |
+
+### NURBS Geometry
+| Format | Extension | Import | Export |
+|--------|-----------|--------|--------|
+| Step | .stp, .step |  &#9744; |  &#9744; |
 
 ## Made With
 - [.Net Standard](https://docs.microsoft.com/en-us/dotnet/standard/net-standard)

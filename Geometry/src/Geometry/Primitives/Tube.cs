@@ -6,8 +6,8 @@ namespace Qkmaxware.Geometry.Primitives {
 /// <summary>
 /// Tube mesh
 /// </summary>
-public class Tube : ListMesh {
-    private static List<Triangle> Generate(double outerRadius, double innerRadius, double h, Vec3 centre, int resolution) {
+public class Tube : ParameterizedMesh {
+    protected override IMesh Generate() {
         List<Triangle> triangles = new List<Triangle>();
         double step = 2 * Math.PI / resolution;
         double hStep = h / 2;
@@ -63,7 +63,33 @@ public class Tube : ListMesh {
             triangles.Add(new Triangle(be, bi, ibi));
         }
 
-        return triangles;
+        return new ListMesh(triangles);
+    }
+
+    double outerRadius;
+    public double OuterRadius {
+        get => outerRadius;
+        set { outerRadius = value; Rebuild(); }
+    }
+    double innerRadius;
+    public double InnerRadius {
+        get => innerRadius;
+        set { innerRadius = value; Rebuild(); }
+    }
+    double h;
+    public double Height {
+        get => h;
+        set { h = value; Rebuild(); }
+    }
+    Vec3 centre;
+    public Vec3 Centre {
+        get => centre;
+        set { centre = value; Rebuild(); }
+    }
+    int resolution;
+    public int Resolution {
+        get => resolution;
+        set { resolution = value; Rebuild(); }
     }
 
     /// <summary>
@@ -74,7 +100,14 @@ public class Tube : ListMesh {
     /// <param name="height">height</param>
     /// <param name="centre">centre</param>
     /// <param name="resolution">subdivision level</param>
-    public Tube (double outerRadius, double innerRadius, double height, Vec3 centre, int resolution = 8) : base(Generate(outerRadius, innerRadius, height, centre, resolution)) {}
+    public Tube (double outerRadius, double innerRadius, double height, Vec3 centre, int resolution = 8) {
+        this.outerRadius = outerRadius;
+        this.innerRadius = innerRadius;
+        this.h = height;
+        this.centre = centre;
+        this.resolution = resolution;
+        Rebuild();
+    }
 
 
 }

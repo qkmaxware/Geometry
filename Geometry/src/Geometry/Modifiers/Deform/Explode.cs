@@ -5,7 +5,7 @@ namespace Qkmaxware.Geometry.Modifiers {
 /// <summary>
 /// Explode modifier pushes apart triangles
 /// </summary>
-public class Explode : DeformationModifier {
+public class Explode : PolygonDeformationModifier {
 
     /// <summary>
     /// Explosion distance

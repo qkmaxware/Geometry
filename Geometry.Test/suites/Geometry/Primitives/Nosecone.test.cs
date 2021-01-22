@@ -12,7 +12,7 @@ public class NoseconeTest : PrimitiveTest{
     [TestMethod]
     public void TestConic () {
         var exporter = new StlSerializer();
-        var nosecone = Nosecone.Conic(1, 2);
+        var nosecone = new ConicNosecone(1, 2);
         
         SaveGeometry("nosecone.conic", nosecone);
     }
@@ -20,7 +20,7 @@ public class NoseconeTest : PrimitiveTest{
     [TestMethod]
     public void TestBiconic () {
         var exporter = new StlSerializer();
-        var nosecone = Nosecone.BiConic(0.5, 1, 0.7, 2);
+        var nosecone = new BiConicNosecone(0.5, 1, 0.7, 2);
         
         SaveGeometry("nosecone.biconic", nosecone);
     }
@@ -28,7 +28,7 @@ public class NoseconeTest : PrimitiveTest{
     [TestMethod]
     public void TestTangentOgive () {
         var exporter = new StlSerializer();
-        var nosecone = Nosecone.TangentOgive(1, 2);
+        var nosecone = new TangentOgiveNosecone(1, 2);
         
         SaveGeometry("nosecone.tangent", nosecone);
     }
@@ -36,7 +36,7 @@ public class NoseconeTest : PrimitiveTest{
     [TestMethod]
     public void TestSecantOgive () {
         var exporter = new StlSerializer();
-        var nosecone = Nosecone.SecantOgive(2, 0.5, 1);
+        var nosecone = new SecantOgiveNosecone(2, 0.5, 1);
         
         SaveGeometry("nosecone.secant", nosecone);
     }
@@ -44,7 +44,7 @@ public class NoseconeTest : PrimitiveTest{
     [TestMethod]
     public void TestElliptical () {
         var exporter = new StlSerializer();
-        var nosecone = Nosecone.Elliptical(0.5, 2);
+        var nosecone = new EllipticalNosecone(0.5, 2);
         
         SaveGeometry("nosecone.elliptical", nosecone);
     }
@@ -52,7 +52,7 @@ public class NoseconeTest : PrimitiveTest{
     [TestMethod]
     public void TestParabolic () {
         var exporter = new StlSerializer();
-        var nosecone = Nosecone.Parabolic(0.75, 0.5, 2);
+        var nosecone = new ParabolicNosecone(0.75, 0.5, 2);
         
         SaveGeometry("nosecone.parabolic", nosecone);
     }
@@ -60,7 +60,7 @@ public class NoseconeTest : PrimitiveTest{
     [TestMethod]
     public void TestPowerseries () {
         var exporter = new StlSerializer();
-        var nosecone = Nosecone.Powerseries(0.5, 0.5, 2);
+        var nosecone = new PowerseriesNosecone(0.5, 0.5, 2);
         
         SaveGeometry("nosecone.power", nosecone);
     }
@@ -68,7 +68,7 @@ public class NoseconeTest : PrimitiveTest{
     [TestMethod]
     public void TestHaack () {
         var exporter = new StlSerializer();
-        var nosecone = Nosecone.Haack(0.6, 0.5, 2);
+        var nosecone = new HaackNosecone(0.6, 0.5, 2);
         
         SaveGeometry("nosecone.haack", nosecone);
     }

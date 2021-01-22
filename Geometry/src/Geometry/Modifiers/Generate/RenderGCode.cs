@@ -7,7 +7,7 @@ namespace Qkmaxware.Geometry.Modifiers {
 /// <summary>
 /// RenderGCode modifier to convert GCode back into a 3d model
 /// </summary>
-public class RenderGCode : GeneratorModifier<IEnumerable<GCode>> {
+public class RenderGCode : PolygonGeneratorModifier<IEnumerable<GCode>> {
 
     /// <summary>
     /// Radius of the path tube

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 namespace Qkmaxware.Geometry.Modifiers {
 
 
-public class PathDeform : DeformationModifier {
+public class PathDeform : PolygonDeformationModifier {
 
     public Vec3 DeformationAxis {get; set;}    
     public IInterpolatedPath3 Path {get; set;}

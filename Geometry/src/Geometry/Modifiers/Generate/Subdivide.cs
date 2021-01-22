@@ -5,7 +5,7 @@ namespace Qkmaxware.Geometry.Modifiers {
 /// <summary>
 /// Subdivide modifier use loop subdivision to increase geometry resolution
 /// </summary>
-public class Subdivide : GeneratorModifier<IMesh> {
+public class Subdivide : PolygonGeneratorModifier<IMesh> {
 
     /// <summary>
     /// Apply one level of sub-division

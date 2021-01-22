@@ -7,9 +7,9 @@ namespace Qkmaxware.Geometry.Modifiers {
 /// Represents a modifier that creates new geometry
 /// </summary>
 /// <typeparam name="T">type of object to create geometry from</typeparam>
-public abstract class GeneratorModifier<T> : BaseModifier<T>, IMesh {
+public abstract class PolygonGeneratorModifier<T> : BaseModifier<T>, IMesh {
                                           //          From -> To
-    public GeneratorModifier (T value) : base(value) {}
+    public PolygonGeneratorModifier (T value) : base(value) {}
 
     /// <summary>
     /// Get triangles of the modified mesh

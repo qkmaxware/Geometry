@@ -5,7 +5,7 @@ namespace Qkmaxware.Geometry.Modifiers {
 /// <summary>
 /// Array modifier to repeat an object several times
 /// </summary>
-public class Array : GeneratorModifier<IMesh> {
+public class Array : PolygonGeneratorModifier<IMesh> {
 
     /// <summary>
     /// Number of times to repeat

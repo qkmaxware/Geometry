@@ -6,8 +6,8 @@ namespace Qkmaxware.Geometry.Primitives {
 /// <summary>
 /// Cylinder mesh
 /// </summary>
-public class Cylinder : ListMesh {
-    private static List<Triangle> Generate(double upperRadius, double lowerRadius, double h, Vec3 centre, int resolution) {
+public class Cylinder : ParameterizedMesh {
+    protected override IMesh Generate() {
         List<Triangle> triangles = new List<Triangle>();
         double step = 2 * Math.PI / resolution;
         double hStep = h / 2;
@@ -49,8 +49,34 @@ public class Cylinder : ListMesh {
             triangles.Add(new Triangle(be, bi, bottom));
         }
 
-        return triangles;
+        return new ListMesh(triangles);
     }
+
+    double upperRadius; 
+    public double UpperRadius {
+        get => upperRadius;
+        set { upperRadius = value; Rebuild(); }
+    }
+    double lowerRadius; 
+    public double LowerRadius {
+        get => lowerRadius;
+        set { lowerRadius = value; Rebuild(); }
+    }
+    double h; 
+    public double Height {
+        get => h;
+        set { h = value; Rebuild(); }
+    }
+    Vec3 centre;
+    public Vec3 Centre {
+        get => centre;
+        set { centre = value; Rebuild(); }
+    } 
+    int resolution;
+    public int Resolution {
+        get => resolution;
+        set { resolution = value; Rebuild(); }
+    } 
 
     /// <summary>
     /// Cylinder with different radii for top and bottom caps
@@ -60,7 +86,14 @@ public class Cylinder : ListMesh {
     /// <param name="height">height</param>
     /// <param name="centre">centre</param>
     /// <param name="resolution">subdivision level</param>
-    public Cylinder (double upperRadius, double lowerRadius, double height, Vec3 centre, int resolution = 8) : base(Generate(upperRadius, lowerRadius, height, centre, resolution)) {}
+    public Cylinder (double upperRadius, double lowerRadius, double height, Vec3 centre, int resolution = 8) {
+        this.upperRadius = upperRadius;
+        this.lowerRadius = lowerRadius;
+        this.h = height;
+        this.centre = centre;
+        this.resolution = resolution;
+        Rebuild();
+    }
 
     /// <summary>
     /// Cylinder with uniform radius for top and bottom caps
@@ -69,7 +102,14 @@ public class Cylinder : ListMesh {
     /// <param name="height">height</param>
     /// <param name="centre">centre</param>
     /// <param name="resolution">subdivision level</param>
-    public Cylinder (double radius, double height, Vec3 centre, int resolution = 8) : base(Generate(radius, radius, height, centre, resolution)) {}
+    public Cylinder (double radius, double height, Vec3 centre, int resolution = 8) {
+        this.upperRadius = radius;
+        this.lowerRadius = radius;
+        this.h = height;
+        this.centre = centre;
+        this.resolution = resolution;
+        Rebuild();
+    }
 
 }
 

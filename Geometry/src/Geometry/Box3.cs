@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Qkmaxware.Geometry {
 
@@ -41,7 +42,7 @@ public class Box3 {
     /// Create a new box bounding a mesh's geometry
     /// </summary>
     /// <param name="mesh">mesh to encapsulate</param>
-    public Box3 (IMesh mesh) {
+    public Box3 (IEnumerable<Triangle> mesh) {
         var first = true;
         var globalMaxX = 0.0;
         var globalMaxY = 0.0;

@@ -5,7 +5,7 @@ namespace Qkmaxware.Geometry.Primitives {
 /// <summary>
 /// XY plane mesh
 /// </summary>
-public class Plane : ListMesh {
+public class Plane : ParameterizedMesh {
 
     private static Vec3[] planeCoordinates = new Vec3[]{
         new Vec3(-0.5, -0.5,  0), // Bottom Left
@@ -18,6 +18,10 @@ public class Plane : ListMesh {
         0, 1, 2,
         0, 2, 3
     };
+
+    protected override IMesh Generate() {
+        return new ListMesh(Create(size, centre));
+    }
 
     public static List<Triangle> Create(double size, Vec3 centre) {
         List<Triangle> tris = new List<Triangle>();
@@ -38,7 +42,22 @@ public class Plane : ListMesh {
     /// </summary>
     /// <param name="size">plane size</param>
     /// <param name="centre">centre</param>
-    public Plane (double size, Vec3 centre) : base(Create(size, centre)) {}
+    public Plane (double size, Vec3 centre) {
+        this.size = size;
+        this.centre = centre;
+        Rebuild();
+    }
+
+    double size;
+    public double Size {
+        get => size;
+        set { size = value; Rebuild(); }
+    }
+    Vec3 centre;
+    public Vec3 Centre {
+        get => centre;
+        set { centre = value; Rebuild(); }
+    }
 }
 
 }

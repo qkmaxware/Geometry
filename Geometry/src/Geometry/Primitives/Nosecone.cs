@@ -3,128 +3,9 @@ using System.Collections.Generic;
 
 namespace Qkmaxware.Geometry.Primitives {
 
-/// <summary>
-/// Primitive geometry for a nosecone shape based on the common shapes found at https://en.wikipedia.org/wiki/Nose_cone_design
-/// </summary>
-public class Nosecone : ListMesh {
-    
-     /*
-            top
-            / \
-            te-ti
-            | / |
-            be-bi
-            \ /
-            Bottom
-    */
+public abstract class Nosecone : ParameterizedMesh {
 
-    private Nosecone(List<Triangle> tris) : base(tris) {}
-
-    /// <summary>
-    /// Conic nosecone
-    /// </summary>
-    /// <param name="radius">radius of the cone</param>
-    /// <param name="height">height of the cone</param>
-    /// <param name="resolution">higher number is more circular</param>
-    /// <returns>conic nosecone</returns>
-    public static Nosecone Conic (double radius, double height, int resolution = 8) {
-        var topCentre = new Vec3(0, 0, height);
-        var bottomCentre = Vec3.Zero;
-        double xStep = 2 * Math.PI / resolution;
-        List<Triangle> tris = new List<Triangle>();
-
-        for (var i = 1; i <= resolution; i++) {
-            double preAngle = (i - 1) * xStep;
-            double angle = i * xStep;
-
-            var x1 = new Vec3(
-                radius * Math.Cos(preAngle),
-                radius * Math.Sin(preAngle),
-                0
-            );
-            var x2 = new Vec3(
-                radius * Math.Cos(angle),
-                radius * Math.Sin(angle),
-                0
-            );
-
-            tris.Add(new Triangle(x2, x1, bottomCentre));
-            tris.Add(new Triangle(x2, topCentre, x1));
-        }
-
-        return new Nosecone(tris);
-    }
-
-    /// <summary>
-    /// Biconic Nosecone
-    /// </summary>
-    /// <param name="coneRadius">radius of the upper cone</param>
-    /// <param name="coneLength">length of the upper cone</param>
-    /// <param name="frustumRadius">radius of the lower conic frustum</param>
-    /// <param name="frustumLength">length of the lower conic frustum</param>
-    /// <param name="resolution">higher number is more circular</param>
-    /// <returns>biconic nosecone</returns>
-    public static Nosecone BiConic(double coneRadius, double coneLength, double frustumRadius, double frustumLength, int resolution = 8) {
-        var topCentre = new Vec3(0, 0, coneLength + frustumLength);
-        var bottomCentre = Vec3.Zero;
-        double xStep = 2 * Math.PI / resolution;
-        List<Triangle> tris = new List<Triangle>();
-
-        // Top cone
-        for (var i = 1; i <= resolution; i++) {
-            double preAngle = (i - 1) * xStep;
-            double angle = i * xStep;
-
-            var x1 = new Vec3(
-                coneRadius * Math.Cos(preAngle),
-                coneRadius * Math.Sin(preAngle),
-                frustumLength
-            );
-            var x2 = new Vec3(
-                coneRadius * Math.Cos(angle),
-                coneRadius * Math.Sin(angle),
-                frustumLength
-            );
-
-            tris.Add(new Triangle(x1, x2, topCentre));
-        }
-
-        // Bottom conic frustum
-        for (var i = 1; i <= resolution; i++) {
-            double preAngle = (i - 1) * xStep;
-            double angle = i * xStep;
-
-            var t1 = new Vec3(
-                coneRadius * Math.Cos(preAngle),
-                coneRadius * Math.Sin(preAngle),
-                frustumLength
-            );
-            var t2 = new Vec3(
-                coneRadius * Math.Cos(angle),
-                coneRadius * Math.Sin(angle),
-                frustumLength
-            );
-
-            var b1 = new Vec3(
-                frustumRadius * Math.Cos(preAngle),
-                frustumRadius * Math.Sin(preAngle),
-                0
-            );
-            var b2 = new Vec3(
-                frustumRadius * Math.Cos(angle),
-                frustumRadius * Math.Sin(angle),
-                0
-            );
-
-            tris.Add(new Triangle(t1, b2, t2));
-            tris.Add(new Triangle(t1, b1, b2));
-            tris.Add(new Triangle(b1, bottomCentre, b2));
-        }
-
-        return new Nosecone(tris);
-    }
-
-    private static List<Triangle> FuncNosecone(Func<double,double> radiusAtHeightFunc, double radius, double height, int resolution = 8, int segments = 8) {
+    protected static List<Triangle> FuncNosecone(Func<double,double> radiusAtHeightFunc, double radius, double height, int resolution = 8, int segments = 8) {
         var topCentre = new Vec3(0, 0, height);
         var bottomCentre = Vec3.Zero;
         double xStep = 2 * Math.PI / resolution;
@@ -217,6 +98,198 @@ public class Nosecone : ListMesh {
         return tris;
     }
 
+}
+
+public class ConicNosecone : Nosecone {
+
+    double height;
+    public double Height {
+        get => height;
+        set { height = value; Rebuild(); }
+    }
+
+    double radius;
+    public double Radius {
+        get => radius;
+        set { radius = value; Rebuild(); }
+    }
+
+    int resolution;
+    public int Resolution {
+        get => resolution;
+        set { resolution = value; Rebuild(); }
+    }
+
+    /// <summary>
+    /// Conic nosecone
+    /// </summary>
+    /// <param name="radius">radius of the cone</param>
+    /// <param name="height">height of the cone</param>
+    /// <param name="resolution">higher number is more circular</param>
+    /// <returns>conic nosecone</returns>
+    public ConicNosecone (double radius, double height, int resolution = 8) {
+        this.radius = radius;
+        this.height = height;
+        this.resolution = resolution;
+    }
+
+    protected override IMesh Generate() {
+        var topCentre = new Vec3(0, 0, height);
+        var bottomCentre = Vec3.Zero;
+        double xStep = 2 * Math.PI / resolution;
+        List<Triangle> tris = new List<Triangle>();
+
+        for (var i = 1; i <= resolution; i++) {
+            double preAngle = (i - 1) * xStep;
+            double angle = i * xStep;
+
+            var x1 = new Vec3(
+                radius * Math.Cos(preAngle),
+                radius * Math.Sin(preAngle),
+                0
+            );
+            var x2 = new Vec3(
+                radius * Math.Cos(angle),
+                radius * Math.Sin(angle),
+                0
+            );
+
+            tris.Add(new Triangle(x2, x1, bottomCentre));
+            tris.Add(new Triangle(x2, topCentre, x1));
+        }
+
+        return new ListMesh(tris);
+    }
+}
+
+public class BiConicNosecone : Nosecone {
+    double coneRadius;
+    public double ConeRadius {
+        get => coneRadius;
+        set { coneRadius = value; Rebuild(); }
+    }
+    double coneLength;
+    public double ConeLength {
+        get => coneLength;
+        set { coneLength = value; Rebuild(); }
+    }
+    double frustumRadius;
+    public double FrustumRadius {
+        get => frustumRadius;
+        set { frustumRadius = value; Rebuild(); }
+    }
+    double frustumLength;
+    public double FrustumLength {
+        get => frustumLength;
+        set { frustumLength = value; Rebuild(); }
+    }
+    int resolution = 8;
+    public int Resolution {
+        get => resolution;
+        set { resolution = value; Rebuild(); }
+    }
+
+    /// <summary>
+    /// Biconic Nosecone
+    /// </summary>
+    /// <param name="coneRadius">radius of the upper cone</param>
+    /// <param name="coneLength">length of the upper cone</param>
+    /// <param name="frustumRadius">radius of the lower conic frustum</param>
+    /// <param name="frustumLength">length of the lower conic frustum</param>
+    /// <param name="resolution">higher number is more circular</param>
+    /// <returns>biconic nosecone</returns>
+    public BiConicNosecone(double coneRadius, double coneLength, double frustumRadius, double frustumLength, int resolution = 8) {
+        this.coneRadius = coneRadius;
+        this.coneLength = coneLength;
+        this.frustumRadius = frustumRadius;
+        this.frustumLength = frustumLength;
+        this.resolution = resolution;
+    }
+
+    protected override IMesh Generate() {
+        var topCentre = new Vec3(0, 0, coneLength + frustumLength);
+        var bottomCentre = Vec3.Zero;
+        double xStep = 2 * Math.PI / resolution;
+        List<Triangle> tris = new List<Triangle>();
+
+        // Top cone
+        for (var i = 1; i <= resolution; i++) {
+            double preAngle = (i - 1) * xStep;
+            double angle = i * xStep;
+
+            var x1 = new Vec3(
+                coneRadius * Math.Cos(preAngle),
+                coneRadius * Math.Sin(preAngle),
+                frustumLength
+            );
+            var x2 = new Vec3(
+                coneRadius * Math.Cos(angle),
+                coneRadius * Math.Sin(angle),
+                frustumLength
+            );
+
+            tris.Add(new Triangle(x1, x2, topCentre));
+        }
+
+        // Bottom conic frustum
+        for (var i = 1; i <= resolution; i++) {
+            double preAngle = (i - 1) * xStep;
+            double angle = i * xStep;
+
+            var t1 = new Vec3(
+                coneRadius * Math.Cos(preAngle),
+                coneRadius * Math.Sin(preAngle),
+                frustumLength
+            );
+            var t2 = new Vec3(
+                coneRadius * Math.Cos(angle),
+                coneRadius * Math.Sin(angle),
+                frustumLength
+            );
+
+            var b1 = new Vec3(
+                frustumRadius * Math.Cos(preAngle),
+                frustumRadius * Math.Sin(preAngle),
+                0
+            );
+            var b2 = new Vec3(
+                frustumRadius * Math.Cos(angle),
+                frustumRadius * Math.Sin(angle),
+                0
+            );
+
+            tris.Add(new Triangle(t1, b2, t2));
+            tris.Add(new Triangle(t1, b1, b2));
+            tris.Add(new Triangle(b1, bottomCentre, b2));
+        }
+
+        return new ListMesh(tris);
+    }
+}
+
+public class TangentOgiveNosecone : Nosecone {
+
+    double radius; 
+    public double Radius {
+        get => radius;
+        set {radius = value; Rebuild(); }
+    }
+    double height; 
+    public double Height {
+        get => height;
+        set {height = value; Rebuild(); }
+    }
+    int resolution = 8; 
+    public int Resolution {
+        get => resolution;
+        set {resolution = value; Rebuild(); }
+    }
+    int segments = 8;
+    public int Segments {
+        get => segments;
+        set {segments = value; Rebuild(); }
+    }
+
     /// <summary>
     /// Tangent Ogive Nosecone
     /// </summary>
@@ -225,10 +298,17 @@ public class Nosecone : ListMesh {
     /// <param name="resolution">higher number is more circular</param>
     /// <param name="segments">higher number is more smooth</param>
     /// <returns>Tangent Ogive Nosecone</returns>
-    public static Nosecone TangentOgive(double radius, double height, int resolution = 8, int segments = 8) {
+    public TangentOgiveNosecone (double radius, double height, int resolution = 8, int segments = 8) {
+        this.radius = radius;
+        this.height = height;
+        this.resolution = resolution;
+        this.segments = segments;
+    }
+
+    protected override IMesh Generate() {
         var p = (radius * radius + height * height) / (2 * radius);
 
-        return new Nosecone(
+        return new ListMesh(
             FuncNosecone(
                 (h) => {
                     return Math.Sqrt(p*p - (height - h)*(height - h)) + radius - p;
@@ -236,6 +316,35 @@ public class Nosecone : ListMesh {
                 radius, height, resolution, segments
             )
         );
+    }
+}
+
+public class SecantOgiveNosecone : Nosecone {
+
+    double ogiveRadius; 
+    public double OgiveRadius {
+        get => ogiveRadius;
+        set { ogiveRadius = value; Rebuild(); }
+    }
+    double conicRadius; 
+    public double ConicRadius {
+        get => conicRadius;
+        set { conicRadius = value; Rebuild(); }
+    }
+    double height; 
+    public double Height {
+        get => height;
+        set { height = value; Rebuild(); }
+    }
+    int resolution = 8; 
+    public int Resolution {
+        get => resolution;
+        set { resolution = value; Rebuild(); }
+    }
+    int segments = 8;
+    public int Segments {
+        get => segments;
+        set { segments = value; Rebuild(); }
     }
 
     /// <summary>
@@ -247,12 +356,20 @@ public class Nosecone : ListMesh {
     /// <param name="resolution">higher number is more circular</param>
     /// <param name="segments">higher number is more smooth</param>
     /// <returns>Secant Ogive Nosecone</returns>
-    public static Nosecone SecantOgive(double ogiveRadius, double conicRadius, double height, int resolution = 8, int segments = 8) {
+    public SecantOgiveNosecone(double ogiveRadius, double conicRadius, double height, int resolution = 8, int segments = 8) {
+        this.ogiveRadius = ogiveRadius;
+        this.conicRadius = conicRadius;
+        this.height = height;
+        this.resolution = resolution;
+        this.segments = segments;
+    }
+
+    protected override IMesh Generate() {
         var pMin = (conicRadius * conicRadius + height * height) / (2 * conicRadius);
         var p = Math.Max(ogiveRadius, pMin);
         var a = Math.Acos(Math.Sqrt(height*height + conicRadius*conicRadius) / (2 * p)) - Math.Atan(conicRadius / height);
 
-        return new Nosecone(
+        return new ListMesh(
             FuncNosecone(
                 (h) => {
                     var pcx = p * Math.Cos(a) - h;
@@ -261,6 +378,27 @@ public class Nosecone : ListMesh {
                 conicRadius, height, resolution, segments
             )
         );
+    }
+}
+
+public class EllipticalNosecone : Nosecone {
+
+    double radius; double height; int resolution = 8; int segments = 8;
+    public double Radius {
+        get => radius;
+        set { radius = value; Rebuild(); }
+    }
+    public double Height {
+        get => height;
+        set { height = value; Rebuild(); }
+    }
+    public int Resolution {
+        get => resolution;
+        set { resolution = value; Rebuild(); }
+    }
+    public int Segments {
+        get => segments;
+        set { segments = value; Rebuild(); }
     }
 
     /// <summary>
@@ -271,8 +409,15 @@ public class Nosecone : ListMesh {
     /// <param name="resolution">higher number is more circular</param>
     /// <param name="segments">higher number is more smooth</param>
     /// <returns>Elliptical Nosecone</returns>
-    public static Nosecone Elliptical(double radius, double height, int resolution = 8, int segments = 8) {
-        return new Nosecone(
+    public EllipticalNosecone(double radius, double height, int resolution = 8, int segments = 8) {
+        this.radius = radius;
+        this.height = height;
+        this.resolution = resolution;
+        this.segments = segments;
+    }
+
+    protected override IMesh Generate() {
+        return new ListMesh(
             FuncNosecone(
                 (h) => {
                     h = Math.Max(0, Math.Min(h, height)); // clamp h between 0 and height
@@ -289,6 +434,31 @@ public class Nosecone : ListMesh {
             )
         );
     }
+    
+}
+
+public class ParabolicNosecone : Nosecone {
+
+    double K; double radius; double height; int resolution = 8; int segments = 8;
+    public double ParabolicParametre {
+        get => K;
+        set { 
+            K = value > 1 ? 1 : (value < 0 ? 0 : value); // clamp K
+            Rebuild(); 
+        }
+    }
+    public double Radius {
+        get => radius;
+        set { radius = value; Rebuild(); }
+    }
+    public int Resolution {
+        get => resolution;
+        set { resolution = value; Rebuild(); }
+    }
+    public int Segments {
+        get => segments;
+        set { segments = value; Rebuild(); }
+    }
 
     /// <summary>
     /// Parabolic Nosecone
@@ -299,10 +469,16 @@ public class Nosecone : ListMesh {
     /// <param name="resolution">higher number is more circular</param>
     /// <param name="segments">higher number is more smooth</param>
     /// <returns>Parabolic Nosecone</returns>
-    public static Nosecone Parabolic(double K, double radius, double height, int resolution = 8, int segments = 8) {
-        K = K > 1 ? 1 : (K < 0 ? 0 : K); // clamp K
+    public ParabolicNosecone(double K, double radius, double height, int resolution = 8, int segments = 8) {
+        this.ParabolicParametre = K;
+        this.radius = radius;
+        this.height = height;
+        this.resolution = resolution;
+        this.segments = segments;
+    }
 
-        return new Nosecone(
+    protected override IMesh Generate () {
+        return new ListMesh(
             FuncNosecone(
                 (h) => {
                     var denom = 2 - K;
@@ -312,6 +488,34 @@ public class Nosecone : ListMesh {
                 radius, height, resolution, segments
             )
         );
+    }
+}
+
+public class PowerseriesNosecone : Nosecone {
+    double n; double radius; double height; int resolution = 8; int segments = 8;
+
+    public double PowerseriesParametre {
+        get => n;
+        set { 
+            n = value > 1 ? 1 : (value < 0 ? 0 : value); // clamp n
+            Rebuild();
+        }
+    }
+    public double Radius {
+        get => radius;
+        set { radius = value; Rebuild(); }
+    }
+    public double Height {
+        get => height;
+        set { height = value; Rebuild(); }
+    }
+    public int Resolution {
+        get => resolution;
+        set { resolution = value; Rebuild(); }
+    }
+    public int Segments {
+        get => segments;
+        set { segments = value; Rebuild(); }
     }
 
     /// <summary>
@@ -323,10 +527,16 @@ public class Nosecone : ListMesh {
     /// <param name="resolution">higher number is more circular</param>
     /// <param name="segments">higher number is more smooth</param>
     /// <returns>Power Series Nosecone</returns>
-    public static Nosecone Powerseries (double n, double radius, double height, int resolution = 8, int segments = 8) {
-        n = n > 1 ? 1 : (n < 0 ? 0 : n); // clamp n
+    public PowerseriesNosecone (double n, double radius, double height, int resolution = 8, int segments = 8) {
+        this.PowerseriesParametre = n;
+        this.radius = radius;
+        this.height = height;
+        this.resolution = resolution;
+        this.segments = segments;
+    }
 
-        return new Nosecone(
+    protected override IMesh Generate () {
+        return new ListMesh(
             FuncNosecone(
                 (h) => {
                     return radius * Math.Pow(h / height, n);
@@ -334,6 +544,35 @@ public class Nosecone : ListMesh {
                 radius, height, resolution, segments
             )
         );
+    }
+}
+
+public class HaackNosecone : Nosecone {
+
+    double C; double radius; double height; int resolution = 8; int segments = 8;
+
+    public double HaackParametre {
+        get => C;
+        set {
+            C = value > 1 ? 1 : (value < 0 ? 0 : value); 
+            Rebuild();
+        }
+    }
+    public double Radius {
+        get => radius;
+        set { radius = value; Rebuild(); }
+    }
+    public double Height {
+        get => height;
+        set { height = value; Rebuild(); }
+    }
+    public int Resolution {
+        get => resolution;
+        set { resolution = value; Rebuild(); }
+    }
+    public int Segments {
+        get => segments;
+        set { segments = value; Rebuild(); }
     }
 
     /// <summary>
@@ -345,11 +584,18 @@ public class Nosecone : ListMesh {
     /// <param name="resolution">higher number is more circular</param>
     /// <param name="segments">higher number is more smooth</param>
     /// <returns>Haack Series Nosecone</returns>
-    public static Nosecone Haack (double C, double radius, double height, int resolution = 8, int segments = 8) {
-        C = C > 1 ? 1 : (C < 0 ? 0 : C); // clamp C
+    public HaackNosecone (double C, double radius, double height, int resolution = 8, int segments = 8) {
+        this.HaackParametre = C;
+        this.radius = radius;
+        this.height = height;
+        this.resolution = resolution;
+        this.segments = segments;
+    }
+
+    protected override IMesh Generate () {
         var sqrtPi = Math.Sqrt(Math.PI);
 
-        return new Nosecone(
+        return new ListMesh(
             FuncNosecone(
                 (h) => {
                     var theta = Math.Acos(1 - 2 * h / height);

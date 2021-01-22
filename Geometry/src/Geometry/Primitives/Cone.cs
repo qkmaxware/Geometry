@@ -6,8 +6,8 @@ namespace Qkmaxware.Geometry.Primitives {
 /// <summary>
 /// Cone shaped mesh
 /// </summary>
-public class Cone : ListMesh {
-    private static List<Triangle> Generate(double lowerRadius, double h, Vec3 centre, int resolution) {
+public class Cone : ParameterizedMesh {
+    protected override IMesh Generate() {
         List<Triangle> triangles = new List<Triangle>();
         double step = 2 * Math.PI / resolution;
         double hStep = h;
@@ -40,7 +40,28 @@ public class Cone : ListMesh {
             triangles.Add(new Triangle(be, top, bi));
         }
 
-        return triangles;
+        return new ListMesh(triangles);
+    }
+
+    double lowerRadius;
+    public double Radius {
+        get => lowerRadius;
+        set { lowerRadius = value; Rebuild(); }
+    }
+    double h;
+    public double Height {
+        get => h;
+        set { h = value; Rebuild(); }
+    }
+    Vec3 centre;
+    public Vec3 Centre {
+        get => centre;
+        set { centre = value; Rebuild(); }
+    }
+    int resolution;
+    public int Resolution {
+        get => resolution;
+        set { resolution = value; Rebuild(); }
     }
 
     /// <summary>
@@ -50,7 +71,13 @@ public class Cone : ListMesh {
     /// <param name="height">height</param>
     /// <param name="centre">centre of the cone</param>
     /// <param name="resolution">subdivision level</param>
-    public Cone (double radius, double height, Vec3 centre, int resolution = 8) : base(Generate(radius, height, centre, resolution)) {}
+    public Cone (double radius, double height, Vec3 centre, int resolution = 8) {
+        this.lowerRadius = radius;
+        this.h = height;
+        this.centre = centre;
+        this.resolution = resolution;
+        Rebuild();
+    }
     
 }
 

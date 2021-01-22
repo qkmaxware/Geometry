@@ -66,7 +66,7 @@ public class Intersection : BaseBooleanModifier {
 /// <summary>
 /// Base class for boolean modifiers
 /// </summary>
-public abstract class BaseBooleanModifier : GeneratorModifier<IMesh> {
+public abstract class BaseBooleanModifier : PolygonGeneratorModifier<IMesh> {
     /// <summary>
     /// Mask or joining mesh
     /// </summary>

@@ -5,7 +5,7 @@ namespace Qkmaxware.Geometry.Primitives {
 /// <summary>
 /// Cubic mesh
 /// </summary>
-public class Cube : ListMesh {
+public class Cube : ParameterizedMesh {
     private static Vec3[] cubeCoordinates = new Vec3[]{
         new Vec3(-0.5,-0.5,0.5),
         new Vec3(-0.5,0.5,0.5),
@@ -37,7 +37,7 @@ public class Cube : ListMesh {
         5,7,1 
     };
 
-    private static List<Triangle> Create(double size, Vec3 centre) {
+    protected override IMesh Generate() {
         List<Triangle> tris = new List<Triangle>();
         for(int i = 0; i < cubeFaces.Length; i+=3) {
             tris.Add(
@@ -48,7 +48,18 @@ public class Cube : ListMesh {
                 )
             );
         }
-        return tris;
+        return new ListMesh(tris);
+    }
+
+    double size;
+    public double Size {
+        get => size;
+        set { size = value; Rebuild(); }
+    }
+    Vec3 centre;
+    public Vec3 Centre {
+        get => centre;
+        set { centre = value; Rebuild(); }
     }
 
     /// <summary>
@@ -56,7 +67,11 @@ public class Cube : ListMesh {
     /// </summary>
     /// <param name="size">size of the cube</param>
     /// <param name="centre">centre of the cube</param>
-    public Cube (double size, Vec3 centre) : base(Create(size, centre)) {}
+    public Cube (double size, Vec3 centre) {
+        this.size = size;
+        this.centre = centre;
+        Rebuild();
+    }
 }
 
 }
