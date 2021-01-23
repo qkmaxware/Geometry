@@ -7,24 +7,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  <link rel="canonical" href="http://qkmaxware.github.io/Geometry/tutorials/01.Creating/">
-  <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>Creating Geometry - Qkmaxware.Geometry</title>
+  <link rel="canonical" href="http://qkmaxware.github.io/Geometry/tutorials/mesh/01.Creating/">
+  <link rel="shortcut icon" href="../../../img/favicon.ico">
+  <title>Creating Mesh - Qkmaxware.Geometry</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
-  <link rel="stylesheet" href="../../css/theme.css" />
-  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="../../../css/theme.css" />
+  <link rel="stylesheet" href="../../../css/theme_extra.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Creating Geometry";
-    var mkdocs_page_input_path = "tutorials/01.Creating.md";
-    var mkdocs_page_url = "/Geometry/tutorials/01.Creating/";
+    var mkdocs_page_name = "Creating Mesh";
+    var mkdocs_page_input_path = "tutorials/mesh/01.Creating.md";
+    var mkdocs_page_url = "/Geometry/tutorials/mesh/01.Creating/";
   </script>
   
-  <script src="../../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="../../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../../js/modernizr-2.8.3.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
   
@@ -38,9 +38,9 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-        <a href="../.." class="icon icon-home"> Qkmaxware.Geometry</a>
+        <a href="../../.." class="icon icon-home"> Qkmaxware.Geometry</a>
         <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
   </form>
 </div>
@@ -48,56 +48,66 @@
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../..">Welcome</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../..">Welcome</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../../installing/">Installation</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../../installing/">Installation</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Tutorials</span></p>
                 <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Creating Geometry</a>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="#">Mesh</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#triangles-upon-triangles">Triangles Upon Triangles</a>
+                <li class="toctree-l2 current"><a class="reference internal current" href="./">Creating Mesh</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#triangles-upon-triangles">Triangles Upon Triangles</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#primitive-generators">Primitive Generators</a>
+    <li class="toctree-l3"><a class="reference internal" href="#primitive-generators">Primitive Generators</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#plane">Plane</a>
+    <li class="toctree-l4"><a class="reference internal" href="#plane">Plane</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#cube">Cube</a>
+    <li class="toctree-l4"><a class="reference internal" href="#cube">Cube</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#cylinder">Cylinder</a>
+    <li class="toctree-l4"><a class="reference internal" href="#cylinder">Cylinder</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#tube">Tube</a>
+    <li class="toctree-l4"><a class="reference internal" href="#tube">Tube</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#caps">Caps</a>
+    <li class="toctree-l4"><a class="reference internal" href="#caps">Caps</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#cone">Cone</a>
+    <li class="toctree-l4"><a class="reference internal" href="#cone">Cone</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#sphere">Sphere</a>
+    <li class="toctree-l4"><a class="reference internal" href="#sphere">Sphere</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#hemisphere">Hemisphere</a>
+    <li class="toctree-l4"><a class="reference internal" href="#hemisphere">Hemisphere</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#torus">Torus</a>
+    <li class="toctree-l4"><a class="reference internal" href="#torus">Torus</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#frustum">Frustum</a>
+    <li class="toctree-l4"><a class="reference internal" href="#frustum">Frustum</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#nosecone">Nosecone</a>
+    <li class="toctree-l4"><a class="reference internal" href="#nosecone">Nosecone</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#arrow">Arrow</a>
+    <li class="toctree-l4"><a class="reference internal" href="#arrow">Arrow</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#textmesh">TextMesh</a>
+    <li class="toctree-l4"><a class="reference internal" href="#textmesh">TextMesh</a>
     </li>
         </ul>
     </li>
     </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../02.Loading/">Loading 3d Models</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../03.Altering/">Altering Geometry</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../04.Exporting/">Exporting 3d Models</a>
+                </li>
+    </ul>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../02.Loading/">Loading 3d Models</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../03.Altering/">Altering Geometry</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../04.Exporting/">Exporting 3d Models</a>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Nurbs</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../nurbs/01.CreatingCurves/">Creating Curves</a>
+                </li>
+    </ul>
                     </li>
                 </ul>
       </div>
@@ -109,7 +119,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../..">Qkmaxware.Geometry</a>
+        <a href="../../..">Qkmaxware.Geometry</a>
       </nav>
 
       
@@ -117,18 +127,22 @@
         <div class="rst-content">
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="../..">Docs</a> &raquo;</li>
+    <li><a href="../../..">Docs</a> &raquo;</li>
     
+      
+        
+          <li>Mesh &raquo;</li>
+        
       
         
           <li>Tutorials &raquo;</li>
         
       
     
-    <li>Creating Geometry</li>
+    <li>Creating Mesh</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/qkmaxware/Geometry/edit/master/docs/tutorials/01.Creating.md"
+        <a href="https://github.com/qkmaxware/Geometry/edit/master/docs/tutorials/mesh/01.Creating.md"
           class="icon icon-github"> Edit on GitHub</a>
       
     </li>
@@ -139,10 +153,10 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="creating-geometry">Creating Geometry</h1>
-<p>Qkmaxware.Geometry takes a simple approach to 3D geometry. Geometry is represented as a collection of triangles in which each triangle is defined by 3 vertices in 3D space. The <code>Qkmaxware.Geometry.ListMesh</code> class is the base class for most of the operations for 3D geometry.</p>
+                <h1 id="creating-mesh">Creating Mesh</h1>
+<p>Qkmaxware.Geometry takes a simple approach to 3D mesh data. Mesh geometry is represented as a collection of triangles in which each triangle is defined by 3 vertices in 3D space. The <code>Qkmaxware.Geometry.ListMesh</code> class is the base class for most of the operations for 3D geometry.</p>
 <h2 id="triangles-upon-triangles">Triangles Upon Triangles</h2>
-<p>Since 3D geometry is just a collection of triangles, creating a mesh can be done by using the <code>ListMesh</code> constructor with any <code>IEnumerable&lt;Triangle&gt;</code> collection. Once created, a mesh is immutable. Alternatively, create any class that inherits from the <code>IMesh</code> interface.</p>
+<p>Since mesh based geometry is just a collection of triangles, creating a mesh can be done by using the <code>ListMesh</code> constructor with any <code>IEnumerable&lt;Triangle&gt;</code> collection. Once created, a mesh is immutable. Alternatively, create any class that inherits from the <code>IMesh</code> interface.</p>
 <pre><code>using System.Collections.Generic;
 using Qkmaxware.Geometry;
 
@@ -308,7 +322,7 @@ public Frustum (double radius, double height, double ratio, Vec3 centre, int res
 /// &lt;param name=&quot;height&quot;&gt;height of the cone&lt;/param&gt;
 /// &lt;param name=&quot;resolution&quot;&gt;higher number is more circular&lt;/param&gt;
 /// &lt;returns&gt;conic nosecone&lt;/returns&gt;
-public static Nosecone Conic (double radius, double height, int resolution = 8);
+public ConicNosecone (double radius, double height, int resolution = 8);
 
 /// &lt;param name=&quot;coneRadius&quot;&gt;radius of the upper cone&lt;/param&gt;
 /// &lt;param name=&quot;coneLength&quot;&gt;length of the upper cone&lt;/param&gt;
@@ -316,14 +330,14 @@ public static Nosecone Conic (double radius, double height, int resolution = 8);
 /// &lt;param name=&quot;frustumLength&quot;&gt;length of the lower conic frustum&lt;/param&gt;
 /// &lt;param name=&quot;resolution&quot;&gt;higher number is more circular&lt;/param&gt;
 /// &lt;returns&gt;biconic nosecone&lt;/returns&gt;
-public static Nosecone BiConic(double coneRadius, double coneLength, double frustumRadius, double frustumLength, int resolution = 8);
+public BiConicNosecone(double coneRadius, double coneLength, double frustumRadius, double frustumLength, int resolution = 8);
 
 /// &lt;param name=&quot;radius&quot;&gt;nosecone radius&lt;/param&gt;
 /// &lt;param name=&quot;height&quot;&gt;nosecone height&lt;/param&gt;
 /// &lt;param name=&quot;resolution&quot;&gt;higher number is more circular&lt;/param&gt;
 /// &lt;param name=&quot;segments&quot;&gt;higher number is more smooth&lt;/param&gt;
 /// &lt;returns&gt;Tangent Ogive Nosecone&lt;/returns&gt;
-public static Nosecone TangentOgive(double radius, double height, int resolution = 8, int segments = 8);
+public TangentOgiveNosecone(double radius, double height, int resolution = 8, int segments = 8);
 
 /// &lt;param name=&quot;ogiveRadius&quot;&gt;radius of the circle used to define the secant ogive&lt;/param&gt;
 /// &lt;param name=&quot;conicRadius&quot;&gt;base radius&lt;/param&gt;
@@ -331,14 +345,14 @@ public static Nosecone TangentOgive(double radius, double height, int resolution
 /// &lt;param name=&quot;resolution&quot;&gt;higher number is more circular&lt;/param&gt;
 /// &lt;param name=&quot;segments&quot;&gt;higher number is more smooth&lt;/param&gt;
 /// &lt;returns&gt;Secant Ogive Nosecone&lt;/returns&gt;
-public static Nosecone SecantOgive(double ogiveRadius, double conicRadius, double height, int resolution = 8, int segments = 8);
+public SecantOgiveNosecone(double ogiveRadius, double conicRadius, double height, int resolution = 8, int segments = 8);
 
 /// &lt;param name=&quot;radius&quot;&gt;radius of the nosecone&lt;/param&gt;
 /// &lt;param name=&quot;height&quot;&gt;height of the nosecone&lt;/param&gt;
 /// &lt;param name=&quot;resolution&quot;&gt;higher number is more circular&lt;/param&gt;
 /// &lt;param name=&quot;segments&quot;&gt;higher number is more smooth&lt;/param&gt;
 /// &lt;returns&gt;Elliptical Nosecone&lt;/returns&gt;
-public static Nosecone Elliptical(double radius, double height, int resolution = 8, int segments = 8);
+public EllipticalNosecone(double radius, double height, int resolution = 8, int segments = 8);
 
 /// &lt;param name=&quot;K&quot;&gt;parabolic parametre between 0 and 1&lt;/param&gt;
 /// &lt;param name=&quot;radius&quot;&gt;radius of the nosecone&lt;/param&gt;
@@ -346,7 +360,7 @@ public static Nosecone Elliptical(double radius, double height, int resolution =
 /// &lt;param name=&quot;resolution&quot;&gt;higher number is more circular&lt;/param&gt;
 /// &lt;param name=&quot;segments&quot;&gt;higher number is more smooth&lt;/param&gt;
 /// &lt;returns&gt;Parabolic Nosecone&lt;/returns&gt;
-public static Nosecone Parabolic(double K, double radius, double height, int resolution = 8, int segments = 8);
+public ParabolicNosecone(double K, double radius, double height, int resolution = 8, int segments = 8);
 
 /// &lt;param name=&quot;K&quot;&gt;power series parametre between 0 and 1&lt;/param&gt;
 /// &lt;param name=&quot;radius&quot;&gt;radius of the nosecone&lt;/param&gt;
@@ -354,7 +368,7 @@ public static Nosecone Parabolic(double K, double radius, double height, int res
 /// &lt;param name=&quot;resolution&quot;&gt;higher number is more circular&lt;/param&gt;
 /// &lt;param name=&quot;segments&quot;&gt;higher number is more smooth&lt;/param&gt;
 /// &lt;returns&gt;Power Series Nosecone&lt;/returns&gt;
-public static Nosecone Powerseries (double n, double radius, double height, int resolution = 8, int segments = 8);
+public PowerseriesNosecone (double n, double radius, double height, int resolution = 8, int segments = 8);
 
 /// &lt;param name=&quot;K&quot;&gt;Haack series parametre between 0 and 1&lt;/param&gt;
 /// &lt;param name=&quot;radius&quot;&gt;radius of the nosecone&lt;/param&gt;
@@ -362,7 +376,7 @@ public static Nosecone Powerseries (double n, double radius, double height, int 
 /// &lt;param name=&quot;resolution&quot;&gt;higher number is more circular&lt;/param&gt;
 /// &lt;param name=&quot;segments&quot;&gt;higher number is more smooth&lt;/param&gt;
 /// &lt;returns&gt;Haack Series Nosecone&lt;/returns&gt;
-public static Nosecone Haack (double C, double radius, double height, int resolution = 8, int segments = 8);
+public HaackNosecone (double C, double radius, double height, int resolution = 8, int segments = 8);
 </code></pre>
 <div style="text-align: center">
     <img width="128" height="256" src="/Geometry/img/PrimitiveNoseconeBiconic.png"/>
@@ -405,7 +419,7 @@ public TextMesh(Font3 font, string text)
         <a href="../02.Loading/" class="btn btn-neutral float-right" title="Loading 3d Models">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../../installing/" class="btn btn-neutral" title="Installation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../../installing/" class="btn btn-neutral" title="Installation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -433,16 +447,16 @@ public TextMesh(Font3 font, string text)
           <a href="https://github.com/qkmaxware/Geometry/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
-        <span><a href="../../installing/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../../../installing/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
         <span style="margin-left: 15px"><a href="../02.Loading/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
-    <script>var base_url = '../..';</script>
-    <script src="../../js/theme.js" defer></script>
-      <script src="../../search/main.js" defer></script>
+    <script>var base_url = '../../..';</script>
+    <script src="../../../js/theme.js" defer></script>
+      <script src="../../../search/main.js" defer></script>
     <script defer>
         window.onload = function () {
             SphinxRtdTheme.Navigation.enable(true);

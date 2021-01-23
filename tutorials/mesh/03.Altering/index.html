@@ -7,24 +7,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  <link rel="canonical" href="http://qkmaxware.github.io/Geometry/tutorials/03.Altering/">
-  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <link rel="canonical" href="http://qkmaxware.github.io/Geometry/tutorials/mesh/03.Altering/">
+  <link rel="shortcut icon" href="../../../img/favicon.ico">
   <title>Altering Geometry - Qkmaxware.Geometry</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
-  <link rel="stylesheet" href="../../css/theme.css" />
-  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="../../../css/theme.css" />
+  <link rel="stylesheet" href="../../../css/theme_extra.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
   
   <script>
     // Current page data
     var mkdocs_page_name = "Altering Geometry";
-    var mkdocs_page_input_path = "tutorials/03.Altering.md";
-    var mkdocs_page_url = "/Geometry/tutorials/03.Altering/";
+    var mkdocs_page_input_path = "tutorials/mesh/03.Altering.md";
+    var mkdocs_page_url = "/Geometry/tutorials/mesh/03.Altering/";
   </script>
   
-  <script src="../../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="../../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../../js/modernizr-2.8.3.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
   
@@ -38,9 +38,9 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-        <a href="../.." class="icon icon-home"> Qkmaxware.Geometry</a>
+        <a href="../../.." class="icon icon-home"> Qkmaxware.Geometry</a>
         <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
   </form>
 </div>
@@ -48,70 +48,72 @@
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../..">Welcome</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../..">Welcome</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../../installing/">Installation</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../../installing/">Installation</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Tutorials</span></p>
                 <ul class="current">
-                    <li class="toctree-l1"><a class="reference internal" href="../01.Creating/">Creating Geometry</a>
-                    </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../02.Loading/">Loading 3d Models</a>
-                    </li>
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Altering Geometry</a>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="#">Mesh</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#affine-transformations">Affine Transformations</a>
+                <li class="toctree-l2"><a class="reference internal" href="../01.Creating/">Creating Mesh</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../02.Loading/">Loading 3d Models</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="./">Altering Geometry</a>
+    <ul class="current">
+    <li class="toctree-l3"><a class="reference internal" href="#affine-transformations">Affine Transformations</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#displacement">Displacement</a>
+    <li class="toctree-l4"><a class="reference internal" href="#displacement">Displacement</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#scale">Scale</a>
+    <li class="toctree-l4"><a class="reference internal" href="#scale">Scale</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#rotation">Rotation</a>
+    <li class="toctree-l4"><a class="reference internal" href="#rotation">Rotation</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#custom-transformations">Custom Transformations</a>
+    <li class="toctree-l4"><a class="reference internal" href="#custom-transformations">Custom Transformations</a>
     </li>
         </ul>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#modifier-stacks">Modifier Stacks</a>
+    <li class="toctree-l3"><a class="reference internal" href="#modifier-stacks">Modifier Stacks</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#array">Array</a>
+    <li class="toctree-l4"><a class="reference internal" href="#array">Array</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#path-deformation">Path Deformation</a>
+    <li class="toctree-l4"><a class="reference internal" href="#path-deformation">Path Deformation</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#mirror">Mirror</a>
+    <li class="toctree-l4"><a class="reference internal" href="#mirror">Mirror</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#subdivide">Subdivide</a>
+    <li class="toctree-l4"><a class="reference internal" href="#subdivide">Subdivide</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#scale_1">Scale</a>
+    <li class="toctree-l4"><a class="reference internal" href="#scale_1">Scale</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#displace">Displace</a>
+    <li class="toctree-l4"><a class="reference internal" href="#translate">Translate</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#path-to-mesh">Path To Mesh</a>
+    <li class="toctree-l4"><a class="reference internal" href="#path-to-mesh">Path To Mesh</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#render-gcode">Render GCode</a>
+    <li class="toctree-l4"><a class="reference internal" href="#render-gcode">Render GCode</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#explode">Explode</a>
+    <li class="toctree-l4"><a class="reference internal" href="#explode">Explode</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#boolean-operations">Boolean Operations</a>
-        <ul>
-    <li class="toctree-l4"><a class="reference internal" href="#union">Union</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#difference">Difference</a>
-    </li>
-    <li class="toctree-l4"><a class="reference internal" href="#intersection">Intersection</a>
+    <li class="toctree-l4"><a class="reference internal" href="#boolean-operations">Boolean Operations</a>
     </li>
         </ul>
     </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#raw-triangles">Raw Triangles</a>
+    <li class="toctree-l3"><a class="reference internal" href="#raw-triangles">Raw Triangles</a>
     </li>
     </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../04.Exporting/">Exporting 3d Models</a>
+                </li>
+    </ul>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../04.Exporting/">Exporting 3d Models</a>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Nurbs</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../nurbs/01.CreatingCurves/">Creating Curves</a>
+                </li>
+    </ul>
                     </li>
                 </ul>
       </div>
@@ -123,7 +125,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../..">Qkmaxware.Geometry</a>
+        <a href="../../..">Qkmaxware.Geometry</a>
       </nav>
 
       
@@ -131,8 +133,12 @@
         <div class="rst-content">
           <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="../..">Docs</a> &raquo;</li>
+    <li><a href="../../..">Docs</a> &raquo;</li>
     
+      
+        
+          <li>Mesh &raquo;</li>
+        
       
         
           <li>Tutorials &raquo;</li>
@@ -142,7 +148,7 @@
     <li>Altering Geometry</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/qkmaxware/Geometry/edit/master/docs/tutorials/03.Altering.md"
+        <a href="https://github.com/qkmaxware/Geometry/edit/master/docs/tutorials/mesh/03.Altering.md"
           class="icon icon-github"> Edit on GitHub</a>
       
     </li>
@@ -154,7 +160,7 @@
             <div class="section">
               
                 <h1 id="altering-geometry">Altering Geometry</h1>
-<p>The built in  <code>Qkmaxware.Geometry.IMesh</code> interface used to represent geometry throughout this library. <code>ListMesh</code> is a concrete implementation of this interface which uses a list as its storage structure and is immutable by nature. This means that alterations create new ListMesh instances rather than effecting the original mesh data. </p>
+<p>The built in  <code>Qkmaxware.Geometry.IMesh</code> interface used to represent mesh based geometry throughout this library. <code>ListMesh</code> is a concrete implementation of this interface which uses a list as its storage structure and is immutable by nature. This means that alterations create new ListMesh instances rather than effecting the original mesh data. </p>
 <h2 id="affine-transformations">Affine Transformations</h2>
 <p>In <code>Qkmaxware.Geometry</code>, affine transformations are represented using the <code>Qkmaxware.Geometry.Transformation</code> class. Transformations can then be applied to geometry by pre-multiplying the transformation to the mesh object. Transformations can be combined in sequence by pre-multiplying them. </p>
 <h3 id="displacement">Displacement</h3>
@@ -232,10 +238,14 @@ var NewMesh4 = Transformation.EulerRotation(new Vec3(1.57, 0.15, 3.2))
 
 <h3 id="scale_1">Scale</h3>
 <p>The scale modifier operates identically to the scale transformation. However, by being a modifier it does not allocate any additional mesh data until it is used whereas the transformation immediately creates a new mesh with the modified vertices. </p>
-<h3 id="displace">Displace</h3>
-<p>the displace modifier operates identically to the offset transformation but as a modifier. This behaves the same as the scale modifier. </p>
+<h3 id="translate">Translate</h3>
+<p>the translate modifier operates identically to the offset transformation but as a modifier. This behaves the same as the scale modifier. </p>
 <h3 id="path-to-mesh">Path To Mesh</h3>
 <p>The path to mesh modifier creates a tube shaped mesh by following a path segment. Effectively this allows for one to convert a path object into a 3d mesh which follows the shape of the path. </p>
+<div style="text-align: center">
+    <img width="480" src="/Geometry/img/PathToMesh.png"/>
+</div>
+
 <h3 id="render-gcode">Render GCode</h3>
 <p>The render g-code modifier uses tubes to trace the path for a print-head of a 3D printer in order to convert 3D printer flavoured GCode back to a 3d model.</p>
 <div style="text-align: center">
@@ -244,6 +254,10 @@ var NewMesh4 = Transformation.EulerRotation(new Vec3(1.57, 0.15, 3.2))
 
 <h3 id="explode">Explode</h3>
 <p>The explode modifier pushes the original triangles apart as if they were exploded outwards from their original locations. </p>
+<div style="text-align: center">
+    <img width="480" src="/Geometry/img/Explode.png"/>
+</div>
+
 <h3 id="boolean-operations">Boolean Operations</h3>
 <p>Boolean operations are a set of operations common in the field of computer aided design. There are several different modifier which are capable of performing boolean operations.</p>
 <h4 id="union">Union</h4>
@@ -323,9 +337,9 @@ var NewMesh4 = Transformation.EulerRotation(new Vec3(1.57, 0.15, 3.2))
       
     </span>
 </div>
-    <script>var base_url = '../..';</script>
-    <script src="../../js/theme.js" defer></script>
-      <script src="../../search/main.js" defer></script>
+    <script>var base_url = '../../..';</script>
+    <script src="../../../js/theme.js" defer></script>
+      <script src="../../../search/main.js" defer></script>
     <script defer>
         window.onload = function () {
             SphinxRtdTheme.Navigation.enable(true);

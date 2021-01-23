@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url>
      <loc>http://qkmaxware.github.io/Geometry/</loc>
-     <lastmod>2021-01-22</lastmod>
+     <lastmod>2021-01-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
      <loc>http://qkmaxware.github.io/Geometry/installing/</loc>
-     <lastmod>2021-01-22</lastmod>
+     <lastmod>2021-01-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>http://qkmaxware.github.io/Geometry/tutorials/01.Creating/</loc>
-     <lastmod>2021-01-22</lastmod>
+     <loc>http://qkmaxware.github.io/Geometry/tutorials/mesh/01.Creating/</loc>
+     <lastmod>2021-01-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>http://qkmaxware.github.io/Geometry/tutorials/02.Loading/</loc>
-     <lastmod>2021-01-22</lastmod>
+     <loc>http://qkmaxware.github.io/Geometry/tutorials/mesh/02.Loading/</loc>
+     <lastmod>2021-01-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>http://qkmaxware.github.io/Geometry/tutorials/03.Altering/</loc>
-     <lastmod>2021-01-22</lastmod>
+     <loc>http://qkmaxware.github.io/Geometry/tutorials/mesh/03.Altering/</loc>
+     <lastmod>2021-01-23</lastmod>
      <changefreq>daily</changefreq>
     </url><url>
-     <loc>http://qkmaxware.github.io/Geometry/tutorials/04.Exporting/</loc>
-     <lastmod>2021-01-22</lastmod>
+     <loc>http://qkmaxware.github.io/Geometry/tutorials/mesh/04.Exporting/</loc>
+     <lastmod>2021-01-23</lastmod>
+     <changefreq>daily</changefreq>
+    </url><url>
+     <loc>http://qkmaxware.github.io/Geometry/tutorials/nurbs/01.CreatingCurves/</loc>
+     <lastmod>2021-01-23</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
