@@ -9,7 +9,7 @@
   
   <link rel="canonical" href="http://qkmaxware.github.io/Geometry/tutorials/mesh/01.Creating/">
   <link rel="shortcut icon" href="../../../img/favicon.ico">
-  <title>Creating Mesh - Qkmaxware.Geometry</title>
+  <title>Creating Meshes - Qkmaxware.Geometry</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../../../css/theme.css" />
@@ -18,7 +18,7 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Creating Mesh";
+    var mkdocs_page_name = "Creating Meshes";
     var mkdocs_page_input_path = "tutorials/mesh/01.Creating.md";
     var mkdocs_page_url = "/Geometry/tutorials/mesh/01.Creating/";
   </script>
@@ -59,7 +59,9 @@
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="#">Mesh</a>
     <ul class="current">
-                <li class="toctree-l2 current"><a class="reference internal current" href="./">Creating Mesh</a>
+                <li class="toctree-l2"><a class="reference internal" href="../00.Introduction/">Introduction</a>
+                </li>
+                <li class="toctree-l2 current"><a class="reference internal current" href="./">Creating Meshes</a>
     <ul class="current">
     <li class="toctree-l3"><a class="reference internal" href="#triangles-upon-triangles">Triangles Upon Triangles</a>
     </li>
@@ -105,6 +107,8 @@
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="#">Nurbs</a>
     <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../nurbs/00.Introduction/">Introduction</a>
+                </li>
                 <li class="toctree-l2"><a class="reference internal" href="../../nurbs/01.CreatingCurves/">Creating Curves</a>
                 </li>
     </ul>
@@ -139,7 +143,7 @@
         
       
     
-    <li>Creating Mesh</li>
+    <li>Creating Meshes</li>
     <li class="wy-breadcrumbs-aside">
       
         <a href="https://github.com/qkmaxware/Geometry/edit/master/docs/tutorials/mesh/01.Creating.md"
@@ -153,7 +157,7 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="creating-mesh">Creating Mesh</h1>
+                <h1 id="creating-meshes">Creating Meshes</h1>
 <p>Qkmaxware.Geometry takes a simple approach to 3D mesh data. Mesh geometry is represented as a collection of triangles in which each triangle is defined by 3 vertices in 3D space. The <code>Qkmaxware.Geometry.ListMesh</code> class is the base class for most of the operations for 3D geometry.</p>
 <h2 id="triangles-upon-triangles">Triangles Upon Triangles</h2>
 <p>Since mesh based geometry is just a collection of triangles, creating a mesh can be done by using the <code>ListMesh</code> constructor with any <code>IEnumerable&lt;Triangle&gt;</code> collection. Once created, a mesh is immutable. Alternatively, create any class that inherits from the <code>IMesh</code> interface.</p>
@@ -419,7 +423,7 @@ public TextMesh(Font3 font, string text)
         <a href="../02.Loading/" class="btn btn-neutral float-right" title="Loading 3d Models">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../../../installing/" class="btn btn-neutral" title="Installation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../00.Introduction/" class="btn btn-neutral" title="Introduction"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -447,7 +451,7 @@ public TextMesh(Font3 font, string text)
           <a href="https://github.com/qkmaxware/Geometry/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
-        <span><a href="../../../installing/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../00.Introduction/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
         <span style="margin-left: 15px"><a href="../02.Loading/" style="color: #fcfcfc">Next &raquo;</a></span>

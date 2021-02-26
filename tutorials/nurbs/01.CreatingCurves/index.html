@@ -59,7 +59,9 @@
                 <ul class="current">
                     <li class="toctree-l1"><a class="reference internal" href="#">Mesh</a>
     <ul>
-                <li class="toctree-l2"><a class="reference internal" href="../../mesh/01.Creating/">Creating Mesh</a>
+                <li class="toctree-l2"><a class="reference internal" href="../../mesh/00.Introduction/">Introduction</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../mesh/01.Creating/">Creating Meshes</a>
                 </li>
                 <li class="toctree-l2"><a class="reference internal" href="../../mesh/02.Loading/">Loading 3d Models</a>
                 </li>
@@ -71,6 +73,8 @@
                     </li>
                     <li class="toctree-l1 current"><a class="reference internal current" href="#">Nurbs</a>
     <ul class="current">
+                <li class="toctree-l2"><a class="reference internal" href="../00.Introduction/">Introduction</a>
+                </li>
                 <li class="toctree-l2 current"><a class="reference internal current" href="./">Creating Curves</a>
     <ul class="current">
     <li class="toctree-l3"><a class="reference internal" href="#control-points-knot-vectors">Control Points &amp; Knot Vectors</a>
@@ -128,7 +132,7 @@
                 <h1 id="creating-curves">Creating Curves</h1>
 <p>NURBS curves are a mathematical model used for representing a curve in three dimensional space that is flexible and precise. NURBS curves are the basis of creating NURBS surfaces and volumes. The <code>NurbsCurve</code> class models the behavior of these curves. </p>
 <h2 id="control-points-knot-vectors">Control Points &amp; Knot Vectors</h2>
-<p>You can easily create a new curve using the <code>NurbsCurve</code> constructor. This constructor takes in a list of control points and a parameter that defines how the endpoints behave. The degree of the curve and the knot vector are determined automatically. </p>
+<p>You can easily create a new curve using the <code>NurbsCurve</code> constructor. This constructor takes in a list of control points and a parameter that defines how the endpoints behave. The degree of the curve and the knot vector are determined automatically. The second parameter of this constructor, which take a <code>NurbsPinning</code> value, controls the pinning for the curve. This affects the generated knot vector. PinStart will ensure that the curve passes through the first control point, PinEnd will ensure the curve passes through the last control point, and PinBoth ensures the curve passes through the first and last control points. </p>
 <pre><code class="language-cs">var curve = new NurbsCurve(
     new NurbsControlPoint[]{
         new NurbsControlPoint(new Vec3(-4, -4, 0), 1),
@@ -181,7 +185,7 @@ var midpoint = curve[0.5];
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="../../mesh/04.Exporting/" class="btn btn-neutral" title="Exporting 3d Models"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../00.Introduction/" class="btn btn-neutral" title="Introduction"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -209,7 +213,7 @@ var midpoint = curve[0.5];
           <a href="https://github.com/qkmaxware/Geometry/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
-        <span><a href="../../mesh/04.Exporting/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../00.Introduction/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
     </span>
