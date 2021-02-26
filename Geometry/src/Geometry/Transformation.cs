@@ -244,6 +244,21 @@ public class Transformation {
     }
 
     /// <summary>
+    /// Create a transformation from a given rotation and offset
+    /// </summary>
+    /// <param name="rotation">rotation quaternion</param>
+    /// <param name="offset">offset position</param>
+    /// <returns>transformation</returns>
+    public static Transformation OffsetRotation(Quat rotation, Vec3 offset) {
+        var rot_matrix = (Transformation)rotation;
+        return new Transformation(
+            rot_matrix[0,0], rot_matrix[0,1], rot_matrix[0,2], offset.X,
+            rot_matrix[1,0], rot_matrix[1,1], rot_matrix[1,2], offset.Y,
+            rot_matrix[2,0], rot_matrix[2,1], rot_matrix[2,2], offset.Z
+        );
+    }
+
+    /// <summary>
     /// Identity matrix
     /// </summary>
     /// <returns>identity transformation</returns>
