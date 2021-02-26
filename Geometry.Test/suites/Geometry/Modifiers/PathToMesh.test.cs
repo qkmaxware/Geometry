@@ -20,6 +20,13 @@ public class PathToMeshModifierTest : PrimitiveTest {
         IMesh geom = new Geometry.Modifiers.PathToMesh(path, radius: 0.2f, step: 0.25f);
         SaveGeometry("path2mesh.curve.modifier", geom);
     }
+
+    [TestMethod]
+    public void NurbsPath() {
+        var path = NurbsCurve.Circle(Vec3.Zero, 1);
+        IMesh geom = new Geometry.Modifiers.PathToMesh(path, radius: 0.2f, step: 0.05f);
+        SaveGeometry("path2mesh.nurbs.modifier", geom);
+    }
 }
 
 }

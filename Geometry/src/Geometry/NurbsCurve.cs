@@ -9,11 +9,17 @@ namespace Qkmaxware.Geometry {
 /// Class representing a control point on a NURBS curve or surface
 /// </summary>
 public class NurbsControlPoint : Vec3 {
+
+    private double weight = 1;
+
     /// <summary>
     /// Control point weight
     /// </summary>
     /// <value>weighting</value>
-    public double Weight {get; set;} = 1;
+    public double Weight {
+        get => weight;
+        set => weight = Math.Max(0, Math.Min(value, 1)); // Clamp between 0 and 1 for safety
+    }
 
     /// <summary>
     /// Create a new control point 
@@ -53,7 +59,7 @@ public enum NurbsPinning {
 /// <summary>
 /// NURBS curve
 /// </summary>
-public class NurbsCurve {
+public class NurbsCurve : IInterpolatedPath3 {
 
     private List<NurbsControlPoint> internalControlPoints;               // List I can modify
     /// <summary>
@@ -98,11 +104,11 @@ public class NurbsCurve {
     /// <summary>
     /// Starting position
     /// </summary>
-    Vec3 Start => this[0];
+    public Vec3 Start => this[0];
     /// <summary>
     /// Ending postion
     /// </summary>
-    Vec3 End => this[1];
+    public Vec3 End => this[1];
 
     private static double remap(double x, double in_min, double in_max, double out_min, double out_max) {
         return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
@@ -273,7 +279,7 @@ public class NurbsCurve {
         return new NurbsCurve(2, controls, knots);
     }
 
-    private double Nip (int i, int p, double u) {
+    internal double Nip (int i, int p, double u) {
         double[] N = new double[p + 1];
         double saved, temp;
 
@@ -323,10 +329,6 @@ public class NurbsCurve {
         return N[0];
     }
 
-    //public static NurbsSurface operator * (NurbsCurve a, NurbsCurve b) {
-    // Create a surface as the product of 2 curves
-    //}
-
     public void InsertKnot(double knot, NurbsControlPoint point) {
         // Compute index
         var index = 0;
@@ -351,6 +353,12 @@ public class NurbsCurve {
         }
     }
 
+    public Vec3 Tangent(double u) {
+        var p1 = this[u];
+        var p2 = this[u + 0.001];
+        return p2 - p1;
+    }
+
     public NurbsCurve Join (NurbsCurve other) {
         throw new NotImplementedException();
     }
@@ -358,16 +366,9 @@ public class NurbsCurve {
 }
 
 /// <summary>
-/// NURBS surface
-/// </summary>
-public class NurbsSurface {
-    public Vec3 this[double u, double v] => throw new NotImplementedException();
-}
-
-/// <summary>
 /// NURBS volume
 /// </summary>
-public class NurbsVolume : NurbsSurface {
+public class NurbsVolume {
     public Vec3 this[double u, double v, double w] => throw new NotImplementedException();
 }
 

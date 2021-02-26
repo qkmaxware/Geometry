@@ -7,6 +7,15 @@ namespace Qkmaxware.Testing {
 
 [TestClass]
 public class NurbsCurveTest {
+    [TestMethod]
+    public void TestLine() {
+        var curve = NurbsCurve.Line(Vec3.Zero, Vec3.One);
+
+        // Verify intermediate points (evaluation works)
+        Assert.AreEqual(new Vec3( 0,0,0), curve[0]  );
+        Assert.AreEqual(new Vec3(0.5,0.5,0.5), curve[0.5]);
+        Assert.AreEqual(new Vec3( 1,1,1), curve[1]  );
+    }
 
     [TestMethod]
     public void TestCircle() {
@@ -14,7 +23,7 @@ public class NurbsCurveTest {
         var knots = curve.KnotVector.ToList();
 
         // Checkout base properties
-        Assert.AreEqual(2, curve.Degree);
+        Assert.AreEqual(2, curve.Degree); 
         Assert.AreEqual(3, curve.Order);
         Assert.AreEqual(12, knots.Count);
 
