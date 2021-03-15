@@ -16,7 +16,7 @@ public class FrameTest {
         var v1 = Vec3.One;
         var v2 = F1.LocalToFramePoint(v1, F2);
 
-        Assert.AreEqual(new Vec3(3, 1, 1), v2);
+        Assert.AreEqual(new Vec3(3, 1, 1).ToString(), v2.ToString());
     }
 
     [TestMethod]
@@ -27,7 +27,7 @@ public class FrameTest {
         var v1 = Vec3.One;
         var v2 = F1.LocalToGlobalPoint(v1);
 
-        Assert.AreEqual(new Vec3(3, 1, 1), v2);
+        Assert.AreEqual(new Vec3(3, 1, 1).ToString(), v2.ToString());
     }
 
     [TestMethod]
@@ -38,7 +38,7 @@ public class FrameTest {
         var v1 = Vec3.One;
         var v2 = F1.LocalToFramePoint(v1, F2);
 
-        Assert.AreEqual(new Vec3(-1, 1, 1), v2);
+        Assert.AreEqual(new Vec3(-1, 1, 1).ToString(), v2.ToString());
     }
 
     [TestMethod]
@@ -49,7 +49,7 @@ public class FrameTest {
         var v1 = Vec3.One;
         var v2 = F1.LocalToGlobalPoint(v1);
 
-        Assert.AreEqual(new Vec3(-1, -1, 1), v2);
+        Assert.AreEqual(new Vec3(-1, -1, 1).ToString(), v2.ToString());
     }
 }
 

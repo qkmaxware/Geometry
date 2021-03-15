@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Qkmaxware.Geometry.Coordinates;
 using Qkmaxware.Geometry.IO;
 
 namespace Qkmaxware.Geometry.Modifiers {
@@ -99,7 +100,7 @@ public class RenderGCode : PolygonGeneratorModifier<IEnumerable<GCode>> {
 
                     // New extrusion, new starting basis, otherwise if continuing, reuse last basis
                     if (!extruding) {
-                        basis.Transform = Quat.FromToRotation(Vec3.K, end - start) * id;
+                        basis = new Basis(Quat.FromToRotation(Vec3.K, end - start) * id);
                     }
 
                     for (int i = 1; i <= Resolution; i++) {
@@ -114,7 +115,7 @@ public class RenderGCode : PolygonGeneratorModifier<IEnumerable<GCode>> {
                         Vec3 be = start         + basis.Y * ye     + basis.X * xe;
                         Vec3 bi = start         + basis.Y * yi     + basis.X * xi;
 
-                        basis.Transform = Quat.FromToRotation(Vec3.K, end - start) * id;
+                        basis = new Basis(Quat.FromToRotation(Vec3.K, end - start) * id);
                         Vec3 te = end           + basis.Y * ye     + basis.X * xe;
                         Vec3 ti = end           + basis.Y * yi     + basis.X * xi;
 

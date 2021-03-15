@@ -3,48 +3,6 @@ using System;
 namespace Qkmaxware.Geometry.Coordinates {
 
 /// <summary>
-/// Basis vector set
-/// </summary>
-public class Basis {
-    /// <summary>
-    /// Local 'X' axis
-    /// </summary>
-    /// <value>Local 'X' axis</value>
-    public Vec3 X {get; private set;}
-    /// <summary>
-    /// Local 'Y' axis
-    /// </summary>
-    /// <value>Local 'Y' axis</value>
-    public Vec3 Y {get; private set;}
-    /// <summary>
-    /// Local 'Z' axis
-    /// </summary>
-    /// <value>Local 'Z' axis</value>
-    public Vec3 Z {get; private set;}
-
-    /// <summary>
-    /// Create a new basis vector set with the standard X,Y,Z axis
-    /// </summary>
-    public Basis() {
-        this.X = Vec3.I;
-        this.Y = Vec3.J;
-        this.Z = Vec3.K;
-    }
-
-    /// <summary>
-    /// Create a new basis vector set with the given axis, vectors should be orthogonal
-    /// </summary>
-    /// <param name="xb">local x axis</param>
-    /// <param name="yb">local y axis</param>
-    /// <param name="zb">local z axis</param>
-    public Basis(Vec3 x, Vec3 y, Vec3 z) {
-        this.X = x;
-        this.Y = y;
-        this.Z = z;
-    }
-}
-
-/// <summary>
 /// Base class for a frame of reference
 /// </summary>
 public class Frame {
@@ -211,6 +169,43 @@ public class Frame {
     /// <returns>point in local space</returns>
     public Vec3 FrameToLocalPoint(Frame frame, Vec3 point) {
         return this.GlobalToLocalPoint(frame.LocalToGlobalPoint(point));
+    }
+
+    /// <summary>
+    /// Rotate this basis by the given quaterion
+    /// </summary>
+    /// <param name="rotation">rotation</param>
+    public void Rotate (Quat rotation) {
+        this.LocalRotation = rotation * this.LocalRotation;
+    }
+
+    /// <summary>
+    /// Move the frame of reference by a given offset
+    /// </summary>
+    /// <param name="offset">offset</param>
+    public void Move(Vec3 offset) {
+        this.LocalPosition += offset;
+    }
+
+    /// <summary>
+    /// Look at a point in world space
+    /// </summary>
+    /// <param name="position">world space position</param>
+    public void LookAt(Vec3 position) {
+        this.Rotate(Quat.FromToRotation(this.Basis.Y, position - this.LocalPosition));
+    }
+    
+    /// <summary>
+    /// Rotate the frame around a pivot point and axis
+    /// </summary>
+    /// <param name="point">pivot point</param>
+    /// <param name="axis">rotation axis</param>
+    /// <param name="angle">rotation angle</param>
+    public void RotateAround(Vec3 point, Vec3 axis, double angle) {
+        var rotation = Quat.AngleAxis(axis, angle);
+        var position = ((Transformation)rotation) * (this.LocalPosition - point);
+        this.LocalPosition = position + point;
+        Rotate(rotation);
     }
 }
     

@@ -14,12 +14,14 @@ public class PrimitiveTest {
         if (!Directory.Exists(".data"))
             Directory.CreateDirectory(".data");
 
+        ListMesh concreteMesh = new ListMesh(mesh); // concrete list mesh so we resolve modifiers once for both exporters
+
         using (var writer = new StreamWriter(Path.Combine(".data", $"{name}.ascii.stl"))) {
-            writer.Write ( exporter.Serialize(mesh) );
+            writer.Write ( exporter.Serialize(concreteMesh) );
         }
 
         using (var writer =  new BinaryWriter(File.Open(Path.Combine(".data", $"{name}.binary.stl"), FileMode.Create))) {
-            exporter.SerializeBinary(mesh, writer);
+            exporter.SerializeBinary(concreteMesh, writer);
         }
     }
 }

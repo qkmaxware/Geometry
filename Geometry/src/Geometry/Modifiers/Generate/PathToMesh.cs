@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Qkmaxware.Geometry.Coordinates;
 
 namespace Qkmaxware.Geometry.Modifiers {
 
@@ -40,13 +41,13 @@ public class PathToMesh : PolygonGeneratorModifier<IInterpolatedPath3> {
         double angularStep = 2 * Math.PI / Resolution;
         var basis = new Basis();
         var id = Transformation.Identity();
-        basis.Transform = Quat.FromToRotation(Vec3.K, this.Original.Tangent(0)) * id;
+        basis = new Basis(Quat.FromToRotation(Vec3.K, this.Original.Tangent(0)) * id);
 
         for (float t = StepDistance; t <= 1; t+=StepDistance) {
             var previousFrontVec = basis.Y;
             var previousSideVec = basis.X;
 
-            basis.Transform = Quat.FromToRotation(Vec3.K, this.Original.Tangent(t)) * id;
+            basis = new Basis(Quat.FromToRotation(Vec3.K, this.Original.Tangent(t)) * id);
             var nextFrontVec = basis.Y;
             var nextSideVec = basis.X;
             

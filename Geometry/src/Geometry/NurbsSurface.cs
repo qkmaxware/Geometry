@@ -11,6 +11,31 @@ public interface INurbsControlNet {
 }
 
 /// <summary>
+/// Control net representing the summation of basis control points
+/// </summary>
+public class BasisSumControlNet : INurbsControlNet {
+    public NurbsCurve UBasis {get; private set;}
+    public NurbsCurve VBasis {get; private set;}
+
+    public NurbsControlPoint this[int u, int v] {
+        get {
+            var up = UBasis.ControlPoints[u];
+            var vp = VBasis.ControlPoints[v];
+
+            return new NurbsControlPoint(
+                up + vp,
+                up.Weight * vp.Weight
+            );
+        }
+    }
+
+    public BasisSumControlNet(NurbsCurve u, NurbsCurve v) {
+        this.UBasis = u;
+        this.VBasis = v;
+    }
+}
+
+/// <summary>
 /// NURBS surface
 /// </summary>
 public class NurbsSurface {
@@ -24,12 +49,17 @@ public class NurbsSurface {
         this.ControlNet = controlNet;
     }
 
-    /*public static NurbsSurface Plane (int size) {
+    /// <summary>
+    /// Create a 2d NURBS plane
+    /// </summary>
+    /// <param name="size">plane size</param>
+    /// <returns>NURBS surface representing the plane</returns>
+    public static NurbsSurface Plane (int size) {
         var i = NurbsCurve.Line(Vec3.Zero, Vec3.I * size);
         var j = NurbsCurve.Line(Vec3.Zero, Vec3.J * size);
 
-        return new NurbsSurface(i, j);
-    }*/
+        return new NurbsSurface(new BasisSumControlNet(i, j));
+    }
 
     public Vec3 this[double u, double v] {
         get {
